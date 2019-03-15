@@ -132,14 +132,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -206,6 +206,39 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2019/03/15/sqlalchemy-多线程下的事务隔离/">
+        <h2 class="post-title">
+            sqlalchemy 多线程下的事务隔离
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            事件经过
+最近，为 saas 平台做商户余额提醒的时候，我查询了所有的商户信息，然后开启一个线程，把这个商户数据发送给这个线程，执行完我所需要的业务之后，对商户里面的数据进行修改，然后执行了 commit，令人奇怪的是，commit 失败了，没有任何的报错。
+基本代码如下：
+1234567891011121314151617import TbMerchant, db, appfrom co......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by roywu on
+            2019-03-15
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#sqlalchemy" title="sqlalchemy">sqlalchemy</a>
+            
+              <a href="/tags/#事务" title="事务">事务</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -278,6 +311,10 @@
         
             
         
+            
+        
+            
+        
     </div>
 </section>
 
@@ -328,6 +365,10 @@
   <h5>RECENT POSTS
   <div class="widget">
     <ul>
+      
+        <li>
+          <a href="/2019/03/15/sqlalchemy-多线程下的事务隔离/">sqlalchemy 多线程下的事务隔离</a>
+        </li>
       
         <li>
           <a href="/2019/03/10/《阿丽塔·战斗天使》与《流浪地球》/">《阿丽塔·战斗天使》与《流浪地球》</a>

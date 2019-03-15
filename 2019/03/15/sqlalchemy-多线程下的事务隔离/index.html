@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          《阿丽塔·战斗天使》与《流浪地球》 - Qiang Blog
+          sqlalchemy 多线程下的事务隔离 - Qiang Blog
         
     </title>
 
-    <link rel="canonical" href="http://www.wuqiangroy.cn/2019/03/10/《阿丽塔·战斗天使》与《流浪地球》/">
+    <link rel="canonical" href="http://www.wuqiangroy.cn/2019/03/15/sqlalchemy-多线程下的事务隔离/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -69,7 +69,7 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('cover.jpg')
+            background-image: url('sqlalchemy_cover.jpg')
             /*post*/
         
     }
@@ -86,18 +86,16 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#阿丽塔" title="阿丽塔">阿丽塔</a>
+                              <a class="tag" href="/tags/#sqlalchemy" title="sqlalchemy">sqlalchemy</a>
                             
-                              <a class="tag" href="/tags/#战斗天使" title="战斗天使">战斗天使</a>
-                            
-                              <a class="tag" href="/tags/#流浪地球" title="流浪地球">流浪地球</a>
+                              <a class="tag" href="/tags/#事务" title="事务">事务</a>
                             
                         </div>
-                        <h1>《阿丽塔·战斗天使》与《流浪地球》</h1>
+                        <h1>sqlalchemy 多线程下的事务隔离</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by roywu on
-                            2019-03-10
+                            2019-03-15
                         </span>
                     </div>
                 
@@ -214,8 +212,30 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2><span id="他们讲了什么">他们讲了什么</span></h2>
-<h2><span id="他们差在哪">他们差在哪</span></h2>
+                <h2><span id="事件经过">事件经过</span></h2>
+<p>最近，为 <code>saas</code> 平台做商户余额提醒的时候，我查询了所有的商户信息，然后开启一个线程，把这个商户数据发送给这个线程，执行完我所需要的业务之后，对商户里面的数据进行修改，然后执行了 <code>commit</code>，令人奇怪的是，<code>commit</code> 失败了，没有任何的报错。<br>
+基本代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> TbMerchant, db, app</span><br><span class="line"><span class="keyword">from</span> concurrent.futures <span class="keyword">import</span> ThreadPoolExecutor</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">do_something</span><span class="params">(merchants)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> merchant <span class="keyword">in</span> merchants:</span><br><span class="line">        <span class="comment"># do merchant check</span></span><br><span class="line">        merchant.limit += <span class="number">1</span></span><br><span class="line">    db.session.commit()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route("/check_balance")</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">start_job</span><span class="params">()</span>:</span></span><br><span class="line">    merchants = TbMerchant.query.filter_by().all()</span><br><span class="line">    executor = ThreadPoolExecutor(<span class="number">1</span>)</span><br><span class="line">    result = executor(do_something, merchants)</span><br><span class="line">    <span class="keyword">return</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="排查">排查</span></h2>
+<p>首先便想到了先把所有的 <code>sqlalchemy</code> 的所有 <code>sql</code> 打印出来<br>
+<code>app.config[&quot;SQLALCHEMY_ECHO&quot;] = True</code></p>
+<p>再次调用的时候，所有的 <code>sql</code> 就会打印出来，但是，我们发现，查询 <code>merchants</code> 的时候，有对应的 <code>sql</code>, 但是，代码执行到 <code>db.session.commit</code> 的时候，没有对应的 <code>sql</code>。<br>
+初步定位是线程传递 <code>merchants</code> 的问题，<code>sqlalchemy</code> 事务应该是不允许跨线程的。</p>
+<h2><span id="解决方案">解决方案</span></h2>
+<p>把 <code>merchants</code> 的查询放到新的线程里面去。<br>
+代码如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> TbMerchant, db, app</span><br><span class="line"><span class="keyword">from</span> concurrent.futures <span class="keyword">import</span> ThreadPoolExecutor</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">do_something</span><span class="params">()</span>:</span></span><br><span class="line">    merchants = TbMerchant.query.filter_by().all()      </span><br><span class="line">    <span class="keyword">for</span> merchant <span class="keyword">in</span> merchants:</span><br><span class="line">        <span class="comment"># do merchant check</span></span><br><span class="line">        merchant.limit += <span class="number">1</span></span><br><span class="line">    db.session.commit()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route("/check_balance")</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">start_job</span><span class="params">()</span>:</span></span><br><span class="line">    executor = ThreadPoolExecutor(<span class="number">1</span>)</span><br><span class="line">    result = executor(do_something)</span><br><span class="line">    <span class="keyword">return</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>当然，这只是展示一下解决方案，真实的代码肯定和这个差别极大，但是核心原理不变</p>
+<h2><span id="深入原理">深入原理</span></h2>
+<p>为什么，<code>sqlalchemy</code> 的事务不能跨线程呢？线程的数据应该共享才是，为了查询这个原因。我查询了文档和源码。<br>
+当我们生成一个 <code>Session</code> 对象的时候，这个对象并不是线程安全的，是线程本地(<code>thread local storage</code>)<br>
+官网是这样说的：</p>
+<blockquote>
+<p>Users who are familiar with multithreaded programming will note that representing anything as a global variable is usually a bad idea, as it implies that the global object will be accessed by many threads concurrently. The Session object is entirely designed to be used in a non-concurrent fashion, which in terms of multithreading means “only in one thread at a time”. So our above example of scoped_session usage, where the same Session object is maintained across multiple calls, suggests that some process needs to be in place such that multiple calls across many threads don’t actually get a handle to the same session. We call this notion thread local storage, which means, a special object is used that will maintain a distinct object per each application thread. Python provides this via the threading.local() construct. The scoped_session object by default uses this object as storage, so that a single Session is maintained for all who call upon the scoped_session registry, but only within the scope of a single thread. Callers who call upon the registry in a different thread get a Session instance that is local to that other thread.</p>
+</blockquote>
+<p><a href="https://docs.sqlalchemy.org/en/latest/orm/contextual.html?highlight=thread%20local" target="_blank" rel="noopener">Contextual/Thread-local Sessions</a><br>
+也就是说，跨线程了，就不在 <code>session</code> 范围内了，也就无法提交了。<br>
+这样也避免了多线程、多进程情况下，把其他的数据污染了。</p>
 
                 
 
@@ -223,10 +243,10 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2019/03/15/sqlalchemy-多线程下的事务隔离/" data-toggle="tooltip" data-placement="top" title="sqlalchemy 多线程下的事务隔离">&larr; Previous Post</a>
-                        </li>
                     
+                        <li class="next">
+                            <a href="/2019/03/10/《阿丽塔·战斗天使》与《流浪地球》/" data-toggle="tooltip" data-placement="top" title="《阿丽塔·战斗天使》与《流浪地球》">Next Post &rarr;</a>
+                        </li>
                     
                 </ul>
 
@@ -251,7 +271,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">他们讲了什么</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">他们差在哪</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">事件经过</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">排查</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">解决方案</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">深入原理</span></a></li></ol>
         
         </div>
       </aside>
@@ -271,11 +291,9 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#阿丽塔" title="阿丽塔">阿丽塔</a>
+                          <a class="tag" href="/tags/#sqlalchemy" title="sqlalchemy">sqlalchemy</a>
                         
-                          <a class="tag" href="/tags/#战斗天使" title="战斗天使">战斗天使</a>
-                        
-                          <a class="tag" href="/tags/#流浪地球" title="流浪地球">流浪地球</a>
+                          <a class="tag" href="/tags/#事务" title="事务">事务</a>
                         
                     </div>
                 </section>
