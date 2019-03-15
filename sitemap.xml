@@ -2,18 +2,18 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <sitemap>
-        <loc>http://www.wuqiangroy.cn/post-sitemap.xml</loc>
+        <loc>https://www.wuqiangroy.cn/post-sitemap.xml</loc>
+        <lastmod>2019-03-15T10:39:49.723Z</lastmod>
+    </sitemap>
+
+    <sitemap>
+        <loc>https://www.wuqiangroy.cn/page-sitemap.xml</loc>
+        <lastmod>2019-03-15T10:41:12.912Z</lastmod>
+    </sitemap>
+
+    <sitemap>
+        <loc>https://www.wuqiangroy.cn/tag-sitemap.xml</loc>
         <lastmod>2019-03-15T10:30:53.299Z</lastmod>
-    </sitemap>
-
-    <sitemap>
-        <loc>http://www.wuqiangroy.cn/page-sitemap.xml</loc>
-        <lastmod>2019-03-09T17:25:18.458Z</lastmod>
-    </sitemap>
-
-    <sitemap>
-        <loc>http://www.wuqiangroy.cn/tag-sitemap.xml</loc>
-        <lastmod>2019-03-09T16:55:37.850Z</lastmod>
     </sitemap>
 
 </sitemapindex>
