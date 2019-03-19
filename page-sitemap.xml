@@ -7,6 +7,20 @@
     </url>
     
     <url>
+        <loc>https://www.wuqiangroy.cn/tags/</loc>
+        <lastmod>2019-03-19T12:15:13.479Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.wuqiangroy.cn/archive/</loc>
+        <lastmod>2019-03-19T03:04:00.908Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
         <loc>https://www.wuqiangroy.cn/404.html</loc>
         <lastmod>2019-03-15T10:41:12.912Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -14,22 +28,8 @@
     </url>
     
     <url>
-        <loc>https://www.wuqiangroy.cn/archive/</loc>
-        <lastmod>2019-03-09T17:25:18.458Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    <url>
         <loc>https://www.wuqiangroy.cn/about/</loc>
         <lastmod>2019-03-09T17:15:29.474Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    <url>
-        <loc>https://www.wuqiangroy.cn/tags/</loc>
-        <lastmod>2019-03-09T16:16:06.888Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>

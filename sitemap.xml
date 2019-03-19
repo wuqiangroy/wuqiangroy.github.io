@@ -3,17 +3,22 @@
 
     <sitemap>
         <loc>https://www.wuqiangroy.cn/post-sitemap.xml</loc>
-        <lastmod>2019-03-17T03:29:55.556Z</lastmod>
+        <lastmod>2019-03-19T12:12:54.818Z</lastmod>
     </sitemap>
 
     <sitemap>
         <loc>https://www.wuqiangroy.cn/page-sitemap.xml</loc>
-        <lastmod>2019-03-15T10:41:12.912Z</lastmod>
+        <lastmod>2019-03-19T12:15:13.479Z</lastmod>
+    </sitemap>
+
+    <sitemap>
+        <loc>https://www.wuqiangroy.cn/category-sitemap.xml</loc>
+        <lastmod>2019-03-19T12:12:51.719Z</lastmod>
     </sitemap>
 
     <sitemap>
         <loc>https://www.wuqiangroy.cn/tag-sitemap.xml</loc>
-        <lastmod>2019-03-15T10:30:53.299Z</lastmod>
+        <lastmod>2019-03-19T12:12:51.719Z</lastmod>
     </sitemap>
 
 </sitemapindex>

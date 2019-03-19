@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="python &amp;&amp; golang">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon-qb.ico">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          一次关于 sqlalchemy 的排错 - Qiang Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://www.wuqiangroy.cn/2019/03/19/一次关于-sqlalchemy-的排错/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('mysql-lock.jpg')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#sqlalchemy" title="sqlalchemy">sqlalchemy</a>
+                            
+                              <a class="tag" href="/tags/#python" title="python">python</a>
+                            
+                        </div>
+                        <h1>一次关于 sqlalchemy 的排错</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by roywu on
+                            2019-03-19
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Qiang Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2><span id="前言">前言</span></h2>
+<p>公司的 C 端用户中心，入口流量极大。<br>
+有两个接口，都是修改的用户的某个信息，在高并发下，出现了一点问题。<br>
+A 用户有两个属性，名字和年龄，接口 a 修改了名字，接口 b 修改了职业，但是一旦并发执行，总会有一个修改失败，这个失败的频率还很高。<br>
+之前并发量不高的时候，这个是没有问题的，并发量一起来，这个问题就是很严重的了。<br>
+初步判定，是锁的问题了。</p>
+<h2><span id="问题复现">问题复现</span></h2>
+<p>为了确认这个问题，首先打印所有的 <code>sql</code>，发现了问题。<br>
+并发量不高的时候（我依次请求），两个 <code>sql</code> 都乖乖的只 <code>update</code> 自己修改的部分，但是一旦有并发（我开启两个线程执行）,有一个 <code>sql</code> 就 <code>update</code> 了两个数据，即名字和年龄。<br>
+模拟代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask, request, jsonify</span><br><span class="line">from sqlalchemy import create_engine</span><br><span class="line">from sqlalchemy.ext.declarative import declarative_base</span><br><span class="line">from sqlalchemy import Column, Integer, String</span><br><span class="line">from sqlalchemy.orm import sessionmaker</span><br><span class="line"></span><br><span class="line">Base = declarative_base()</span><br><span class="line"></span><br><span class="line">engine = create_engine(&quot;mysql+pymysql://test:test@localhost:3306/test&quot;</span><br><span class="line"> , echo=True, pool_size=20)</span><br><span class="line">Session = sessionmaker(bind=engine)</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">class TbUser(Base):</span><br><span class="line">    __tablename__ = &quot;tb_user&quot;</span><br><span class="line">    id = Column(Integer, primary_key=True, autoincrement=True)</span><br><span class="line">    name = Column(String(64))</span><br><span class="line">    age = Column(Integer)</span><br><span class="line"></span><br><span class="line">@app.route(&quot;/user/name&quot;, methods=[&quot;PUT&quot;])</span><br><span class="line">def modify_name():</span><br><span class="line">    session = Session()</span><br><span class="line">    name = request.json.get(&quot;key&quot;)</span><br><span class="line">    id = request.json.get(&quot;id&quot;)</span><br><span class="line">    user = session.query(TbUser).filter_by(id=id).first()</span><br><span class="line">    print(f&quot;name origin &#123;user.name&#125;, new &#123;name&#125;&quot;)</span><br><span class="line">    user.name = name</span><br><span class="line">    session.add(session.merge(user))</span><br><span class="line">    session.commit()</span><br><span class="line">    return &quot;&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&quot;/user/age&quot;, methods=[&quot;PUT&quot;])</span><br><span class="line">def modify_age():</span><br><span class="line">    session = Session()</span><br><span class="line">    age = request.json.get(&quot;key&quot;)</span><br><span class="line">    id = request.json.get(&quot;id&quot;)</span><br><span class="line">    user = session.query(TbUser).filter_by(id=id).first()</span><br><span class="line">    print(f&quot;age origin &#123;user.age&#125;, new &#123;age&#125;&quot;)</span><br><span class="line">    user.age = age</span><br><span class="line">    session.add(session.merge(user))</span><br><span class="line">    session.commit()</span><br><span class="line">    return &quot;&quot;</span><br></pre></td></tr></table></figure>
+<p>将这段代码保存为 <code>app.py</code> 然后执行 <code>export FLASK_APP=app.py &amp;&amp; export DATABASE_URL=&quot;&quot; &amp;&amp; flask run -h 0.0.0.0 -p 5000</code> 运行起来<br>
+并发测试代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">import aiohttp</span><br><span class="line">import asyncio</span><br><span class="line">import random</span><br><span class="line">from uuid import uuid4</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">async def run(path, key):</span><br><span class="line">	params = &#123;&quot;id&quot;: 1, &quot;key&quot;: key&#125;</span><br><span class="line">	async with aiohttp.ClientSession() as session:</span><br><span class="line">		async with session.put(f&quot;http://127.0.0.1:5000/user/&#123;path&#125;&quot;,json=params) as resp:</span><br><span class="line">			print(resp.status)</span><br><span class="line">			print(await resp.text())</span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">tasks = [</span><br><span class="line">	loop.create_task(run(&quot;name&quot;, uuid4().hex)),</span><br><span class="line">	loop.create_task(run(&quot;name&quot;, uuid4().hex)),</span><br><span class="line">	loop.create_task(run(&quot;age&quot;, random.randint(0, 100000))),</span><br><span class="line">	loop.create_task(run(&quot;age&quot;, random.randint(0, 100000)))</span><br><span class="line">]</span><br><span class="line">loop.run_until_complete(asyncio.wait(tasks))</span><br><span class="line">loop.close()</span><br></pre></td></tr></table></figure>
+<p>我执行了多次这个脚本，但是没有发现有一条 update 语句是更新多个参数的，这令人非常奇怪。<br>
+<img src="pic1.png" alt="sql执行正常"><br>
+把我觉得是数据库锁的原因否决了。</p>
+<h2><span id="问题浮出水面">问题浮出水面</span></h2>
+<p>我又细查了一下代码。<br>
+由于公司的 C 端用户量极大，于是架构上我们采纳了分库分表。<br>
+于是，这要求我们在 <code>model</code> 的建立上，需要极其抽象。<br>
+细剥这一部分的代码，然后发现了一个问题。<br>
+获取 <code>user</code> 的代码里面，单独获取了一次 <code>session</code>, 而保存 <code>user</code> 又获取了一次 <code>session</code>。基本确定问题出现在这里了。<br>
+这是，头脑也有了代码的基本运行模型了。<br>
+如下图所示：<br>
+<img src="pic2.png" alt="运行图"><br>
+进程 1 修改用户姓名为 <code>lisi</code><br>
+进程 2 修改用户年龄为 <code>20</code><br>
+进程 1 和进程 2 同时执行的时候，先拿取一次 <code>session</code> 获取 <code>user</code> 信息，这时候数据库的用户信息是 <code>{&quot;name&quot;: &quot;zhangsan&quot;, &quot;age&quot;: 15}</code>。<br>
+进程 2 先于进程 1 修改完用户数据，获取一次 <code>session</code>，然后将数据更新， 更新的时候，用户数据不变，更新完，用户 <code>age=20</code>。<br>
+进程 1 开始执行保存用户数据，获取一次 <code>session</code>,此时用户数据因为金进程 2 的原因，已经发生了改变。此时的用户数据为 <code>{&quot;name&quot;: &quot;zhangsan&quot;, &quot;age&quot;: 20}</code>.这时候保存用户数据，则改变的是 <code>{&quot;name&quot;: &quot;lisi&quot;, &quot;age&quot;: 15}</code>.<br>
+就好像进程 2 没有执行一样。<br>
+为了验证我得想法。<br>
+模拟代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask, request, jsonify</span><br><span class="line">from sqlalchemy import create_engine</span><br><span class="line">from sqlalchemy.ext.declarative import declarative_base</span><br><span class="line">from sqlalchemy import Column, Integer, String</span><br><span class="line">from sqlalchemy.orm import sessionmaker</span><br><span class="line"></span><br><span class="line">Base = declarative_base()</span><br><span class="line"></span><br><span class="line">engine = create_engine(&quot;mysql+pymysql://test:test@localhost:3306/test&quot;</span><br><span class="line"> , echo=True, pool_size=20)</span><br><span class="line">Session = sessionmaker(bind=engine)</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">class TbUser(Base):</span><br><span class="line">    __tablename__ = &quot;tb_user&quot;</span><br><span class="line">    id = Column(Integer, primary_key=True, autoincrement=True)</span><br><span class="line">    name = Column(String(64))</span><br><span class="line">    age = Column(Integer)</span><br><span class="line"></span><br><span class="line">@app.route(&quot;/user/name&quot;, methods=[&quot;PUT&quot;])</span><br><span class="line">def modify_name():</span><br><span class="line">    session = Session()</span><br><span class="line">    name = request.json.get(&quot;key&quot;)</span><br><span class="line">    id = request.json.get(&quot;id&quot;)</span><br><span class="line">    user = session.query(TbUser).filter_by(id=id).first()</span><br><span class="line">    session.close()</span><br><span class="line">    print(f&quot;name origin &#123;user.name&#125;, new &#123;name&#125;&quot;)</span><br><span class="line">    user.name = name</span><br><span class="line">    # 再次获取一次 session</span><br><span class="line">    session = Session()</span><br><span class="line">    session.add(session.merge(user))</span><br><span class="line">    session.commit()</span><br><span class="line">    return &quot;&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&quot;/user/age&quot;, methods=[&quot;PUT&quot;])</span><br><span class="line">def modify_age():</span><br><span class="line">    session = Session()</span><br><span class="line">    age = request.json.get(&quot;key&quot;)</span><br><span class="line">    id = request.json.get(&quot;id&quot;)</span><br><span class="line">    user = session.query(TbUser).filter_by(id=id).first()</span><br><span class="line">    session.close()</span><br><span class="line">    print(f&quot;age origin &#123;user.age&#125;, new &#123;age&#125;&quot;)</span><br><span class="line">    user.age = age</span><br><span class="line">    # 再次获取一次 session</span><br><span class="line">    session = Session()</span><br><span class="line">    session.add(session.merge(user))</span><br><span class="line">    session.commit()</span><br><span class="line">    return &quot;&quot;</span><br></pre></td></tr></table></figure>
+<p>执行一次。<br>
+<img src="pic3.jpg" alt="sql多执行了"><br>
+可以看到，这次 <code>name</code> 和 <code>age</code> 都被更新了。</p>
+<h2><span id="问题得解">问题得解</span></h2>
+<p>找到了原因，就好办多了。<br>
+和同事敲定整个流程不能重建和销毁 <code>session</code> ，需要 <code>session</code> 的地方弄全局变量或函数传递的方式，问题得解。</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/03/15/sqlalchemy-多线程下的事务隔离/" data-toggle="tooltip" data-placement="top" title="sqlalchemy 多线程下的事务隔离">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">问题复现</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">问题浮出水面</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">问题得解</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/wu-qiang-719">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/2877411585">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/wuqiangroy">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; roywu 2019 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                    |
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> 
+                    <!-- <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true" >
+                    </iframe> -->
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://www.wuqiangroy.cn/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-wuqiangroy-qiangblog';
+    var _gaDomain = 'wuqiangroy.cn';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '592bb6fb6501694699d4018a00500957';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<!-- <a id="rocket" href="#top" class=""></a> -->
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<!-- <img src="https://www.wuqiangroy.cn/img/icon_wechat.png" width="0" height="0" /> -->
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
