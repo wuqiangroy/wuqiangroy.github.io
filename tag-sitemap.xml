@@ -2,22 +2,22 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
+        <loc>https://www.wuqiangroy.cn/tags/movies/</loc>
+        <lastmod>2019-03-19T12:12:54.818Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://www.wuqiangroy.cn/tags/sqlalchemy/</loc>
-        <lastmod>2019-03-19T12:12:51.719Z</lastmod>
+        <lastmod>2019-03-20T14:52:51.484Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://www.wuqiangroy.cn/tags/python/</loc>
-        <lastmod>2019-03-19T12:12:51.719Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://www.wuqiangroy.cn/tags/movies/</loc>
-        <lastmod>2019-03-19T12:12:54.818Z</lastmod>
+        <lastmod>2019-03-20T14:55:27.216Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

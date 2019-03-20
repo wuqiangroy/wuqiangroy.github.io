@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Qiang Blog
+          python 3.7 dataclass 初探 - Qiang Blog
         
     </title>
 
-    <link rel="canonical" href="https://www.wuqiangroy.cn/">
+    <link rel="canonical" href="https://www.wuqiangroy.cn/2019/03/20/python-3-7-dataclass-初探/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -69,8 +69,8 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('/img/header_img/home.jpg') 
-            /*config*/
+            background-image: url('cover.jpg')
+            /*post*/
         
     }
     
@@ -83,10 +83,18 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 
-                    <div class="site-heading">
-                        <h1>Qiang Blog</h1>
-                        <!--<hr class="small">-->
-                        <span class="subheading">welcome to my blog</span>
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#python" title="python">python</a>
+                            
+                        </div>
+                        <h1>python 3.7 dataclass 初探</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by roywu on
+                            2019-03-20
+                        </span>
                     </div>
                 
 
@@ -189,284 +197,124 @@
 
 
     <!-- Main Content -->
-    <!-- Main Content -->
-<div class="container">
-    <div class="row">
-        
+    <!-- Modify by Yu-Hsuan Yen -->
 
-<!-- USE SIDEBAR -->
-    <!-- Post Container -->
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
             <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>Python 3.7 引入了一个新的模块，这个模块就是今天要试探的 <code>dataclass</code>。<br>
+<code>dataclass</code> 的用法和普通的类装饰器没有任何区别，它的作用是替换定义类的时候的 <code>def __init__()</code><br>
+我们来看看如何使用它</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> dataclasses <span class="keyword">import</span> dataclass</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@dataclass</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    a: int</span><br><span class="line">    b: int</span><br><span class="line">    c: str</span><br><span class="line">    d: str = <span class="string">"test"</span></span><br><span class="line"></span><br><span class="line">a = A(<span class="number">1</span>, <span class="number">2</span>, <span class="string">"3"</span>)</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure>
+<p>我们执行这段代码，得到结果<br>
+<code>A(a=1, b=2, c='3', d='test')</code><br>
+可以看到，它的效果和</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, a, b, c, d=<span class="string">"test"</span>)</span>:</span></span><br><span class="line">        self.a = a</span><br><span class="line">        self.b = b</span><br><span class="line">        self.c = c</span><br><span class="line">        self.d = d</span><br><span class="line">a = A(<span class="number">1</span>, <span class="number">2</span>, <span class="string">"3"</span>)</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure>
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/03/19/一次关于-sqlalchemy-的排错/" data-toggle="tooltip" data-placement="top" title="一次关于 sqlalchemy 的排错">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
             
-                <!-- Main Content -->
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
 
-
-<div class="post-preview">
-
-    <a href="/2019/03/20/python-3-7-dataclass-初探/">
-        <h2 class="post-title">
-            python 3.7 dataclass 初探
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            Python 3.7 引入了一个新的模块，这个模块就是今天要试探的 dataclass。
-dataclass 的用法和普通的类装饰器没有任何区别，它的作用是替换定义类的时候的 def __init__()
-我们来看看如何使用它
-123456789101112from dataclasses import dataclass@dataclassclass A:    a: int    b: ......
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="nav">none</ol>
+        
         </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by roywu on
-            2019-03-20
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#python" title="python">python</a>
-            
-        </div>
+      </aside>
     
 
-</div>
-<hr>
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
 
-<div class="post-preview">
+                <!-- Featured Tags -->
+                
 
-    <a href="/2019/03/19/一次关于-sqlalchemy-的排错/">
-        <h2 class="post-title">
-            一次关于 sqlalchemy 的排错
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            前言
-公司的 C 端用户中心，入口流量极大。
-有两个接口，都是修改的用户的某个信息，在高并发下，出现了一点问题。
-A 用户有两个属性，名字和年龄，接口 a 修改了名字，接口 b 修改了职业，但是一旦并发执行，总会有一个修改失败，这个失败的频率还很高。
-之前并发量不高的时候，这个是没有问题的，并发量一起来，这个问题就是很严重的了。
-初步判定，是锁的问题了。
-问题复现
-为了确认这个问题，首先打印......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by roywu on
-            2019-03-19
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#python" title="python">python</a>
-            
-              <a href="/tags/#sqlalchemy" title="sqlalchemy">sqlalchemy</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2019/03/15/sqlalchemy-多线程下的事务隔离/">
-        <h2 class="post-title">
-            sqlalchemy 多线程下的事务隔离
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            事件经过
-最近，为 saas 平台做商户余额提醒的时候，我查询了所有的商户信息，然后开启一个线程，把这个商户数据发送给这个线程，执行完我所需要的业务之后，对商户里面的数据进行修改，然后执行了 commit，令人奇怪的是，commit 失败了，没有任何的报错。
-基本代码如下：
-1234567891011121314151617import TbMerchant, db, appfrom co......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by roywu on
-            2019-03-15
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#python" title="python">python</a>
-            
-              <a href="/tags/#sqlalchemy" title="sqlalchemy">sqlalchemy</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2019/03/10/《阿丽塔·战斗天使》与《流浪地球》/">
-        <h2 class="post-title">
-            《阿丽塔·战斗天使》与《流浪地球》
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            他们讲了什么
-最近，我去看了电影 《阿丽塔·战斗天使》 （下文称《阿》）
-诚心来讲，剧情真的很弱智，在里面很多的对话逻辑都异常奇怪。但是，它的特效，领先国内 100 年吧。
-刚好，大年初一，《流浪地球》（下文称《流》）这部电影上映了，我也迫不及待的看了，两部电影，都是主打科幻巨制，不得不把他们进行了比较
-《流》
-《流》主要讲述了太阳危机，全球人员在地球装了发动机，然后带着地球前往另一个星......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by roywu on
-            2019-03-10
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#movies" title="movies">movies</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-
-
-<!-- Pager -->
-
-<ul class="pager">
-    
-    
-</ul>
-
-
-
-                <!-- 如果开启评论功能 -->
+                <!-- Friends Blog -->
                 
             </div>
-
-          <!-- Sidebar Container -->
-<div class="
-    col-lg-3 col-lg-offset-0
-    col-md-3 col-md-offset-0
-    col-sm-12
-    col-xs-12
-    sidebar-container
-">
-    
-        <!-- Short About -->
-<section class="visible-md visible-lg">
-    <h5><a href="/about/">ABOUT ME</a></h5>
-    <div class="short-about">
-
-        
-            <img id="avatar_pic" src="/img/avatar.jpeg">
-        
-
-        
-            <p>program &amp;&amp; life &amp;&amp; poem</p>
-        
-
-        <!-- SNS Link -->
-        <ul class="list-inline">
-            
-            
-            
-                <li>
-                    <a target="_blank" href="https://www.zhihu.com/people/wu-qiang-719">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa  fa-stack-1x fa-inverse">知</i>
-                        </span>
-                    </a>
-                </li>
-            
-
-            
-                <li>
-                    <a target="_blank" href="http://weibo.com/2877411585">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-            
-
-            
-
-            
-                <li>
-                    <a target="_blank" href="https://github.com/wuqiangroy">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-            
-            
-            
-            
-        </ul>
+        </div>
     </div>
-</section>
-        <hr>
-    
-        
-  <h5>RECENT POSTS
-  <div class="widget">
-    <ul>
-      
-        <li>
-          <a href="/2019/03/20/python-3-7-dataclass-初探/">python 3.7 dataclass 初探</a>
-        </li>
-      
-        <li>
-          <a href="/2019/03/19/一次关于-sqlalchemy-的排错/">一次关于 sqlalchemy 的排错</a>
-        </li>
-      
-        <li>
-          <a href="/2019/03/15/sqlalchemy-多线程下的事务隔离/">sqlalchemy 多线程下的事务隔离</a>
-        </li>
-      
-        <li>
-          <a href="/2019/03/10/《阿丽塔·战斗天使》与《流浪地球》/">《阿丽塔·战斗天使》与《流浪地球》</a>
-        </li>
-      
-    </ul>
-  </div>
-</h5>
-        <hr>
-    
-        <!-- Friends Blog -->
+</article>
 
-        <hr>
-    
-        
-    <h5>ARCHIVES</h5>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">4</span></li></ul>
-    </div>
 
-        <hr>
-    
-</div>
 
-        
-    </div>
-</div>
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
 
 
     <!-- Footer -->
