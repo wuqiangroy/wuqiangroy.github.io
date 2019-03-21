@@ -7,8 +7,16 @@
     </url>
 
     <url>
+        <loc>https://www.wuqiangroy.cn/2019/03/22/python-3-7-dataclass-%E6%B5%85%E6%9E%90/</loc>
+        <lastmod>2019-03-21T17:48:37.362Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://www.wuqiangroy.cn/2019/03/20/python-3-7-dataclass-%E5%88%9D%E6%8E%A2/</loc>
-        <lastmod>2019-03-20T15:56:49.975Z</lastmod>
+        <lastmod>2019-03-20T15:59:16.110Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

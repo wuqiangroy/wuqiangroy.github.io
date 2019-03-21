@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="python &amp;&amp; golang">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon-qb.ico">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          python 3.7 dataclass 浅析 - Qiang Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://www.wuqiangroy.cn/2019/03/22/python-3-7-dataclass-浅析/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('cover.jpg')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#python" title="python">python</a>
+                            
+                        </div>
+                        <h1>python 3.7 dataclass 浅析</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by roywu on
+                            2019-03-22
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Qiang Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>上文我们简单的聊了一下 <code>dataclass</code> 的一些用法，今天我们一起进一步熟悉它。</p>
+<h2><span id="field"><code>field</code></span></h2>
+<p><code>field</code> 在 <code>dataclasses</code> 里面是比较重要的功能， 用于初处理定义的参数非常有用<br>
+在 <code>PEP 557</code> 中是这样描述 <code>field</code> 的</p>
+<blockquote>
+<p>Field objects describe each defined field. These objects are created internally, and are returned by the fields() module-level method (see below). Users should never instantiate a Field object directly.</p>
+</blockquote>
+<p>大致意思就是 Field 对象是用于描述定义的字段的，这些对象是内部定义好了的。然后由 field() 方法返回，用户不用直接实例化 Field。<br>
+我们先看看 <code>field</code> 是如何使用的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> dataclasses <span class="keyword">import</span> dataclass, field</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@dataclass</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    a: str = field(default=<span class="string">"123"</span>)</span><br></pre></td></tr></table></figure>
+<p>可以用于设立默认值，和 <code>a: str = &quot;123&quot;</code> 一个效果，那为什么我们还需要 <code>field</code> 呢？<br>
+因为 <code>field</code> 的功能远不止这一个设置默认值，他还有很多有用的功能</p>
+<ul>
+<li>设置是否加载到 <code>__init__</code> 里面去</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@dataclass</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    a: int</span><br><span class="line">    b: int = field(default=<span class="number">10</span>, init=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">a = A(<span class="number">1</span>) <span class="comment"># 注意，实例化 A 的时候只需要一个参数，赋给 a 的</span></span><br></pre></td></tr></table></figure>
+<p>等价于:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    b = <span class="number">10</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, a: int)</span>:</span></span><br><span class="line">        self.a = a</span><br></pre></td></tr></table></figure>
+<ul>
+<li>设置是否成为 <code>__repr__</code> 返回参数<br>
+我们在之前实例化 <code>A</code> 的时候，把实例化对象打印出来的话，是这样的：<br>
+<code>A(a=1, b=10)</code><br>
+那如果我们不想把特定的对象打印出来，可以这样写:</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@dataclass</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    a: int</span><br><span class="line">    b: int = field(default=<span class="number">1</span>, repr=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">a = A(<span class="number">1</span>)</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure>
+<p>这时候，打印的结果为 <code>A(a=1)</code></p>
+<ul>
+<li>设置是否计算 <code>hash</code> 的对象之一<br>
+<code>a: int = field(hash=False)</code></li>
+<li>设置是否成为和其他类进行对比的值之一<br>
+<code>a: int = field(compare=False)</code></li>
+<li>定义 <code>field</code> 信息</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> dataclasses <span class="keyword">import</span> field, dataclass, fields</span><br><span class="line"><span class="meta">@dataclass</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    a: int = field(metadata=&#123;<span class="string">"name"</span>: <span class="string">"a"</span>&#125;) <span class="comment"># metadata 需要接受一个映射对象，也就是 python 的字典</span></span><br><span class="line"></span><br><span class="line">metadata = fields(A)</span><br><span class="line">print(metadata)</span><br></pre></td></tr></table></figure>
+<p>打印的结果是<br>
+<code>(Field(name='a',type=&lt;class 'int'&gt;,default=&lt;dataclasses._MISSING_TYPE object at 0x10f2fe748&gt;,default_factory=&lt;dataclasses._MISSING_TYPE object at 0x10f2fe748&gt;,init=True,repr=True,hash=None,compare=True,metadata=mappingproxy({'name': 'a'}),_field_type=_FIELD),)</code><br>
+是一个 <code>tuple</code>，第一个即是 <code>a</code> 字段的 <code>field</code> 定义<br>
+可以通过 <code>metadata[0].metadata[&quot;name&quot;]</code> 获取值</p>
+<ul>
+<li>自定义处理定义的参数<br>
+有些字段需要我们进行一些预处理，不用传递初始值，由其他函数返回<br>
+我们可以这么写</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">value</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"123"</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@dataclass</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    a: str = field(default_factory=value)</span><br><span class="line"></span><br><span class="line">print(A().a) <span class="comment"># 实例化 A 的时候已经可以不传递值了</span></span><br></pre></td></tr></table></figure>
+<p>打印的结果是 <code>'123'</code></p>
+<h2><span id="使用-dataclass-设定初始方法">使用 <code>dataclass</code> 设定初始方法</span></h2>
+<p>使用装饰器 <code>dataclass</code> 的时候，设定一些参数，即可选择是否需要这些初始方法</p>
+<ul>
+<li><code>__init__</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@dataclass(init=False)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    a: int = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">print(A())</span><br></pre></td></tr></table></figure>
+<p>打印结果<br>
+<code>['__module__', '__annotations__', 'a', '__dict__', '__weakref__', '__doc__', '__dataclass_params__', '__dataclass_fields__', '__repr__', '__eq__', '__hash__', '__str__', '__getattribute__', '__setattr__', '__delattr__', '__lt__', '__le__', '__ne__', '__gt__', '__ge__', '__init__', '__new__', '__reduce_ex__', '__reduce__', '__subclasshook__', '__init_subclass__', '__format__', '__sizeof__', '__dir__', '__class__']</code><br>
+的确是没有 <code>__init__</code> 的</p>
+<ul>
+<li>
+<p><code>__repr__</code><br>
+<code>field</code> 可以设置哪个参数不加入类返回值，设置<br>
+<code>@dataclass(repr=False)</code> 即可</p>
+</li>
+<li>
+<p><code>__hash__</code><br>
+设置是否需要对类进行 <code>hash</code>，可以结合 <code>a: int = field(hash=True)</code> 一起设置</p>
+</li>
+<li>
+<p><code>__eq__</code><br>
+这是类之间比较使用的方法，<br>
+同样可以结合 <code>a: int = field(compare=True)</code> 一起设置</p>
+</li>
+</ul>
+<h2><span id="源码剖析">源码剖析</span></h2>
+<p><code>dataclasses</code> 这个库这么强大，我们来一步步剖析它的源码吧</p>
+<h3><span id="field-源码剖析"><code>field</code> 源码剖析</span></h3>
+<p>首先我们看看 <code>field</code> 的源码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">field</span><span class="params">(*, default=MISSING, default_factory=MISSING, init=True, repr=True,</span></span></span><br><span class="line"><span class="function"><span class="params">          hash=None, compare=True, metadata=None)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> default <span class="keyword">is</span> <span class="keyword">not</span> MISSING <span class="keyword">and</span> default_factory <span class="keyword">is</span> <span class="keyword">not</span> MISSING:</span><br><span class="line">        <span class="keyword">raise</span> ValueError(<span class="string">'cannot specify both default and default_factory'</span>)</span><br><span class="line">    <span class="keyword">return</span> Field(default, default_factory, init, repr, hash, compare,</span><br><span class="line">                 metadata)</span><br></pre></td></tr></table></figure>
+<p>这段代码很简单，对传入的参数进行判断之后，返回 <code>Field</code> 实例。<br>
+注意 <code>default</code> 和 <code>default_factory</code> 缺一不可，都是作为定义初始值的。<br>
+然后我们来看看 <code>Field</code> 的源码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Field</span>:</span></span><br><span class="line">    __slots__ = (<span class="string">'name'</span>,</span><br><span class="line">                 <span class="string">'type'</span>,</span><br><span class="line">                 <span class="string">'default'</span>,</span><br><span class="line">                 <span class="string">'default_factory'</span>,</span><br><span class="line">                 <span class="string">'repr'</span>,</span><br><span class="line">                 <span class="string">'hash'</span>,</span><br><span class="line">                 <span class="string">'init'</span>,</span><br><span class="line">                 <span class="string">'compare'</span>,</span><br><span class="line">                 <span class="string">'metadata'</span>,</span><br><span class="line">                 <span class="string">'_field_type'</span>,</span><br><span class="line">                 )</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, default, default_factory, init, repr, hash, compare,</span></span></span><br><span class="line"><span class="function"><span class="params">                 metadata)</span>:</span></span><br><span class="line">        self.name = <span class="literal">None</span></span><br><span class="line">        self.type = <span class="literal">None</span></span><br><span class="line">        self.default = default</span><br><span class="line">        self.default_factory = default_factory</span><br><span class="line">        self.init = init</span><br><span class="line">        self.repr = repr</span><br><span class="line">        self.hash = hash</span><br><span class="line">        self.compare = compare</span><br><span class="line">        self.metadata = (_EMPTY_METADATA</span><br><span class="line">                         <span class="keyword">if</span> metadata <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> len(metadata) == <span class="number">0</span> <span class="keyword">else</span></span><br><span class="line">                         types.MappingProxyType(metadata))</span><br><span class="line">        self._field_type = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> (<span class="string">'Field('</span></span><br><span class="line">                <span class="string">f'name=<span class="subst">&#123;self.name!r&#125;</span>,'</span></span><br><span class="line">                <span class="string">f'type=<span class="subst">&#123;self.type!r&#125;</span>,'</span></span><br><span class="line">                <span class="string">f'default=<span class="subst">&#123;self.default!r&#125;</span>,'</span></span><br><span class="line">                <span class="string">f'default_factory=<span class="subst">&#123;self.default_factory!r&#125;</span>,'</span></span><br><span class="line">                <span class="string">f'init=<span class="subst">&#123;self.init!r&#125;</span>,'</span></span><br><span class="line">                <span class="string">f'repr=<span class="subst">&#123;self.repr!r&#125;</span>,'</span></span><br><span class="line">                <span class="string">f'hash=<span class="subst">&#123;self.hash!r&#125;</span>,'</span></span><br><span class="line">                <span class="string">f'compare=<span class="subst">&#123;self.compare!r&#125;</span>,'</span></span><br><span class="line">                <span class="string">f'metadata=<span class="subst">&#123;self.metadata!r&#125;</span>,'</span></span><br><span class="line">                <span class="string">f'_field_type=<span class="subst">&#123;self._field_type&#125;</span>'</span></span><br><span class="line">                <span class="string">')'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__set_name__</span><span class="params">(self, owner, name)</span>:</span></span><br><span class="line">        func = getattr(type(self.default), <span class="string">'__set_name__'</span>, <span class="literal">None</span>)</span><br><span class="line">        <span class="keyword">if</span> func:</span><br><span class="line">            <span class="comment"># There is a __set_name__ method on the descriptor, call</span></span><br><span class="line">            <span class="comment"># it.</span></span><br><span class="line">            func(self.default, owner, name)</span><br></pre></td></tr></table></figure>
+<p>基本没有什么可以说的，就是简单的类，功能也就一个  <code>__set_name__</code><br>
+我们注意一下 <code>__repr__</code> 里面的有个细节:<br>
+<code>f'name={self.name!r},'</code>, 比如 <code>self.name</code> 为 <code>&quot;name&quot;</code>, 这里会返回 <code>&quot;name='name',&quot;</code></p>
+<h3><span id="dataclass-源码剖析"><code>dataclass</code> 源码剖析</span></h3>
+<p>接下来我们来看 <code>dataclass</code> 的源码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dataclass</span><span class="params">(_cls=None, *, init=True, repr=True, eq=True, order=False,</span></span></span><br><span class="line"><span class="function"><span class="params">              unsafe_hash=False, frozen=False)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrap</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> _process_class(cls, init, repr, eq, order, unsafe_hash, frozen)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> _cls <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> wrap</span><br><span class="line">    <span class="keyword">return</span> wrap(_cls)</span><br></pre></td></tr></table></figure>
+<p>这是一个很常见的装饰器<br>
+当我们定义类的时候，把类本身作为 <code>_cls</code> 参数传递进去，这时候返回一个 <code>_process_class</code> 函数的值<br>
+实例化类的时候，这时候 <code>_cls</code> 为 <code>None</code>, 返回 <code>wrap</code> 对象</p>
+<p>接着我们来看 <code>_process_class</code> 源码<br>
+这段代码比较长，我们删减部分（不影响核心功能），删除的是生成初始化函数的部分，有兴趣的读者可以自己查看一下。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_process_class</span><span class="params">(cls, init, repr, eq, order, unsafe_hash, frozen)</span>:</span></span><br><span class="line">    fields = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    setattr(cls, _PARAMS, _DataclassParams(init, repr, eq, order,</span><br><span class="line">                                           unsafe_hash, frozen))</span><br><span class="line">    any_frozen_base = <span class="literal">False</span></span><br><span class="line">    has_dataclass_bases = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">for</span> b <span class="keyword">in</span> cls.__mro__[<span class="number">-1</span>:<span class="number">0</span>:<span class="number">-1</span>]:</span><br><span class="line">        base_fields = getattr(b, _FIELDS, <span class="literal">None</span>)</span><br><span class="line">        <span class="keyword">if</span> base_fields:</span><br><span class="line">            has_dataclass_bases = <span class="literal">True</span></span><br><span class="line">            <span class="keyword">for</span> f <span class="keyword">in</span> base_fields.values():</span><br><span class="line">                fields[f.name] = f</span><br><span class="line">            <span class="keyword">if</span> getattr(b, _PARAMS).frozen:</span><br><span class="line">                any_frozen_base = <span class="literal">True</span></span><br><span class="line">    cls_annotations = cls.__dict__.get(<span class="string">'__annotations__'</span>, &#123;&#125;)</span><br><span class="line">    cls_fields = [_get_field(cls, name, type)</span><br><span class="line">                  <span class="keyword">for</span> name, type <span class="keyword">in</span> cls_annotations.items()]</span><br><span class="line">    <span class="keyword">for</span> f <span class="keyword">in</span> cls_fields:</span><br><span class="line">        fields[f.name] = f</span><br><span class="line">        <span class="keyword">if</span> isinstance(getattr(cls, f.name, <span class="literal">None</span>), Field):</span><br><span class="line">            <span class="keyword">if</span> f.default <span class="keyword">is</span> MISSING:</span><br><span class="line">                delattr(cls, f.name)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                setattr(cls, f.name, f.default)</span><br><span class="line">    setattr(cls, _FIELDS, fields)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> init:</span><br><span class="line">        has_post_init = hasattr(cls, _POST_INIT_NAME)</span><br><span class="line">        flds = [f <span class="keyword">for</span> f <span class="keyword">in</span> fields.values()</span><br><span class="line">                <span class="keyword">if</span> f._field_type <span class="keyword">in</span> (_FIELD, _FIELD_INITVAR)]</span><br><span class="line">        _set_new_attribute(cls, <span class="string">'__init__'</span>,</span><br><span class="line">                           _init_fn(flds,</span><br><span class="line">                                    frozen,</span><br><span class="line">                                    has_post_init,</span><br><span class="line">                                    <span class="string">'__dataclass_self__'</span> <span class="keyword">if</span> <span class="string">'self'</span> <span class="keyword">in</span> fields</span><br><span class="line">                                            <span class="keyword">else</span> <span class="string">'self'</span>,</span><br><span class="line">                          ))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> cls</span><br></pre></td></tr></table></figure>
+<p>这段代码，最后将传进来的 <code>cls</code> 返回出去，也就是返回的是类本身（初始化类的时候）</p>
+<p>我们来看第一句代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setattr(cls, _PARAMS, _DataclassParams(init, repr, eq, order,</span><br><span class="line">                                           unsafe_hash, frozen))</span><br></pre></td></tr></table></figure>
+<p><code>_PARAMS</code> 为前面定义的变量，值为 <code>__dataclass_params__</code><br>
+<code>_DataclassParams</code> 是一个类<br>
+这句话就是把 <code>_DataclassParams</code> 实例作为值，<code>__dataclass_params__</code> 作为属性赋给 <code>cls</code><br>
+所以，我们在查看定义的类的所有属性的时候，会有一个 <code>__dataclass_params__</code> 属性，然后我们打印看看：<br>
+<code>_DataclassParams(init=True,repr=True,eq=True,order=False,unsafe_hash=False,frozen=False)</code><br>
+即是 <code>_DataclassParams</code> 实例</p>
+<p>第二段代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">fields = &#123;&#125;</span><br><span class="line">any_frozen_base = <span class="literal">False</span></span><br><span class="line">has_dataclass_bases = <span class="literal">False</span></span><br><span class="line"><span class="keyword">for</span> b <span class="keyword">in</span> cls.__mro__[<span class="number">-1</span>:<span class="number">0</span>:<span class="number">-1</span>]:</span><br><span class="line">    base_fields = getattr(b, _FIELDS, <span class="literal">None</span>)</span><br><span class="line">    <span class="keyword">if</span> base_fields:</span><br><span class="line">        has_dataclass_bases = <span class="literal">True</span></span><br><span class="line">        <span class="keyword">for</span> f <span class="keyword">in</span> base_fields.values():</span><br><span class="line">            fields[f.name] = f</span><br><span class="line">        <span class="keyword">if</span> getattr(b, _PARAMS).frozen:</span><br><span class="line">            any_frozen_base = <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<p>前两行都是定义变量，直接从第三行开始。<br>
+<code>cls.__mro__[-1:0:-1]</code> 这代表取 <code>cls</code> 本身和继承的类，按照新式类的顺序从子类到父类排序<br>
+（详情见：<a href="https://stackoverflow.com/questions/2010692/what-does-mro-do" target="_blank" rel="noopener"><strong>mro</strong></a>）<br>
+然后不要第一个（即自己本身），剩下的进行倒序排列，这时候，所有类的顺序已经变成了父类到子类，这时候第一个为 <code>object</code><br>
+<code>_FIELDS</code> 为前面定义的变量，为 <code>__dataclass_fields__</code><br>
+轮询排好序的类，如果由 <code>__dataclass_fields__</code> 属性，则进行前面的定义的变量操作，把所有的取到的值加入 <code>fields</code>。<br>
+只有用 <code>@dataclass</code> 生成的类才会有这个属性。</p>
+<p>第三段代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cls_annotations = cls.__dict__.get(<span class="string">'__annotations__'</span>, &#123;&#125;)</span><br><span class="line">cls_fields = [_get_field(cls, name, type)</span><br><span class="line">                <span class="keyword">for</span> name, type <span class="keyword">in</span> cls_annotations.items()]</span><br><span class="line"><span class="keyword">for</span> f <span class="keyword">in</span> cls_fields:</span><br><span class="line">    fields[f.name] = f</span><br><span class="line">    <span class="keyword">if</span> isinstance(getattr(cls, f.name, <span class="literal">None</span>), Field):</span><br><span class="line">        <span class="keyword">if</span> f.default <span class="keyword">is</span> MISSING:</span><br><span class="line">            delattr(cls, f.name)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            setattr(cls, f.name, f.default)</span><br></pre></td></tr></table></figure>
+<p><code>cls_annotations = cls.__dict__.get('__annotations__', {})</code><br>
+这句话就是为了取出我们定义的所有字段<br>
+只要我们定义字段是</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a: int</span><br><span class="line">b: str</span><br></pre></td></tr></table></figure>
+<p>这样的，就会自动有 <code>__annotations__</code> 属性<br>
+可以参看 <a href="https://www.python.org/dev/peps/pep-0526/#status" target="_blank" rel="noopener">PEP 526</a><br>
+然后赋予 <code>cls</code> 属性操作<br>
+这步操作就是我们能够进行类取值的关键</p>
+<p>第四段代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setattr(cls, _FIELDS, fields)</span><br></pre></td></tr></table></figure>
+<p>将 <code>fields</code> （最早定义的一个字典）作为值，赋给 <code>cls</code> 的属性 <code>__dataclass_fields__</code></p>
+<p>第五段代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> init:</span><br><span class="line">    has_post_init = hasattr(cls, _POST_INIT_NAME)</span><br><span class="line">    flds = [f <span class="keyword">for</span> f <span class="keyword">in</span> fields.values()</span><br><span class="line">            <span class="keyword">if</span> f._field_type <span class="keyword">in</span> (_FIELD, _FIELD_INITVAR)]</span><br><span class="line">    _set_new_attribute(cls, <span class="string">'__init__'</span>,</span><br><span class="line">                        _init_fn(flds,</span><br><span class="line">                                frozen,</span><br><span class="line">                                has_post_init,</span><br><span class="line">                                <span class="string">'__dataclass_self__'</span> <span class="keyword">if</span> <span class="string">'self'</span> <span class="keyword">in</span> fields</span><br><span class="line">                                        <span class="keyword">else</span> <span class="string">'self'</span>,</span><br><span class="line">                        ))</span><br></pre></td></tr></table></figure>
+<p>这段代码表示，一旦设置 <code>__init__=True</code>，会在类里面加上这个方法。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_set_new_attribute</span><span class="params">(cls, name, value)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> name <span class="keyword">in</span> cls.__dict__:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    setattr(cls, name, value)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<p><code>_set_new_attribute</code> 是一个为类赋予属性的方法</p>
+<p>至此，<code>dataclass</code> 源码剖析完毕</p>
+<h3><span id="make_dataclass-源码剖析"><code>make_dataclass</code> 源码剖析</span></h3>
+<p>源码为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_dataclass</span><span class="params">(cls_name, fields, *, bases=<span class="params">()</span>, namespace=None, init=True,</span></span></span><br><span class="line"><span class="function"><span class="params">                   repr=True, eq=True, order=False, unsafe_hash=False,</span></span></span><br><span class="line"><span class="function"><span class="params">                   frozen=False)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> namespace <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        namespace = &#123;&#125;</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        namespace = namespace.copy()</span><br><span class="line"></span><br><span class="line">    seen = set()</span><br><span class="line">    anns = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> fields:</span><br><span class="line">        <span class="keyword">if</span> isinstance(item, str):</span><br><span class="line">            name = item</span><br><span class="line">            tp = <span class="string">'typing.Any'</span></span><br><span class="line">        <span class="keyword">elif</span> len(item) == <span class="number">2</span>:</span><br><span class="line">            name, tp, = item</span><br><span class="line">        <span class="keyword">elif</span> len(item) == <span class="number">3</span>:</span><br><span class="line">            name, tp, spec = item</span><br><span class="line">            namespace[name] = spec</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> TypeError(<span class="string">f'Invalid field: <span class="subst">&#123;item!r&#125;</span>'</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> isinstance(name, str) <span class="keyword">or</span> <span class="keyword">not</span> name.isidentifier():</span><br><span class="line">            <span class="keyword">raise</span> TypeError(<span class="string">f'Field names must be valid identifers: <span class="subst">&#123;name!r&#125;</span>'</span>)</span><br><span class="line">        <span class="keyword">if</span> keyword.iskeyword(name):</span><br><span class="line">            <span class="keyword">raise</span> TypeError(<span class="string">f'Field names must not be keywords: <span class="subst">&#123;name!r&#125;</span>'</span>)</span><br><span class="line">        <span class="keyword">if</span> name <span class="keyword">in</span> seen:</span><br><span class="line">            <span class="keyword">raise</span> TypeError(<span class="string">f'Field name duplicated: <span class="subst">&#123;name!r&#125;</span>'</span>)</span><br><span class="line"></span><br><span class="line">        seen.add(name)</span><br><span class="line">        anns[name] = tp</span><br><span class="line"></span><br><span class="line">    namespace[<span class="string">'__annotations__'</span>] = anns</span><br><span class="line">    cls = types.new_class(cls_name, bases, &#123;&#125;, <span class="keyword">lambda</span> ns: ns.update(namespace))</span><br><span class="line">    <span class="keyword">return</span> dataclass(cls, init=init, repr=repr, eq=eq, order=order,</span><br><span class="line">                     unsafe_hash=unsafe_hash, frozen=frozen)</span><br></pre></td></tr></table></figure>
+<p>流程很详细，就是解析我们定义的 <code>fields</code>,然后赋予 <code>__annotations__</code>属性，最后使用 <code>dataclass</code> 生成一个类。<br>
+从其中的流程判断来看，<code>fields</code> 里面最长只允许我们设置三个值，第一个名字，第二个类型，第三个是 <code>fields</code> 对象。<br>
+源码剖析至此结束</p>
+<h2><span id="尾声">尾声</span></h2>
+<p>从功能上来看，<code>dataclass</code> 为我们带来了比较好优化类方案，提供的各类方法也足够用，可以在之后的项目里面逐渐使用起来。<br>
+从源码上来看，源码整体比较简洁，使用了比较少见的 <code>__annotations__</code>，技巧足够，代码简单易学。<br>
+建议新手可以从此入手，即可学习装饰器也可学习优秀代码。</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/03/20/python-3-7-dataclass-初探/" data-toggle="tooltip" data-placement="top" title="python 3.7 dataclass 初探">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">field</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">使用 dataclass 设定初始方法</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">源码剖析</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">field 源码剖析</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">dataclass 源码剖析</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.3.</span> <span class="toc-nav-text">make_dataclass 源码剖析</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">尾声</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/wu-qiang-719">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/2877411585">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/wuqiangroy">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; roywu 2019 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                    |
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> 
+                    <!-- <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true" >
+                    </iframe> -->
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://www.wuqiangroy.cn/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-wuqiangroy-qiangblog';
+    var _gaDomain = 'wuqiangroy.cn';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '592bb6fb6501694699d4018a00500957';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<!-- <a id="rocket" href="#top" class=""></a> -->
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<!-- <img src="https://www.wuqiangroy.cn/img/icon_wechat.png" width="0" height="0" /> -->
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
