@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="python &amp;&amp; golang">
+    <meta name="keyword" content="qiang,blog,python,go,program">
+    <link rel="shortcut icon" href="/img/favicon-qb.ico">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          pathlib - 面向对象的文件系统路径（翻译） - qb | Qiang Blog - Sharing programming and life
+        
+    </title>
+
+    <link rel="canonical" href="https://www.wuqiangroy.cn/2019/03/27/pathlib-面向对象的文件系统/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('cover.jpg')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#python" title="python">python</a>
+                            
+                              <a class="tag" href="/tags/#翻译" title="翻译">翻译</a>
+                            
+                        </div>
+                        <h1>pathlib - 面向对象的文件系统路径（翻译）</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by roywu on
+                            2019-03-27
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Qiang Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>python 3.4 的新模块<br>
+源码： <a href="https://github.com/python/cpython/blob/3.7/Lib/pathlib.py" target="_blank" rel="noopener">Lib/pathlib.py</a></p>
+<hr>
+<p>该模块提供了表示文件系统路径的类，语义合适，可用于不同的操作系统。Path 类分为两部分：<a href="https://docs.python.org/3/library/pathlib.html#pure-paths" target="_blank" rel="noopener">纯路径（pure paths）</a>和<a href="https://docs.python.org/3/library/pathlib.html#concrete-paths" target="_blank" rel="noopener">具体路径（concrete path）</a>。pure paths 支持不带 I/O 的纯计算操作，具体路径继承了纯路径但是提供了 I/O 操作。<br>
+<img src="path.png" alt></p>
+<p>如果你重来没有使用过该模块，或者你不确定你的哪个类适用于你的系统，那么 <a href>Path</a> 就是你所需要的。它实例化了一个代码运行平台的<a href="https://docs.python.org/3/library/pathlib.html#concrete-paths" target="_blank" rel="noopener">具体路径（concrete path）</a></p>
+<p>在一些特殊的案例下，纯路径将非常有用。比如说：<br>
+  1、如果你想在 Unix 机器上操作 Windows 的文件路径，或者反过来。你不能够在 Unix 平台实例化 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.WindowsPath" target="_blank" rel="noopener">WindowsPath</a> 来运行，但是你可以运行实例化的 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PureWindowsPath" target="_blank" rel="noopener">PureWindowsPath</a><br>
+  2、你想要确认你的代码不实际访问系统 OS 而操作文件路径。这种情况下，只需要实例化一个纯类即可，这些操作不会访问任何 OS。</p>
+<p>同样可看：<a href="https://www.python.org/dev/peps/pep-0428" target="_blank" rel="noopener">PEP 428</a>: pathlib 模块 - 面向对象的文件系统路径<br>
+同样可看：对于低级别的字符串路径操作，你也可以使用 <a href="https://docs.python.org/3/library/os.path.html#module-os.path" target="_blank" rel="noopener">os.path</a> 模块</p>
+<h2><span id="基本用法">基本用法</span></h2>
+<p>引用主类：</p>
+<p><code>&gt;&gt;&gt; from pathlib import Path</code></p>
+<p>子目录展开：</p>
+<p><code>&gt;&gt;&gt; p = Path('.')</code><br>
+<code>&gt;&gt;&gt; [x for x in p.iterdir() if x.is_dir()]</code><br>
+<code>[PosixPath('.hg'), PosixPath('docs'), PosixPath('dist'),</code><br>
+<code>PosixPath('__pycache__'), PosixPath('build')]</code></p>
+<p>展开该目录下所有的 ptyhon 源文件:</p>
+<p><code>&gt;&gt;&gt; list(p.glob('**/*.py'))</code><br>
+<code>[PosixPath('test_pathlib.py'), PosixPath('setup.py'),</code><br>
+<code>PosixPath('pathlib.py'), PosixPath('docs/conf.py'),</code><br>
+<code>PosixPath('build/lib/pathlib.py')]</code></p>
+<p>在一个目录下导航:</p>
+<p><code>&gt;&gt;&gt; p = Path('/etc')</code><br>
+<code>&gt;&gt;&gt; q = p / 'init.d' / 'reboot'</code><br>
+<code>&gt;&gt;&gt; q</code><br>
+<code>PosixPath('/etc/init.d/reboot')</code><br>
+<code>&gt;&gt;&gt; q.resolve()</code><br>
+<code>PosixPath('/etc/rc.d/init.d/halt')</code></p>
+<p>查询路径属性：</p>
+<p><code>&gt;&gt;&gt; q.exists()</code><br>
+<code>True</code><br>
+<code>&gt;&gt;&gt; q.is_dir()</code><br>
+<code>False</code></p>
+<p>打开一个文件：</p>
+<p><code>&gt;&gt;&gt; with q.open() as f: f.readline()</code><br>
+<code>...</code><br>
+<code>'#!/bin/bash\n'</code></p>
+<h2><span id="纯路径">纯路径</span></h2>
+<p>纯路径对象提供了不用访问实际文件系统，处理路径的操作。有三种方式访问这些类：</p>
+<p><em>class</em> pathlib.<strong>PurePath</strong>(*<em>pathsegments</em>)<br>
+  一个代表了系统路径风格的泛类（实例它会创建 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PurePosixPath" target="_blank" rel="noopener">PurePosixPath</a> 或 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PureWindowsPath" target="_blank" rel="noopener">PureWindowsPath</a>）：</p>
+<p>  <code>&gt;&gt;&gt; PurePath('setup.py') # 在 Unix 机器上运行</code><br>
+  <code>PurePosixPath('setup.py')</code><br>
+  每个<em>pathsegments</em>的元素可以是一个表示路径段的字符串，一个返回字符串的实现 <a href="https://docs.python.org/3/library/os.html#os.PathLike" target="_blank" rel="noopener">os.PathLike</a> 接口的对象，或者其他的路径对象：</p>
+<p>  <code>&gt;&gt;&gt; PurePath('foo', 'some/path', 'bar')</code><br>
+  <code>PurePosixPath('foo/some/path/bar')</code><br>
+  <code>&gt;&gt;&gt; PurePath(Path('foo'), Path('bar'))</code><br>
+  <code>PurePosixPath('foo/bar')</code></p>
+<p>  当<em>pathsegments</em>为空的时候，实例化的时候会被指定为当前目录：<br>
+  <br>
+  <code>&gt;&gt;&gt; PurePath()</code><br>
+  <code>PurePosixPath('.')</code><br>
+  <br>
+  当给了几个绝对路径，那么最后一个作为锚点（模仿 <a href="https://docs.python.org/3/%E2%80%83%E2%80%83library/os.path.html#os.path.join" target="_blank" rel="noopener">os.path.join()</a>）：<br>
+  <br>
+  <code>&gt;&gt;&gt; PurePath('/etc', '/usr', 'lib64')</code><br>
+  <code>PurePosixPath('/usr/lib64')</code><br>
+  <code>&gt;&gt;&gt; PureWindowsPath('c:/Windows', 'd:bar')</code><br>
+  <code>PureWindowsPath('d:bar')</code><br>
+  <br>
+  但是，在 Windows 路径里面，更改当前的根目录不会丢弃之前的设定：<br>
+  <br>
+  <code>&gt;&gt;&gt; PureWindowsPath('c:/Windows', '/Program Files')</code><br>
+  <code>PureWindowsPath('c:/Program Files')</code><br>
+  <br>
+  伪斜线和单点会被折叠，但是双点（“<code>..</code>”）不会，因为这会改变符号链接前面路径的含义：<br>
+  <br>
+  <code>&gt;&gt;&gt; PurePath('foo//bar')</code><br>
+  <code>PurePosixPath('foo/bar')</code><br>
+  <code>&gt;&gt;&gt; PurePath('foo/./bar')</code><br>
+  <code>PurePosixPath('foo/bar')</code><br>
+  <code>&gt;&gt;&gt; PurePath('foo/../bar')</code><br>
+  <code>PurePosixPath('foo/../bar')</code></p>
+<p>  （如果 <code>foo</code> 是一个指向另一个目录的符号链接，那么 <code>PurePosixPath('foo/../bar')</code> 和 <code>PurePosixPath('bar')</code> 相等，这是错误的）<br>
+纯路径对象实现了 <a href="https://docs.python.org/3/library/os.html#os.PathLike" target="_blank" rel="noopener">os.PathLike</a> 接口，允许任何接受接口的地方使用。<br>
+  <br>
+  <em>python 3.6 更改</em>：新增 <a href="https://docs.python.org/3/library/%E2%80%83%E2%80%83os.html#os.PathLike" target="_blank" rel="noopener">os.PathLike</a> 接口支持</p>
+<p><em>class</em> pathlib.<strong>PurePosixPath</strong>(*<em>pathsegments</em>)</p>
+<p>  <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PurePath" target="_blank" rel="noopener">PurePath</a> 的子类，代表了非 - Windows 系文件系统路径：</p>
+<p>  <code>&gt;&gt;&gt; PurePosixPath('/etc')</code><br>
+  <code>PurePosixPath('/etc')</code></p>
+<p>  <em>pathsegments</em> 和 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PurePath" target="_blank" rel="noopener">PurePath</a> 的参数类似。</p>
+<p><em>class</em> pathlib.<strong>PureWindowsPath</strong>(*<em>pathsegments</em>)</p>
+<p>  <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PurePath" target="_blank" rel="noopener">PurePath</a> 的子类，代表了 Windows 系文件系统路径：</p>
+<p>  <code>&gt;&gt;&gt; PureWindowsPath('c:/Program Files/')</code><br>
+  <code>PureWindowsPath('c:/Program Files')</code></p>
+<p>  <em>pathsegments</em> 和 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PurePath" target="_blank" rel="noopener">PurePath</a> 的参数类似。</p>
+<p>不管你运行的是什么操作系统，由于都不进行系统调用，所以你都可以实例这些类。</p>
+<h3><span id="基本属性">基本属性</span></h3>
+<p>路径是不变且可哈希的，同一类型的路径是可以进行比较和排序的。这些属性遵循不同类型的路径的折叠语义。</p>
+<p><code>&gt;&gt;&gt; PurePosixPath('foo') == PurePosixPath('FOO')</code><br>
+<code>False</code><br>
+<code>&gt;&gt;&gt; PureWindowsPath('foo') == PureWindowsPath('FOO')</code><br>
+<code>True</code><br>
+<code>&gt;&gt;&gt; PureWindowsPath('FOO') in { PureWindowsPath('foo') }</code><br>
+<code>True</code><br>
+<code>&gt;&gt;&gt; PureWindowsPath('C:') &lt; PureWindowsPath('d:')</code><br>
+<code>True</code></p>
+<p>不同类型的路径比较是不同的且无法排序：</p>
+<p><code>&gt;&gt;&gt; PureWindowsPath('foo') == PurePosixPath('foo')</code><br>
+<code>False</code><br>
+<code>&gt;&gt;&gt; PureWindowsPath('foo') &lt; PurePosixPath('foo')</code><br>
+<code>Traceback (most recent call last):</code><br>
+<code>File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</code><br>
+<code>TypeError: '&lt;' not supported between instances of 'PureWindowsPath' and 'PurePosixPath'</code></p>
+<h3><span id="操作">操作</span></h3>
+<p>斜线运算符可以建立子路径，和 <a href="https://docs.python.org/3/library/os.path.html#os.path.join" target="_blank" rel="noopener">os.path.join()</a> 类似：</p>
+<p><code>&gt;&gt;&gt; p = PurePath('/etc')</code><br>
+<code>&gt;&gt;&gt; p</code><br>
+<code>PurePosixPath('/etc')</code><br>
+<code>&gt;&gt;&gt; p / 'init.d' / 'apache2'</code><br>
+<code>PurePosixPath('/etc/init.d/apache2')</code><br>
+<code>&gt;&gt;&gt; q = PurePath('bin')</code><br>
+<code>&gt;&gt;&gt; '/usr' / q</code><br>
+<code>PurePosixPath('/usr/bin')</code></p>
+<p>在接受实现 <a href="https://docs.python.org/3/library/os.html#os.PathLike" target="_blank" rel="noopener">os.PathLike</a> 的地方可以使用路径对象:</p>
+<p><code>&gt;&gt;&gt; import os</code><br>
+<code>&gt;&gt;&gt; p = PurePath('/etc')</code><br>
+<code>&gt;&gt;&gt; os.fspath(p)</code><br>
+<code>'/etc'</code></p>
+<p>路径的字符串表现形式是原始文件系统路径本身（原生形式，比如：Windows 下面使用反斜杠），你可以将文件路径作为字符串传递给任何方法。</p>
+<p><code>&gt;&gt;&gt; p = PurePath('/etc')</code><br>
+<code>&gt;&gt;&gt; str(p)</code><br>
+<code>'/etc'</code><br>
+<code>&gt;&gt;&gt; p = PureWindowsPath('c:/Program Files')</code><br>
+<code>&gt;&gt;&gt; str(p)</code><br>
+<code>'c:\\Program Files'</code></p>
+<p>类似的，对路径调用 <a href="https://docs.python.org/3/library/stdtypes.html#bytes" target="_blank" rel="noopener">bytes</a> 可以得到原始文件系统的字节对象，就像编码 <a href="https://docs.python.org/3/library/os.html#os.fsencode" target="_blank" rel="noopener">os.fsencode()</a> 一样。</p>
+<p><code>&gt;&gt;&gt; bytes(p)</code><br>
+<code>b'/etc'</code></p>
+<p>注意：仅建议在 Unix 下调用 <a href="https://docs.python.org/3/library/stdtypes.html#bytes" target="_blank" rel="noopener">bytes</a>。Windows 下，unicode 是文件系统路径的规范表示。</p>
+<h3><span id="访问各部分">访问各部分</span></h3>
+<p>要访问一个路径的各个“部分”（组件），可以使用以下属性：</p>
+<p>PurePath.<strong>parts</strong></p>
+<p>返回一个由可访问路径各组件的 tuple:</p>
+<p><code>&gt;&gt;&gt; p = PurePath('/usr/bin/python3')</code><br>
+<code>&gt;&gt;&gt; p.parts</code><br>
+<code>('/', 'usr', 'bin', 'python3')</code></p>
+<p><code>&gt;&gt;&gt; p = PureWindowsPath('c:/Program Files/PSF')</code><br>
+<code>&gt;&gt;&gt; p.parts</code><br>
+<code>('c:\\', 'Program Files', 'PSF')</code></p>
+<p>（注意驱动和本地根目录是如何在单个部分中重组的）</p>
+<h3><span id="方法和属性">方法和属性</span></h3>
+<p>纯路径提供了提供了以下方法和属性：</p>
+<p>PurePath.<strong>drive</strong><br>
+代表了驱动盘符或名字的字符串，如果有的话：</p>
+<p><code>&gt;&gt;&gt; PureWindowsPath('c:/Program Files/').drive</code><br>
+<code>'c:'</code><br>
+<code>&gt;&gt;&gt; PureWindowsPath('/Program Files/').drive</code><br>
+<code>''</code><br>
+<code>&gt;&gt;&gt; PurePosixPath('/etc').drive</code><br>
+<code>''</code></p>
+<p>UNC 共享文件夹（UNC shares）也被视作驱动器：</p>
+<p><code>&gt;&gt;&gt; PureWindowsPath('//host/share/foo.txt').drive</code><br>
+<code>'\\\\host\\share'</code></p>
+<p>PurePath.<strong>root</strong></p>
+<p>代表了本地或全局的根目录，如果有的话：</p>
+<p><code>&gt;&gt;&gt; PureWindowsPath('c:/Program Files/').root</code><br>
+<code>'\\'</code><br>
+<code>&gt;&gt;&gt; PureWindowsPath('c:Program Files/').root</code><br>
+<code>''</code><br>
+<code>&gt;&gt;&gt; PurePosixPath('/etc').root</code><br>
+<code>'/'</code></p>
+<p>UNC 共享文件夹（UNC shares）永远都有根目录：</p>
+<p><code>&gt;&gt;&gt; PureWindowsPath('//host/share').root</code><br>
+<code>'\\'</code></p>
+<p>PurePath.<strong>anchor</strong></p>
+<p>驱动器和根目录的并存：</p>
+<p><code>&gt;&gt;&gt; PureWindowsPath('c:/Program Files/').anchor</code><br>
+<code>'c:\\'</code><br>
+<code>&gt;&gt;&gt; PureWindowsPath('c:Program Files/').anchor</code><br>
+<code>'c:'</code><br>
+<code>&gt;&gt;&gt; PurePosixPath('/etc').anchor</code><br>
+<code>'/'</code><br>
+<code>&gt;&gt;&gt; PureWindowsPath('//host/share').anchor</code><br>
+<code>'\\\\host\\share\\'</code></p>
+<p>PurePath.<strong>parents</strong></p>
+<p>提供访问路径的逻辑祖先路径的不可变序列：</p>
+<p><code>&gt;&gt;&gt; p = PureWindowsPath('c:/foo/bar/setup.py')</code><br>
+<code>&gt;&gt;&gt; p.parents[0]</code><br>
+<code>PureWindowsPath('c:/foo/bar')</code><br>
+<code>&gt;&gt;&gt; p.parents[1]</code><br>
+<code>PureWindowsPath('c:/foo')</code><br>
+<code>&gt;&gt;&gt; p.parents[2]</code><br>
+<code>PureWindowsPath('c:/')</code></p>
+<p>PurePath.<strong>parent</strong></p>
+<p>路径的逻辑父路径：</p>
+<p><code>&gt;&gt;&gt; p = PurePosixPath('/a/b/c/d')</code><br>
+<code>&gt;&gt;&gt; p.parent</code><br>
+<code>PurePosixPath('/a/b/c')</code></p>
+<p>你不能传递一个锚点和空路径:</p>
+<p><code>&gt;&gt;&gt; p = PurePosixPath('/')</code><br>
+<code>&gt;&gt;&gt; p.parent</code><br>
+<code>PurePosixPath('/')</code><br>
+<code>&gt;&gt;&gt; p = PurePosixPath('.')</code><br>
+<code>&gt;&gt;&gt; p.parent</code><br>
+<code>PurePosixPath('.')</code></p>
+<p>注意：这是一个纯语法操作，于是有了以下情况：</p>
+<p><code>&gt;&gt;&gt; p = PurePosixPath('foo/..')</code><br>
+<code>&gt;&gt;&gt; p.parent</code><br>
+<code>PurePosixPath('foo')</code></p>
+<p>如果你想向上走任意的文件系统路径，推荐先使用 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.resolve" target="_blank" rel="noopener">Path.resolve()</a> 解析符号链接，消除 <code>..</code> 组件。</p>
+<p>PurePath.<strong>name</strong></p>
+<p>代表最终路径组建的字符串，包括驱动器和根目录，如果有的话：</p>
+<p><code>&gt;&gt;&gt; PurePosixPath('my/library/setup.py').name</code><br>
+<code>'setup.py'</code></p>
+<p>UNC 驱动器没有名字：</p>
+<p><code>&gt;&gt;&gt; PureWindowsPath('//some/share/setup.py').name</code><br>
+<code>'setup.py'</code><br>
+<code>&gt;&gt;&gt; PureWindowsPath('//some/share').name</code><br>
+<code>''</code></p>
+<p>PurePath.<strong>suffix</strong></p>
+<p>最终路径组件的文件的扩展名，如果有的话：</p>
+<p><code>&gt;&gt;&gt; PurePosixPath('my/library/setup.py').suffix</code><br>
+<code>'.py'</code><br>
+<code>&gt;&gt;&gt; PurePosixPath('my/library.tar.gz').suffix</code><br>
+<code>'.gz'</code><br>
+<code>&gt;&gt;&gt; PurePosixPath('my/library').suffix</code><br>
+<code>''</code></p>
+<p>PurePath.<strong>suffixes</strong></p>
+<p>列表形式的文件扩展名：</p>
+<p><code>&gt;&gt;&gt; PurePosixPath('my/library.tar.gar').suffixes</code><br>
+<code>['.tar', '.gar']</code><br>
+<code>&gt;&gt;&gt; PurePosixPath('my/library.tar.gz').suffixes</code><br>
+<code>['.tar', '.gz']</code><br>
+<code>&gt;&gt;&gt; PurePosixPath('my/library').suffixes</code><br>
+<code>[]</code></p>
+<p>PurePath.<strong>stem</strong></p>
+<p>不带后缀名的最终路径组件：</p>
+<p><code>&gt;&gt;&gt; PurePosixPath('my/library.tar.gz').stem</code><br>
+<code>'library.tar'</code><br>
+<code>&gt;&gt;&gt; PurePosixPath('my/library.tar').stem</code><br>
+<code>'library'</code><br>
+<code>&gt;&gt;&gt; PurePosixPath('my/library').stem</code><br>
+<code>'library'</code></p>
+<p>PurePath.<strong>as_posix</strong>()</p>
+<p>返回带斜杠的代表路径的字符串：</p>
+<p><code>&gt;&gt;&gt; p = PureWindowsPath('c:\\windows')</code><br>
+<code>&gt;&gt;&gt; str(p)</code><br>
+<code>'c:\\windows'</code><br>
+<code>&gt;&gt;&gt; p.as_posix()</code><br>
+<code>'c:/windows'</code></p>
+<p>PurePath.<strong>as_uri</strong>()</p>
+<p>将路径表示为 URI，如果路径不是绝对路径会抛 <a href="https://docs.python.org/3/library/exceptions.html#ValueError" target="_blank" rel="noopener">ValueError</a> 错误。</p>
+<p><code>&gt;&gt;&gt; p = PurePosixPath('/etc/passwd')</code><br>
+<code>&gt;&gt;&gt; p.as_uri()</code><br>
+<code>'file:///etc/passwd'</code><br>
+<code>&gt;&gt;&gt; p = PureWindowsPath('c:/Windows')</code><br>
+<code>&gt;&gt;&gt; p.as_uri()</code><br>
+<code>'file:///c:/Windows'</code></p>
+<p>PurePath.<strong>is_absolute</strong>()</p>
+<p>路径是否为绝对路径。一个路径同时有根和类型允许的驱动器，那么这个路径视为绝对路径：</p>
+<p><code>&gt;&gt;&gt; PurePosixPath('/a/b').is_absolute()</code><br>
+<code>True</code><br>
+<code>&gt;&gt;&gt; PurePosixPath('a/b').is_absolute()</code><br>
+<code>False</code><br>
+``<br>
+<code>&gt;&gt;&gt; PureWindowsPath('c:/a/b').is_absolute()</code><br>
+<code>True</code><br>
+<code>&gt;&gt;&gt; PureWindowsPath('/a/b').is_absolute()</code><br>
+<code>False</code><br>
+<code>&gt;&gt;&gt; PureWindowsPath('c:').is_absolute()</code><br>
+<code>False</code><br>
+<code>&gt;&gt;&gt; PureWindowsPath('//some/share').is_absolute()</code><br>
+<code>True</code></p>
+<p>PurePath.<strong>is_reserved</strong>()</p>
+<p>PurePath.<strong>joinpath</strong>(*<em>other</em>)</p>
+<p>PurePath.<strong>match</strong>(<em>pattern</em>)</p>
+<p>PurePath.<strong>relative_to</strong>(*<em>other</em>)</p>
+<p>PurePath.<strong>with_name</strong>(<em>name</em>)</p>
+<p>PurePath.<strong>with_suffix</strong>(<em>suffix</em>)</p>
+<h2><span id="具体路径">具体路径</span></h2>
+<p><em>class</em> pathlib.<strong>Path</strong>(*<em>pathsegments</em>)</p>
+<p><em>class</em> pathlib.<strong>PosixPath</strong>(*<em>pathsegments</em>)</p>
+<p><em>class</em> pathlib.<strong>WindowsPath</strong>(*<em>pathsegments</em>)</p>
+<h3><span id="方法">方法</span></h3>
+<p><em>classmethod</em> Path.<strong>cwd</strong>()</p>
+<p><em>classmethod</em> Path.<strong>home</strong>()</p>
+<p>Path.<strong>stat</strong>()</p>
+<p>Path.<strong>chmod</strong>(<em>mode</em>)</p>
+<p>Path.<strong>exists</strong>()</p>
+<p>Path.<strong>expanduser</strong>()</p>
+<p>Path.<strong>glob</strong>(<em>pattern</em>)</p>
+<p>Path.<strong>group</strong>()</p>
+<p>Path.<strong>is_dir</strong>()<br>
+Path.<strong>is_file</strong>()<br>
+Path.<strong>is_mount</strong>()<br>
+Path.<strong>is_symlink</strong>()</p>
+<p>Path.<strong>is_socket</strong>()<br>
+Path.<strong>is_fifo</strong>()<br>
+Path.<strong>is_block_device</strong>()<br>
+Path.<strong>is_char_device</strong>()</p>
+<p>Path.<strong>iterdir</strong>()<br>
+Path.<strong>lchmod</strong>(<em>mode</em>)<br>
+Path.<strong>lstat</strong>()<br>
+Path.<strong>mkdir</strong>(<em>mode=0o777</em>, <em>parents=False</em>, <em>exist_ok=False</em>)</p>
+<p>Path.<strong>open</strong>(<em>mode=‘r’</em>, <em>buffering=-1</em>, <em>encoding=None</em>, <em>errors=None</em>, <em>newline=None</em>)<br>
+Path.<strong>owner</strong>()<br>
+Path.<strong>read_bytes</strong>()</p>
+<p>Path.<strong>read_text</strong>(<em>encoding=None</em>, <em>errors=None</em>)<br>
+Path.<strong>rename</strong>(<em>target</em>)<br>
+Path.<strong>replace</strong>(<em>target</em>)<br>
+Path.<strong>resolve</strong>(<em>strict=False</em>)</p>
+<p>Path.<strong>rglob</strong>(<em>pattern</em>)</p>
+<p>Path.<strong>rmdir</strong>()<br>
+Path.<strong>samefile</strong>(<em>other_path</em>)<br>
+Path.<strong>symlink_to</strong>(<em>target</em>, <em>target_is_directory=False</em>)<br>
+Path.<strong>touch</strong>(<em>mode=0o666</em>, <em>exist_ok=True</em>)<br>
+  当前路径下创建文件。如果 <em>mode</em> 給值，它将和进程的 umask 结合来确定文件模式和访问标志。如果文件已经存在，如果 <em>exist_ok</em> 为 true（并将其修改时间改为当前时间） 那么函数处理成功，否则抛出 <a href="https://docs.python.org/3/library/exceptions.html#FileExistsError" target="_blank" rel="noopener">FileExistsError</a> 错误。</p>
+<p>Path.<strong>unlink</strong>()<br>
+  移除文件或符号链接。如果路径指向的是一个目录，使用 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.rmdir" target="_blank" rel="noopener">Path.rmdir()</a> 代替。</p>
+<p>Path.<strong>write_bytes</strong>(<em>data</em>)<br>
+  字节模式打开文件，写入 <em>data</em>，然后关闭文件：<br>
+  <br>
+  <code>&gt;&gt;&gt; p = Path('my_binary_file')</code><br>
+  <code>&gt;&gt;&gt; p.write_bytes(b'Binary file contents')</code><br>
+  <code>20</code><br>
+  <code>&gt;&gt;&gt; p.read_bytes()</code><br>
+  <code>b'Binary file contents'</code><br>
+  <br>
+  同名文件将会被覆盖<br>
+  <br>
+  <em>python 3.5 新增</em></p>
+<p>Path.<strong>write_text</strong>(<em>data</em>, <em>encoding=None</em>, <em>errors=None</em>)<br>
+  文本模式打开文件，写入 <em>data</em>，然后关闭文件：<br>
+  <br>
+  <code>&gt;&gt;&gt; p = Path('my_text_file')</code><br>
+  <code>&gt;&gt;&gt; p.write_text('Text file contents')</code><br>
+  <code>18</code><br>
+  <code>&gt;&gt;&gt; p.read_text()</code><br>
+  <code>'Text file contents'</code><br>
+  <br>
+  <em>python 3.5 新增</em></p>
+<h2><span id="与-os-模块对应的工具">与 os 模块对应的工具</span></h2>
+<p>下面是是各 <a href="https://docs.python.org/3/library/os.html#module-os" target="_blank" rel="noopener">os</a> 方法和 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PurePath" target="_blank" rel="noopener">PurePath</a>/<a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" target="_blank" rel="noopener">Path</a> 相同功能一一映射的表</p>
+<p>注意：虽然 <a href="https://docs.python.org/3/library/os.path.html#os.path.relpath" target="_blank" rel="noopener">os.path.relpath()</a> 和 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PurePath.relative_to" target="_blank" rel="noopener">PurePath.relative_to()</a> 有很多重叠的用例，不过他们的语义差别很大不能认为他们是相等的。</p>
+<table>
+<thead>
+<tr>
+<th>os 和 os.path</th>
+<th>pathlib</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://docs.python.org/3/library/os.path.html#os.path.abspath" target="_blank" rel="noopener">os.path.abspath()</a></td>
+<td><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.resolve" target="_blank" rel="noopener">Path.resolve()</a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/os.html#os.chmod" target="_blank" rel="noopener">os.chmod()</a></td>
+<td><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.chmod" target="_blank" rel="noopener">Path.chmod()</a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/os.html#os.mkdir" target="_blank" rel="noopener">os.mkdir()</a></td>
+<td><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.mkdir" target="_blank" rel="noopener">Path.mkdir()</a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/os.html#os.rename" target="_blank" rel="noopener">os.rename()</a></td>
+<td><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.rename" target="_blank" rel="noopener">Path.rename()</a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/os.html#os.replace" target="_blank" rel="noopener">os.replace()</a></td>
+<td><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.replace" target="_blank" rel="noopener">Path.replace()</a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/os.html#os.rmdir" target="_blank" rel="noopener">os.rmdir()</a></td>
+<td><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.rmdir" target="_blank" rel="noopener">Path.rmdir()</a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/os.html#os.remove" target="_blank" rel="noopener">os.remove()</a>, <a href="https://docs.python.org/3/library/os.html#os.unlink" target="_blank" rel="noopener">os.unlink()</a></td>
+<td><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.unlink" target="_blank" rel="noopener">Path.unlink()</a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/os.html#os.getcwd" target="_blank" rel="noopener">os.getcwd()</a></td>
+<td><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.cwd" target="_blank" rel="noopener">Path.cwd()</a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/os.path.html#os.path.exists" target="_blank" rel="noopener">os.path.exists()</a></td>
+<td><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.exists" target="_blank" rel="noopener">Path.exists()</a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/os.path.html#os.path.expanduser" target="_blank" rel="noopener">os.path.expanduser()</a></td>
+<td><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.expanduser" target="_blank" rel="noopener">Path.expanduser()</a> 和 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.home" target="_blank" rel="noopener">Path.home()</a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/os.path.html#os.path.isdir" target="_blank" rel="noopener">os.path.isdir()</a></td>
+<td><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_dir" target="_blank" rel="noopener">Path.is_dir()</a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/os.path.html#os.path.isfile" target="_blank" rel="noopener">os.path.isfile()</a></td>
+<td><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_file" target="_blank" rel="noopener">Path.is_file()</a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/os.path.html#os.path.islink" target="_blank" rel="noopener">os.path.islink()</a></td>
+<td><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_symlink" target="_blank" rel="noopener">Path.is_symlink()</a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/os.html#os.stat" target="_blank" rel="noopener">os.stat()</a></td>
+<td><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.stat" target="_blank" rel="noopener">Path.stat()</a>, <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.owner" target="_blank" rel="noopener">Path.owner()</a>, <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.group" target="_blank" rel="noopener">Path.group()</a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/os.path.html#os.path.isabs" target="_blank" rel="noopener">os.path.isabs()</a></td>
+<td><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PurePath.is_absolute" target="_blank" rel="noopener">PurePath.is_absolute()</a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/os.path.html#os.path.join" target="_blank" rel="noopener">os.path.join()</a></td>
+<td><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PurePath.joinpath" target="_blank" rel="noopener">PurePath.joinpath()</a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/os.path.html#os.path.basename" target="_blank" rel="noopener">os.path.basename()</a></td>
+<td><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PurePath.name" target="_blank" rel="noopener">PurePath.name</a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/os.path.html#os.path.dirname" target="_blank" rel="noopener">os.path.dirname()</a></td>
+<td><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PurePath.parent" target="_blank" rel="noopener">PurePath.parent</a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/os.path.html#os.path.samefile" target="_blank" rel="noopener">os.path.samefile()</a></td>
+<td><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.samefile" target="_blank" rel="noopener">Path.samefile()</a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/os.path.html#os.path.splitext" target="_blank" rel="noopener">os.path.splitext()</a></td>
+<td><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PurePath.suffix" target="_blank" rel="noopener">PurePath.suffix</a></td>
+</tr>
+</tbody>
+</table>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2019/04/02/你的-996-一点都不值钱/" data-toggle="tooltip" data-placement="top" title="你的 996 一点都不值钱">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/03/22/python-3-7-dataclass-浅析/" data-toggle="tooltip" data-placement="top" title="python 3.7 dataclass 浅析">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">基本用法</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">纯路径</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">基本属性</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">操作</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">访问各部分</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.4.</span> <span class="toc-nav-text">方法和属性</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">具体路径</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">方法</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">与 os 模块对应的工具</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/wu-qiang-719">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/2877411585">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/wuqiangroy">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; roywu 2019 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                    |
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> 
+                    <!-- <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true" >
+                    </iframe> -->
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://www.wuqiangroy.cn/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-wuqiangroy-qiangblog';
+    var _gaDomain = 'wuqiangroy.cn';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '592bb6fb6501694699d4018a00500957';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<!-- <a id="rocket" href="#top" class=""></a> -->
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<!-- <img src="https://www.wuqiangroy.cn/img/icon_wechat.png" width="0" height="0" /> -->
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
