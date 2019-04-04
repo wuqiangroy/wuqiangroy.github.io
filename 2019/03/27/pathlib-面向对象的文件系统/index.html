@@ -142,7 +142,7 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -156,7 +156,7 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -481,18 +481,118 @@
 <code>&gt;&gt;&gt; PureWindowsPath('//some/share').is_absolute()</code><br>
 <code>True</code></p>
 <p>PurePath.<strong>is_reserved</strong>()</p>
+<p><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PureWindowsPath" target="_blank" rel="noopener">PureWindowsPath</a> 类的话，如果 Windows 下认为该路径是保留的，那么返回 <code>True</code>，反之返回 <code>False</code>。<br>
+<a href="https://docs.python.org/3/library/pathlib.html#pathlib.PurePosixPath" target="_blank" rel="noopener">PurePosixPath</a> 永久返回 <code>False</code></p>
+<p><code>&gt;&gt;&gt; PureWindowsPath('nul').is_reserved()</code><br>
+<code>True</code><br>
+<code>&gt;&gt;&gt; PurePosixPath('nul').is_reserved()</code><br>
+<code>False</code></p>
+<p>文件系统调用保留路径的话可能会导致神秘失败或意外情况。</p>
 <p>PurePath.<strong>joinpath</strong>(*<em>other</em>)</p>
+<p>调用此方法相当于将 <em>other</em> 里面每个参数进行合并之后返回：</p>
+<p><code>&gt;&gt;&gt; PurePosixPath('/etc').joinpath('passwd')</code><br>
+<code>PurePosixPath('/etc/passwd')</code><br>
+<code>&gt;&gt;&gt; PurePosixPath('/etc').joinpath(PurePosixPath('passwd'))</code><br>
+<code>PurePosixPath('/etc/passwd')</code><br>
+<code>&gt;&gt;&gt; PurePosixPath('/etc').joinpath('init.d', 'apache2')</code><br>
+<code>PurePosixPath('/etc/init.d/apache2')</code><br>
+<code>&gt;&gt;&gt; PureWindowsPath('c:').joinpath('/Program Files')</code><br>
+<code>PureWindowsPath('c:/Program Files')</code></p>
 <p>PurePath.<strong>match</strong>(<em>pattern</em>)</p>
+<p>将路径和提供的正则匹配符进行正则匹配，如果匹配返回 <code>True</code> 不匹配返回 <code>False</code>。</p>
+<p>如果 <em>pattern</em> 是相对的，那么路径可以绝对路径或者相对路径，正则匹配将从右边开始匹配。</p>
+<p><code>&gt;&gt;&gt; PurePath('a/b.py').match('*.py')</code><br>
+<code>True</code><br>
+<code>&gt;&gt;&gt; PurePath('/a/b/c.py').match('b/*.py')</code><br>
+<code>True</code><br>
+<code>&gt;&gt;&gt; PurePath('/a/b/c.py').match('a/*.py')</code><br>
+<code>False</code></p>
+<p>如果 <em>pattern</em> 是绝对的，那么路径也必须是绝对的，同时整个地址必须匹配。</p>
+<p><code>&gt;&gt;&gt; PurePath('/a.py').match('/*.py')</code><br>
+<code>True</code><br>
+<code>&gt;&gt;&gt; PurePath('a/b.py').match('/*.py')</code><br>
+<code>False</code></p>
+<p>和其他方法一样，大小写不敏感</p>
+<p><code>&gt;&gt;&gt; PureWindowsPath('b.py').match('*.PY')</code><br>
+<code>True</code></p>
 <p>PurePath.<strong>relative_to</strong>(*<em>other</em>)</p>
+<p>计算路径相对于 <em>other</em> 表示路径的一个版本。如果没有的话，抛出 ValueError 错误：</p>
+<p><code>&gt;&gt;&gt; p = PurePosixPath('/etc/passwd')</code><br>
+<code>&gt;&gt;&gt; p.relative_to('/')</code><br>
+<code>PurePosixPath('etc/passwd')</code><br>
+<code>&gt;&gt;&gt; p.relative_to('/etc')</code><br>
+<code>PurePosixPath('passwd')</code><br>
+<code>&gt;&gt;&gt; p.relative_to('/usr')</code><br>
+<code>Traceback (most recent call last):</code><br>
+<code>File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</code><br>
+<code>File &quot;pathlib.py&quot;, line 694, in relative_to</code><br>
+<code>.format(str(self), str(formatted)))</code><br>
+<code>ValueError: '/etc/passwd' does not start with '/usr'</code></p>
 <p>PurePath.<strong>with_name</strong>(<em>name</em>)</p>
+<p>返回一个被 <em>name</em> 替换了的新路径。如果原始路径没有名字，抛出 ValueError 错误：</p>
+<p><code>&gt;&gt;&gt; p = PureWindowsPath('c:/Downloads/pathlib.tar.gz')</code><br>
+<code>&gt;&gt;&gt; p.with_name('setup.py')</code><br>
+<code>PureWindowsPath('c:/Downloads/setup.py')</code><br>
+<code>&gt;&gt;&gt; p = PureWindowsPath('c:/')</code><br>
+<code>&gt;&gt;&gt; p.with_name('setup.py')</code><br>
+<code>Traceback (most recent call last):</code><br>
+<code>File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</code><br>
+<code>File &quot;/home/antoine/cpython/default/Lib/pathlib.py&quot;, line 751, in with_name</code><br>
+<code>raise ValueError(&quot;%r has an empty name&quot; % (self,))</code><br>
+<code>ValueError: PureWindowsPath('c:/') has an empty name</code></p>
 <p>PurePath.<strong>with_suffix</strong>(<em>suffix</em>)</p>
-<h2><span id="具体路径">具体路径</span></h2>
+<p>返回一个后缀被 <em>suffix</em> 替换了的新路径。如果原始路径不包含后缀，那么 <em>suffix</em> 将会被添加在后面。如果 <em>suffix</em> 是一个空字符串，那么原始路径的后缀就会被移除。</p>
+<p><code>&gt;&gt;&gt; p = PureWindowsPath('c:/Downloads/pathlib.tar.gz')</code><br>
+<code>&gt;&gt;&gt; p.with_suffix('.bz2')</code><br>
+<code>PureWindowsPath('c:/Downloads/pathlib.tar.bz2')</code><br>
+<code>&gt;&gt;&gt; p = PureWindowsPath('README')</code><br>
+<code>&gt;&gt;&gt; p.with_suffix('.txt')</code><br>
+<code>PureWindowsPath('README.txt')</code><br>
+<code>&gt;&gt;&gt; p = PureWindowsPath('README.txt')</code><br>
+<code>&gt;&gt;&gt; p.with_suffix('')</code><br>
+<code>PureWindowsPath('README')</code></p>
+<h2><span id="具体路径concrete-paths">具体路径（concrete paths）</span></h2>
+<p>具体路径（Concrete paths）类是纯路径（pure classes）类的一个子类。除了拥有后者提供的一些操作之外，还提供了路径（path）对象调用系统的方法。共有三种方式实例化具体路径（concrete paths）类：</p>
 <p><em>class</em> pathlib.<strong>Path</strong>(*<em>pathsegments</em>)</p>
+<p>一个 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PurePath" target="_blank" rel="noopener">纯路径（PurePath）</a> 的子类，这个类代表了系统具体路径的风格（实例化会创建一个 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" target="_blank" rel="noopener">PosixPath</a> 对象或 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.WindowsPath" target="_blank" rel="noopener">WindowsPath</a>）：</p>
+<p><code>&gt;&gt;&gt; Path('setup.py')</code><br>
+<code>PosixPath('setup.py')</code></p>
+<p><em>pathsegments</em> 参数和 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PurePath" target="_blank" rel="noopener">PurePath</a> 类似</p>
 <p><em>class</em> pathlib.<strong>PosixPath</strong>(*<em>pathsegments</em>)</p>
+<p>一个 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" target="_blank" rel="noopener">Path</a> 和 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PurePosixPath" target="_blank" rel="noopener">PurePosixPath</a> 的子类，此类代表了非 Windows 系统具体的文件系统路径：</p>
+<p><code>&gt;&gt;&gt; PosixPath('/etc')</code><br>
+<code>PosixPath('/etc')</code></p>
+<p><em>pathsegments</em> 参数和 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PurePath" target="_blank" rel="noopener">PurePath</a> 类似</p>
 <p><em>class</em> pathlib.<strong>WindowsPath</strong>(*<em>pathsegments</em>)</p>
+<p>一个 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" target="_blank" rel="noopener">Path</a> 和 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PureWindowsPath" target="_blank" rel="noopener">PureWindowsPath</a> 的子类，此类代表了 Windows 系统具体的文件系统路径：</p>
+<p><code>&gt;&gt;&gt; WindowsPath('c:/Program Files/')</code><br>
+<code>WindowsPath('c:/Program Files')</code></p>
+<p><em>pathsegments</em> 参数和 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PurePath" target="_blank" rel="noopener">PurePath</a> 类似</p>
+<p>你只能实例化和你操作系统匹配的类（允许系统调用不兼容的路径风格，会导致 bug 或者让你的应用失败）：</p>
+<p><code>&gt;&gt;&gt; import os</code><br>
+<code>&gt;&gt;&gt; os.name</code><br>
+<code>'posix'</code><br>
+<code>&gt;&gt;&gt; Path('setup.py')</code><br>
+<code>PosixPath('setup.py')</code><br>
+<code>&gt;&gt;&gt; PosixPath('setup.py')</code><br>
+<code>PosixPath('setup.py')</code><br>
+<code>&gt;&gt;&gt; WindowsPath('setup.py')</code><br>
+<code>Traceback (most recent call last):</code><br>
+<code>File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</code><br>
+<code>File &quot;pathlib.py&quot;, line 798, in __new__</code><br>
+<code>% (cls.__name__,))</code><br>
+<code>NotImplementedError: cannot instantiate 'WindowsPath' on your system</code></p>
 <h3><span id="方法">方法</span></h3>
+<p>除纯路径（pure paths）类的方法外，具体路径（concrete paths）类还提供了以下方法。如果系统调用失败（比如一个不存在的路径），很多方法都能会抛出 <a href="https://docs.python.org/3/library/exceptions.html#OSError" target="_blank" rel="noopener">OSError</a> 错误。</p>
 <p><em>classmethod</em> Path.<strong>cwd</strong>()</p>
+<p>返回一个代表当前目录的新路径对象（相当于 <a href>os.getcwd()</a>）</p>
+<p><code>&gt;&gt;&gt; Path.cwd()</code><br>
+<code>PosixPath('/home/antoine/pathlib')</code></p>
 <p><em>classmethod</em> Path.<strong>home</strong>()</p>
+<p>返回一个代表用户 home 目录的新路径对象（相当于带 <code>～</code> 参数的 <a href="https://docs.python.org/3/library/os.path.html#os.path.expanduser" target="_blank" rel="noopener">os.path.expanduser()</a>）</p>
+<p><code>&gt;&gt;&gt; Path.home()</code><br>
+<code>PosixPath('/home/antoine')</code></p>
+<p><em>python 3.5 新增</em></p>
 <p>Path.<strong>stat</strong>()</p>
 <p>Path.<strong>chmod</strong>(<em>mode</em>)</p>
 <p>Path.<strong>exists</strong>()</p>
@@ -648,6 +748,10 @@ Path.<strong>touch</strong>(<em>mode=0o666</em>, <em>exist_ok=True</em>)<br>
                 <!-- Pager -->
                 <ul class="pager">
                     
+                        <li class="previous">
+                            <a href="/2019/04/05/pythonista，你真的会测试么？/" data-toggle="tooltip" data-placement="top" title="pythonista，你真的会测试么？">&larr; Previous Post</a>
+                        </li>
+                    
                     
                         <li class="next">
                             <a href="/2019/03/22/python-3-7-dataclass-浅析/" data-toggle="tooltip" data-placement="top" title="python 3.7 dataclass 浅析">Next Post &rarr;</a>
@@ -676,7 +780,7 @@ Path.<strong>touch</strong>(<em>mode=0o666</em>, <em>exist_ok=True</em>)<br>
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">基本用法</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">纯路径</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">基本属性</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">操作</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">访问各部分</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.4.</span> <span class="toc-nav-text">方法和属性</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">具体路径</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">方法</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">与 os 模块对应的工具</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">基本用法</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">纯路径</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">基本属性</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">操作</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">访问各部分</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.4.</span> <span class="toc-nav-text">方法和属性</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">具体路径（concrete paths）</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">方法</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">与 os 模块对应的工具</span></a></li></ol>
         
         </div>
       </aside>
