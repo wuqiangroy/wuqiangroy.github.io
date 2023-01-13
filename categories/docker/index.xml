@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>docker on wuqiangroy&#39;s records</title>
+    <link>http://wuqiangroy.github.io/categories/docker/</link>
+    <description>Recent content in docker on wuqiangroy&#39;s records</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 13 Jan 2023 11:21:09 +0800</lastBuildDate><atom:link href="http://wuqiangroy.github.io/categories/docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to enable remote access for Docker</title>
+      <link>http://wuqiangroy.github.io/post/2023/how_to_enable_remote_access_for_docker/</link>
+      <pubDate>Fri, 13 Jan 2023 11:21:09 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/post/2023/how_to_enable_remote_access_for_docker/</guid>
+      <description>When we install docker and run it, the remote access is disable the default configuration. Sometimes we need remote access and actually the docker official provides how to enable it for us but I can not save the file when I follow the tutorial. If you have interests, please see: Configure remote access for Docker daemon
+Here I record a way to enable the remote access, in case I forget it in the future.</description>
+    </item>
+    
+  </channel>
+</rss>

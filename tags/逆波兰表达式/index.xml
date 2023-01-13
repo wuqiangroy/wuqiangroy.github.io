@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>逆波兰表达式 on wuqiangroy&#39;s records</title>
+    <link>http://wuqiangroy.github.io/tags/%E9%80%86%E6%B3%A2%E5%85%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F/</link>
+    <description>Recent content in 逆波兰表达式 on wuqiangroy&#39;s records</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 30 Nov 2022 14:06:29 +0800</lastBuildDate><atom:link href="http://wuqiangroy.github.io/tags/%E9%80%86%E6%B3%A2%E5%85%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>从中缀表达式到逆波兰表达式</title>
+      <link>http://wuqiangroy.github.io/post/2022/the_expression/</link>
+      <pubDate>Wed, 30 Nov 2022 14:06:29 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/post/2022/the_expression/</guid>
+      <description>之前在字节面试的时候，面试官给我出了一道算法题：给定一个用字符串表示的算式，算式中只有+， -， *， /，请计算出最终结果。 比如 2+3*4-2/</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>教程 on wuqiangroy&#39;s records</title>
+    <link>http://wuqiangroy.github.io/tags/%E6%95%99%E7%A8%8B/</link>
+    <description>Recent content in 教程 on wuqiangroy&#39;s records</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 28 Nov 2022 09:25:08 +0800</lastBuildDate><atom:link href="http://wuqiangroy.github.io/tags/%E6%95%99%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 Hugo 搭建自己的博客</title>
+      <link>http://wuqiangroy.github.io/post/2022/build_blog_by_hugo/</link>
+      <pubDate>Mon, 28 Nov 2022 09:25:08 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/post/2022/build_blog_by_hugo/</guid>
+      <description>前些年的时候，我在腾讯云上面购买了一个云服务器，一个域名，然后自己用 python 写了一个博客后端。 使用 Nginx 作为正向代理，就这样搭建了我第一个博客。 这个博</description>
+    </item>
+    
+  </channel>
+</rss>

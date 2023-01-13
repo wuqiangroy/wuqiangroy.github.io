@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>websocket on wuqiangroy&#39;s records</title>
+    <link>http://wuqiangroy.github.io/tags/websocket/</link>
+    <description>Recent content in websocket on wuqiangroy&#39;s records</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 16 Dec 2022 15:08:19 +0800</lastBuildDate><atom:link href="http://wuqiangroy.github.io/tags/websocket/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Integrate websocket to gin</title>
+      <link>http://wuqiangroy.github.io/post/2022/integrate_websocket_to_gin/</link>
+      <pubDate>Fri, 16 Dec 2022 15:08:19 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/post/2022/integrate_websocket_to_gin/</guid>
+      <description>Introduction Gin is a famous web framework written in Go, we can easy to build our web server by following codes: 1 2 3 4 5 6 7 8 9 10 11 12 package main import &amp;#34;github.com/gin-gonic/gin&amp;#34; func main() { r := gin.Default() r.GET(&amp;#34;/hello-world&amp;#34;, func(c *gin.Context) { c.JSON(200, gin.H{ &amp;#34;message&amp;#34;: &amp;#34;hello, world&amp;#34;, }) }) r.Run() // listen and serve on 0.0.0.0:8080 } Saving these 11 lines codes as a hello.go</description>
+    </item>
+    
+  </channel>
+</rss>

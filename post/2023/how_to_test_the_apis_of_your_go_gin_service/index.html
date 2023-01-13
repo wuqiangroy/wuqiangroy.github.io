@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>How to test the APIs of your Go-Gin service? - wuqiangroy&#39;s records</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="wuqiangroy" /><meta name="description" content="As the pre-post said, Gin is a famouse web framework writen by Go. I love it and always use it. When I wrote a web server using Go-Gin, how do I test the APIs? This may confused me, only use a command-line tool to verify them? It&amp;rsquo;s seems ridiculous and non-product. We need to have a full-check for the APIs and it&amp;rsquo;s better to make it automatic, then we need" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.99.1 with theme even" />
+
+
+<link rel="canonical" href="http://wuqiangroy.github.io/post/2023/how_to_test_the_apis_of_your_go_gin_service/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="How to test the APIs of your Go-Gin service?" />
+<meta property="og:description" content="As the pre-post said, Gin is a famouse web framework writen by Go. I love it and always use it. When I wrote a web server using Go-Gin, how do I test the APIs? This may confused me, only use a command-line tool to verify them? It&rsquo;s seems ridiculous and non-product. We need to have a full-check for the APIs and it&rsquo;s better to make it automatic, then we need" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://wuqiangroy.github.io/post/2023/how_to_test_the_apis_of_your_go_gin_service/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-01-03T11:17:20+08:00" />
+<meta property="article:modified_time" content="2023-01-03T11:17:20+08:00" />
+
+<meta itemprop="name" content="How to test the APIs of your Go-Gin service?">
+<meta itemprop="description" content="As the pre-post said, Gin is a famouse web framework writen by Go. I love it and always use it. When I wrote a web server using Go-Gin, how do I test the APIs? This may confused me, only use a command-line tool to verify them? It&rsquo;s seems ridiculous and non-product. We need to have a full-check for the APIs and it&rsquo;s better to make it automatic, then we need"><meta itemprop="datePublished" content="2023-01-03T11:17:20+08:00" />
+<meta itemprop="dateModified" content="2023-01-03T11:17:20+08:00" />
+<meta itemprop="wordCount" content="1121">
+<meta itemprop="keywords" content="golang,English,gin,test," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="How to test the APIs of your Go-Gin service?"/>
+<meta name="twitter:description" content="As the pre-post said, Gin is a famouse web framework writen by Go. I love it and always use it. When I wrote a web server using Go-Gin, how do I test the APIs? This may confused me, only use a command-line tool to verify them? It&rsquo;s seems ridiculous and non-product. We need to have a full-check for the APIs and it&rsquo;s better to make it automatic, then we need"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">wuqiangroy</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">wuqiangroy</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">How to test the APIs of your Go-Gin service?</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-01-03 </span>
+        <div class="post-category">
+            <a href="/categories/english/"> English </a>
+            <a href="/categories/%E6%95%99%E7%A8%8B/"> 教程 </a>
+            <a href="/categories/program/"> program </a>
+            </div>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#write-a-go-gin-service">write a Go-Gin service</a></li>
+        <li><a href="#test-the-apis-using-postman">test the APIs using postman</a></li>
+        <li><a href="#write-an-unit-test-for-the-apis">write an unit-test for the APIs</a></li>
+        <li><a href="#ci-cd">CI-CD</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>As the pre-post said, Gin is a famouse web framework writen by Go. I love it and always use it.</br>
+When I wrote a web server using Go-Gin, how do I test the APIs? This may confused me, only use a command-line tool to verify them? It&rsquo;s seems ridiculous and non-product. </br>
+We need to have a full-check for the APIs and it&rsquo;s better to make it automatic, then we need to integrate it in the CI-CD pipline, make sure that it will run automaticly after we commit codes.</br></p>
+<h2 id="write-a-go-gin-service">write a Go-Gin service</h2>
+<p>It&rsquo;s very easy to write a web server using Go-Gin, here&rsquo;s an example of exporting the information of an user.</br>
+The very first step, we need to create a workplace named <code>webserver</code>.</br>
+The architechture is:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">webserver</span>
+</span></span><span class="line"><span class="cl">	<span class="err">--</span> <span class="err">module</span>
+</span></span><span class="line"><span class="cl">		<span class="err">--</span> <span class="err">user.go</span>
+</span></span><span class="line"><span class="cl">	<span class="err">--</span> <span class="err">main.go</span>
+</span></span><span class="line"><span class="cl">	<span class="err">--</span> <span class="err">go.sum</span>
+</span></span><span class="line"><span class="cl">	<span class="err">--</span> <span class="err">go.mod</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The logic codes are under a <code>module</code> file:</br>
+<code>module/user.go</code></br></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">module</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;net/http&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;github.com/gin-gonic/gin&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">UserInfo</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Nickname</span> <span class="kt">string</span> <span class="s">`json: &#34;nickname&#34;`</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">UserID</span>   <span class="kt">string</span> <span class="s">`json:&#34;userID&#34;`</span> <span class="c1">// unique for all users
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">Gender</span>   <span class="kt">int</span>    <span class="s">`json:&#34;gender&#34;`</span> <span class="c1">// 0 - male 1 - female
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">BirthDay</span> <span class="kt">string</span> <span class="s">`json:&#34;birthday&#34;`</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">GetUser</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">name</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Request</span><span class="p">.</span><span class="nf">FormValue</span><span class="p">(</span><span class="s">&#34;name&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">name</span> <span class="o">==</span> <span class="s">&#34;Joe&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">var</span> <span class="nx">user</span> <span class="p">=</span> <span class="nx">UserInfo</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">Nickname</span><span class="p">:</span> <span class="s">&#34;Joe&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">UserID</span><span class="p">:</span>   <span class="s">&#34;113113&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">Gender</span><span class="p">:</span>   <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">BirthDay</span><span class="p">:</span> <span class="s">&#34;1990-01-01&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">c</span><span class="p">.</span><span class="nf">IndentedJSON</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusOK</span><span class="p">,</span> <span class="nx">user</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">c</span><span class="p">.</span><span class="nf">IndentedJSON</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusBadRequest</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>main.go</code> is our start process, here we register all the routers.</br>
+<code>main.go</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;webserver/module&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;github.com/gin-gonic/gin&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">r</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">Default</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">r</span><span class="p">.</span><span class="nf">GET</span><span class="p">(</span><span class="s">&#34;/user&#34;</span><span class="p">,</span> <span class="nx">module</span><span class="p">.</span><span class="nx">GetUser</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">r</span><span class="p">.</span><span class="nf">Run</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We set a form value of name here, if only the name equals <code>Joe</code>, the info of <code>Joe</code> will be sent out, but other name will get the HTTP status 400.</br>
+Then run <code>go run main.go</code> to start the webserver.</br></p>
+<h2 id="test-the-apis-using-postman">test the APIs using postman</h2>
+<p><a href="https://www.postman.com/">Postman</a> is a well-known GUI API test tool, easy and elegant to use, ofcourse, here you can use other GUI tools you like, suck as <a href="https://paw.cloud/">RapidApi</a> and <a href="https://www.apifox.cn/">Apifox</a>.</br></p>
+<p>When I set the name <code>Joe</code>, I&rsquo;ll get the info of <code>Joe</code>:</br>
+<a href="https://imgse.com/i/pSiMVWq"><img src="https://s1.ax1x.com/2023/01/03/pSiMVWq.png" alt="pSiMVWq.png"></a>
+But others will only get BadRequest:</br>
+<a href="https://imgse.com/i/pSiMlTJ"><img src="https://s1.ax1x.com/2023/01/03/pSiMlTJ.png" alt="pSiMlTJ.png"></a></p>
+<p>You can use your own tool to test it.</br></p>
+<h2 id="write-an-unit-test-for-the-apis">write an unit-test for the APIs</h2>
+<p>We&rsquo;ve already test out API by using postman, it seems OK now. But it&rsquo;s only a very good tool for programmer, although it clear and easy to use, help us fix bug and check the API realtime.</br>
+Somtimes, we change a universal function, it&rsquo;s may effect to all the apis, although we sure the function is 100 percent OK and have beed tested full, but we still need to query all the APIs manually in the GUI software Postman. When you have 1000 APIs, you may crazy.</br>
+Actually, Postman provides us a test tool and mock data now, you can test all your APIs by one click, but if a lazy boy changed the universal function, just testing it but forget to run the test? This may case a bad issue. </br>
+We still need to write test code for it, we need to write the test code and integrate in Git pipeline, only the pipeline passed, your code will be commit successfully.</br>
+Now, Gin provides a good function to call APIs directly.</br>
+Create a new file: <code>test/api_test.go</code></br>
+Now, your architechture may like this:</br></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">webserver</span>
+</span></span><span class="line"><span class="cl">	<span class="err">--</span> <span class="err">module</span>
+</span></span><span class="line"><span class="cl">		<span class="err">--</span> <span class="err">user.go</span>
+</span></span><span class="line"><span class="cl">	<span class="err">--</span> <span class="err">test</span>
+</span></span><span class="line"><span class="cl">		<span class="err">--</span> <span class="err">api_test.go</span>
+</span></span><span class="line"><span class="cl">	<span class="err">main.go</span>
+</span></span><span class="line"><span class="cl">	<span class="err">go.sum</span>
+</span></span><span class="line"><span class="cl">	<span class="err">go.mod</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>module/user.go</code></br></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;encoding/json&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;net/http&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;net/http/httptest&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;testing&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;webserver/module&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;github.com/gin-gonic/gin&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;github.com/stretchr/testify/assert&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">TestGetUser</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">url</span> <span class="p">=</span> <span class="s">&#34;/user&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">r</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">Default</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">r</span><span class="p">.</span><span class="nf">GET</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">module</span><span class="p">.</span><span class="nx">GetUser</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">w</span> <span class="o">:=</span> <span class="nx">httptest</span><span class="p">.</span><span class="nf">NewRecorder</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">req</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">NewRequest</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">MethodGet</span><span class="p">,</span> <span class="s">&#34;/user&#34;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">r</span><span class="p">.</span><span class="nf">ServeHTTP</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">req</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">assert</span><span class="p">.</span><span class="nf">Equal</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nx">StatusBadRequest</span><span class="p">,</span> <span class="nx">w</span><span class="p">.</span><span class="nx">Code</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">name</span> <span class="p">=</span> <span class="s">&#34;Joe&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">req2</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">NewRequest</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">MethodGet</span><span class="p">,</span> <span class="s">&#34;/user?name=&#34;</span><span class="o">+</span><span class="nx">name</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">w</span> <span class="p">=</span> <span class="nx">httptest</span><span class="p">.</span><span class="nf">NewRecorder</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">r</span><span class="p">.</span><span class="nf">ServeHTTP</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">req2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">data</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">w</span><span class="p">.</span><span class="nx">Code</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">json</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">(</span><span class="nx">w</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nf">Bytes</span><span class="p">(),</span> <span class="o">&amp;</span><span class="nx">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">assert</span><span class="p">.</span><span class="nf">Equal</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nx">StatusOK</span><span class="p">,</span> <span class="nx">w</span><span class="p">.</span><span class="nx">Code</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">assert</span><span class="p">.</span><span class="nf">Equal</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">data</span><span class="p">[</span><span class="s">&#34;Nickname&#34;</span><span class="p">],</span> <span class="nx">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We have 2 data checker here, one is checking the BadRequest and another is checking normal request.</br>
+We can use <code>go test -v test/*</code> test all the test files under the test file.</br>
+Result:</br></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ go test -v test/*
+</span></span><span class="line"><span class="cl">=== RUN   TestGetUser
+</span></span><span class="line"><span class="cl">[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[GIN-debug] [WARNING] Running in &#34;debug&#34; mode. Switch to &#34;release&#34; mode in production.
+</span></span><span class="line"><span class="cl"> - using env:   export GIN_MODE=release
+</span></span><span class="line"><span class="cl"> - using code:  gin.SetMode(gin.ReleaseMode)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[GIN-debug] GET    /user                     --&gt; webserver/module.GetUser (3 handlers)
+</span></span><span class="line"><span class="cl">[GIN] 2023/01/03 - 16:54:25 | 400 |       203.5µs |                 | GET      &#34;/user&#34;
+</span></span><span class="line"><span class="cl">[GIN] 2023/01/03 - 16:54:25 | 200 |      31.084µs |                 | GET      &#34;/user?name=Joe&#34;
+</span></span><span class="line"><span class="cl">200
+</span></span><span class="line"><span class="cl">map[Nickname:Joe birthday:1990-01-01 gender: userID:113113]
+</span></span><span class="line"><span class="cl">--- PASS: TestGetUser (0.00s)
+</span></span><span class="line"><span class="cl">PASS
+</span></span><span class="line"><span class="cl">ok      command-line-arguments  0.584s
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Let me modify the name <code>Joe</code> to <code>Jo</code>, this time, the test should be failed.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ go test -v test/*
+</span></span><span class="line"><span class="cl">=== RUN   TestGetUser
+</span></span><span class="line"><span class="cl">[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[GIN-debug] [WARNING] Running in &#34;debug&#34; mode. Switch to &#34;release&#34; mode in production.
+</span></span><span class="line"><span class="cl"> - using env:   export GIN_MODE=release
+</span></span><span class="line"><span class="cl"> - using code:  gin.SetMode(gin.ReleaseMode)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[GIN-debug] GET    /user                     --&gt; webserver/module.GetUser (3 handlers)
+</span></span><span class="line"><span class="cl">[GIN] 2023/01/03 - 16:57:23 | 400 |     139.666µs |                 | GET      &#34;/user&#34;
+</span></span><span class="line"><span class="cl">[GIN] 2023/01/03 - 16:57:23 | 400 |       2.459µs |                 | GET      &#34;/user?name=Jo&#34;
+</span></span><span class="line"><span class="cl">400
+</span></span><span class="line"><span class="cl">map[]
+</span></span><span class="line"><span class="cl">    api_test.go:33: 
+</span></span><span class="line"><span class="cl">                Error Trace:    /webserver/test/api_test.go:33
+</span></span><span class="line"><span class="cl">                Error:          Not equal: 
+</span></span><span class="line"><span class="cl">                                expected: 200
+</span></span><span class="line"><span class="cl">                                actual  : 400
+</span></span><span class="line"><span class="cl">                Test:           TestGetUser
+</span></span><span class="line"><span class="cl">    api_test.go:34: 
+</span></span><span class="line"><span class="cl">                Error Trace:    /webserver/test/api_test.go:34
+</span></span><span class="line"><span class="cl">                Error:          Not equal: 
+</span></span><span class="line"><span class="cl">                                expected: &#34;&#34;
+</span></span><span class="line"><span class="cl">                                actual  : &#34;Jo&#34;
+</span></span><span class="line"><span class="cl">                            
+</span></span><span class="line"><span class="cl">                                Diff:
+</span></span><span class="line"><span class="cl">                                --- Expected
+</span></span><span class="line"><span class="cl">                                +++ Actual
+</span></span><span class="line"><span class="cl">                                @@ -1 +1 @@
+</span></span><span class="line"><span class="cl">                                -
+</span></span><span class="line"><span class="cl">                                +Jo
+</span></span><span class="line"><span class="cl">                Test:           TestGetUser
+</span></span><span class="line"><span class="cl">--- FAIL: TestGetUser (0.00s)
+</span></span><span class="line"><span class="cl">FAIL
+</span></span><span class="line"><span class="cl">FAIL    command-line-arguments  0.469s
+</span></span><span class="line"><span class="cl">FAIL
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>That means when we modified the universal code, the pipeline of test may fail and our codes need to be check.</br></p>
+<h2 id="ci-cd">CI-CD</h2>
+<p>Above, our test command is <code>go test -v test/*</code>.</br>
+So, when we need CI-CD, we only need to add this command to your <code>.gitlab-ci.yaml</code> file, maybe you can add a new stage named <code>test</code>.</br>
+If you are the first time hearing <code>.gitlab-ci.yaml</code>, here&rsquo;s a reference for you:
+<a href="https://docs.gitlab.com/ee/ci/yaml/gitlab_ci_yaml.html">The .gitlab-ci.yml file </a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">wuqiangroy</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2023-01-03
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          <a href="/tags/english/">English</a>
+          <a href="/tags/gin/">gin</a>
+          <a href="/tags/test/">test</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/2023/how_to_enable_remote_access_for_docker/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">How to enable remote access for Docker</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/2023/how_to_set_a_go_project_as_a_module/">
+            <span class="next-text nav-default">How to set a Go project as a Go module?</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wuqiangroy@live.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/wuqiangroy" class="iconfont icon-github" title="github"></a>
+  <a href="http://wuqiangroy.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2022 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>wuqiangroy</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

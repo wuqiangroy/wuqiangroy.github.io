@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>test on wuqiangroy&#39;s records</title>
+    <link>http://wuqiangroy.github.io/tags/test/</link>
+    <description>Recent content in test on wuqiangroy&#39;s records</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 03 Jan 2023 11:17:20 +0800</lastBuildDate><atom:link href="http://wuqiangroy.github.io/tags/test/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to test the APIs of your Go-Gin service?</title>
+      <link>http://wuqiangroy.github.io/post/2023/how_to_test_the_apis_of_your_go_gin_service/</link>
+      <pubDate>Tue, 03 Jan 2023 11:17:20 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/post/2023/how_to_test_the_apis_of_your_go_gin_service/</guid>
+      <description>As the pre-post said, Gin is a famouse web framework writen by Go. I love it and always use it. When I wrote a web server using Go-Gin, how do I test the APIs? This may confused me, only use a command-line tool to verify them? It&amp;rsquo;s seems ridiculous and non-product. We need to have a full-check for the APIs and it&amp;rsquo;s better to make it automatic, then we need</description>
+    </item>
+    
+  </channel>
+</rss>

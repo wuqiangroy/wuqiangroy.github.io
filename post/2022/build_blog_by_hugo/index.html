@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用 Hugo 搭建自己的博客 - wuqiangroy&#39;s records</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="wuqiangroy" /><meta name="description" content="前些年的时候，我在腾讯云上面购买了一个云服务器，一个域名，然后自己用 python 写了一个博客后端。 使用 Nginx 作为正向代理，就这样搭建了我第一个博客。 这个博" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.99.1 with theme even" />
+
+
+<link rel="canonical" href="http://wuqiangroy.github.io/post/2022/build_blog_by_hugo/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="使用 Hugo 搭建自己的博客" />
+<meta property="og:description" content="前些年的时候，我在腾讯云上面购买了一个云服务器，一个域名，然后自己用 python 写了一个博客后端。 使用 Nginx 作为正向代理，就这样搭建了我第一个博客。 这个博" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://wuqiangroy.github.io/post/2022/build_blog_by_hugo/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-11-28T09:25:08+08:00" />
+<meta property="article:modified_time" content="2022-11-28T09:25:08+08:00" />
+
+<meta itemprop="name" content="使用 Hugo 搭建自己的博客">
+<meta itemprop="description" content="前些年的时候，我在腾讯云上面购买了一个云服务器，一个域名，然后自己用 python 写了一个博客后端。 使用 Nginx 作为正向代理，就这样搭建了我第一个博客。 这个博"><meta itemprop="datePublished" content="2022-11-28T09:25:08+08:00" />
+<meta itemprop="dateModified" content="2022-11-28T09:25:08+08:00" />
+<meta itemprop="wordCount" content="1267">
+<meta itemprop="keywords" content="教程,hugo," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用 Hugo 搭建自己的博客"/>
+<meta name="twitter:description" content="前些年的时候，我在腾讯云上面购买了一个云服务器，一个域名，然后自己用 python 写了一个博客后端。 使用 Nginx 作为正向代理，就这样搭建了我第一个博客。 这个博"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">wuqiangroy</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">wuqiangroy</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">使用 Hugo 搭建自己的博客</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-11-28 </span>
+        <div class="post-category">
+            <a href="/categories/%E6%95%99%E7%A8%8B/"> 教程 </a>
+            </div>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#安装-golang">安装 golang</a></li>
+            <li><a href="#安装-hugo">安装 hugo</a></li>
+            <li><a href="#创建一个博客">创建一个博客</a></li>
+            <li><a href="#使用主题">使用主题</a></li>
+            <li><a href="#创建-about">创建 about</a></li>
+            <li><a href="#创建第一篇博客">创建第一篇博客</a></li>
+            <li><a href="#博客预览">博客预览</a></li>
+            <li><a href="#生产博客">生产博客</a></li>
+            <li><a href="#创建-gihub-repo">创建 gihub repo</a></li>
+            <li><a href="#推送数据">推送数据</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>前些年的时候，我在腾讯云上面购买了一个云服务器，一个域名，然后自己用 <code>python</code> 写了一个博客后端。</br>
+使用 <code>Nginx</code> 作为正向代理，就这样搭建了我第一个博客。</br>
+这个博客内容还挺多，评论、文章、用户系统、富文本编辑框等等，一一俱全。</br>
+后来自己对博客的维护比较少，出现了一些 <code>bug</code> 我也难得修复了，等到服务器到期，我就难得续费了。</br></p>
+<p>后来在网上看到很多博客都非常精美，有的用 <code>wordpress</code> 搭建的，有的用 <a href="https://gohugo.io/about/">hugo</a> 搭建的，结合我自己的场景，我决定使用 <a href="https://gohugo.io/about/">hugo</a> + <code>github</code> 来创建自己的博客。</p>
+<h3 id="安装-golang">安装 golang</h3>
+<p><a href="https://gohugo.io/about/">hugo</a> 使用 <code>golang</code> 写的，要使用 <a href="https://gohugo.io/about/">hugo</a>，需要先安装 <code>golang</code>。<a href="https://go.dev/doc/install">安装教程</a></br></p>
+<h3 id="安装-hugo">安装 hugo</h3>
+<p><code>macOS</code> 下 <code>hugo</code> 的安装方法：</br></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">brew instal hugo
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其他平台参考官方文档：<a href="https://gohugo.io/installation/">hugo installation</a></p>
+<h3 id="创建一个博客">创建一个博客</h3>
+<p>使用 <code>hugo</code> 命令：<code>hugo new site blog</code> 在当前地址创建一个 <code>blog</code> 文件。</br><br>
+里面的布局如下：</br></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">    - archetypes
+</span></span><span class="line"><span class="cl">    - content
+</span></span><span class="line"><span class="cl">    - data
+</span></span><span class="line"><span class="cl">    - layout
+</span></span><span class="line"><span class="cl">    - public
+</span></span><span class="line"><span class="cl">    - resource
+</span></span><span class="line"><span class="cl">    - static
+</span></span><span class="line"><span class="cl">    - themes
+</span></span><span class="line"><span class="cl">    config.toml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中，<code>config.toml</code> 是我们的配置文件，我们主要的修改都在这个配置文件里面。</br></p>
+<h3 id="使用主题">使用主题</h3>
+<p>原生的 hugo 博客并不好看，好在官方及各路大神提供了不少主题，我们直接可以使用，我很喜欢 <a href="https://github.com/olOwOlo/hugo-theme-even">even</a> 主题，所以我使用 <a href="https://github.com/olOwOlo/hugo-theme-even">even</a> 来说明。</br></p>
+<p>按照 <a href="https://github.com/olOwOlo/hugo-theme-even">even</a> 的文档，首先我们需要下载对应的包：</br><br>
+<code>git clone https://github.com/olOwOlo/hugo-theme-even themes/even</code></p>
+<p>下载完成之后，我们可以看到 themes 里面多出来一个 <code>even</code> 的文件夹。</br><br>
+在 <code>exampleSite</code> 里面，我们将 <code>config.toml</code> 里面的内容复制，然后将 <code>blog</code> 文件夹下的 <code>config.toml</code> 内容替换。</br></p>
+<p>PS. 替换完成的 <code>config.toml</code> 里面有不少需要更改的地方，包括 <code>title</code> 等，需要自行进行更改。</br></p>
+<h3 id="创建-about">创建 about</h3>
+<p>我们通过 <code>hugo new about.md</code></p>
+<p>然后我们可以在 <code>content</code> 里面看到 <code>about.md</code> 文件， 内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">title: &#34;About&#34;
+</span></span><span class="line"><span class="cl">date: 2022-11-27T17:08:11+08:00
+</span></span><span class="line"><span class="cl">draft: true
+</span></span><span class="line"><span class="cl">---
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以在后面继续添加你的说明，文档格式是 markdown。</p>
+<h3 id="创建第一篇博客">创建第一篇博客</h3>
+<p>我们通过 <code>hugo new post/blog_name.md</code> 创建一篇名为 <code>blog_name</code> 的博客。<br>
+你可以在 <code>content/post</code> 里面看到该文件。<br>
+文件内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">title: &#34;blog_name&#34;
+</span></span><span class="line"><span class="cl">date: 2022-11-27T17:08:11+08:00
+</span></span><span class="line"><span class="cl">draft: true
+</span></span><span class="line"><span class="cl">---
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后你可以在后面继续编写。</p>
+<p>PS. 博客和 <code>about</code> 里面的 <code>draft</code> 为 <code>true</code> 的话，文章在博客里面是不会显示的，只有设置成 <code>false</code> 才会显示。</p>
+<h4 id="添加额外信息">添加额外信息</h4>
+<p>我们有时候会给文章添加 <code>tags</code>、<code>category</code> 还有 <code>author</code> 的信息，我们只需要在两个 <code>---</code> 之间添加即可。<br>
+格式如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">title: &#34;blog_name&#34;
+</span></span><span class="line"><span class="cl">date: 2022-11-27T17:08:11+08:00
+</span></span><span class="line"><span class="cl">draft: true
+</span></span><span class="line"><span class="cl">tags: [&#34;教程&#34;, &#34;hugo&#34;]
+</span></span><span class="line"><span class="cl">categories: [&#34;教程&#34;]
+</span></span><span class="line"><span class="cl">author: &#34;your_name&#34;
+</span></span><span class="line"><span class="cl">---
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="博客预览">博客预览</h3>
+<p>我们可以通过 <code>hugo server</code> 来启动本地开发环境。你可以通过 <code>127.0.0.1:1313</code> 来进访问。</p>
+<h3 id="生产博客">生产博客</h3>
+<p>通过博客预览，我们检查无误之后，可以使用命令：<code>hugo</code> 来生成生产环境的博客。<br>
+生成内容在 <code>pulic</code> 文件夹里面。</p>
+<h3 id="创建-gihub-repo">创建 gihub repo</h3>
+<p>要使用 <code>github</code> 来管理和访问我们的博客，我们需要在 <code>github</code> 创建一个项目：
+<code>your_account_name.github.io</code>
+其中 <code>your_account_name</code> 是你在 <code>github</code> 上面的账户名，仓库名格式固定，像博主的 <code>github</code> 名是 <code>wuqiangroy</code>，所以我的 <code>repo</code> 名是：<code>wuqiangroy.github.io</code>。</p>
+<h3 id="推送数据">推送数据</h3>
+<p>我们进入 <code>public</code> 文件夹：<code>cd public</code>
+然后通过以下命令推送项目：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git init
+</span></span><span class="line"><span class="cl">git remote add origin git@github.com:your_account_name/your_account_name.github.io.git
+</span></span><span class="line"><span class="cl">git add --all
+</span></span><span class="line"><span class="cl">git commit -m &#34;update my first blog&#34;
+</span></span><span class="line"><span class="cl">git push origin master
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后我们静待一会，就能通过 <code>your_account_name.github.io</code> 来进行博客访问了。</p>
+<hr>
+<p>本文默认读者对于 <code>git</code> 是使用时没有问题的，如果对于 <code>git</code> 使用不熟悉，请参考：https://www.runoob.com/git/git-tutorial.html </br>
+本文默认读者对于 <code>github</code> 的简单使用是没有问题，并且有自己的账号，如有相关问题，请参考：https://docs.github.com/en/get-started</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">wuqiangroy</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2022-11-28
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E6%95%99%E7%A8%8B/">教程</a>
+          <a href="/tags/hugo/">hugo</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/2022/debunk_the_health_app_of_huawei/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">吐槽一下华为的运动健康软件</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/2022/my_rss/">
+            <span class="next-text nav-default">我的 RSS 资源</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wuqiangroy@live.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/wuqiangroy" class="iconfont icon-github" title="github"></a>
+  <a href="http://wuqiangroy.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2022 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>wuqiangroy</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

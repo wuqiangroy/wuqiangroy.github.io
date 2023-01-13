@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on wuqiangroy&#39;s records</title>
+    <link>http://wuqiangroy.github.io/post/</link>
+    <description>Recent content in Posts on wuqiangroy&#39;s records</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 13 Jan 2023 11:21:09 +0800</lastBuildDate><atom:link href="http://wuqiangroy.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to enable remote access for Docker</title>
+      <link>http://wuqiangroy.github.io/post/2023/how_to_enable_remote_access_for_docker/</link>
+      <pubDate>Fri, 13 Jan 2023 11:21:09 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/post/2023/how_to_enable_remote_access_for_docker/</guid>
+      <description>When we install docker and run it, the remote access is disable the default configuration. Sometimes we need remote access and actually the docker official provides how to enable it for us but I can not save the file when I follow the tutorial. If you have interests, please see: Configure remote access for Docker daemon
+Here I record a way to enable the remote access, in case I forget it in the future.</description>
+    </item>
+    
+    <item>
+      <title>How to test the APIs of your Go-Gin service?</title>
+      <link>http://wuqiangroy.github.io/post/2023/how_to_test_the_apis_of_your_go_gin_service/</link>
+      <pubDate>Tue, 03 Jan 2023 11:17:20 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/post/2023/how_to_test_the_apis_of_your_go_gin_service/</guid>
+      <description>As the pre-post said, Gin is a famouse web framework writen by Go. I love it and always use it. When I wrote a web server using Go-Gin, how do I test the APIs? This may confused me, only use a command-line tool to verify them? It&amp;rsquo;s seems ridiculous and non-product. We need to have a full-check for the APIs and it&amp;rsquo;s better to make it automatic, then we need</description>
+    </item>
+    
+    <item>
+      <title>How to set a Go project as a Go module?</title>
+      <link>http://wuqiangroy.github.io/post/2023/how_to_set_a_go_project_as_a_module/</link>
+      <pubDate>Sun, 01 Jan 2023 22:30:15 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/post/2023/how_to_set_a_go_project_as_a_module/</guid>
+      <description>When we create an aswsome project written by Go, we always want to provide it for others. Some good projects like gorilla websocket, gorm and gin, we can easily to run go get github.com/xxx to get the Go module and then use it in our projects. So, how can we build our own Go project as a Go module? Github In the platform of Github, you may want to build</description>
+    </item>
+    
+    <item>
+      <title>Integrate websocket to gin</title>
+      <link>http://wuqiangroy.github.io/post/2022/integrate_websocket_to_gin/</link>
+      <pubDate>Fri, 16 Dec 2022 15:08:19 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/post/2022/integrate_websocket_to_gin/</guid>
+      <description>Introduction Gin is a famous web framework written in Go, we can easy to build our web server by following codes: 1 2 3 4 5 6 7 8 9 10 11 12 package main import &amp;#34;github.com/gin-gonic/gin&amp;#34; func main() { r := gin.Default() r.GET(&amp;#34;/hello-world&amp;#34;, func(c *gin.Context) { c.JSON(200, gin.H{ &amp;#34;message&amp;#34;: &amp;#34;hello, world&amp;#34;, }) }) r.Run() // listen and serve on 0.0.0.0:8080 } Saving these 11 lines codes as a hello.go</description>
+    </item>
+    
+    <item>
+      <title>我大抵是阳了</title>
+      <link>http://wuqiangroy.github.io/post/2022/i_may_positive_for_covid-19/</link>
+      <pubDate>Wed, 14 Dec 2022 10:48:17 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/post/2022/i_may_positive_for_covid-19/</guid>
+      <description>上周六（12-10）一早起床，我发现我的嗓子有点干痒，妻直接是感冒症状了，据她说是前一天穿衣午睡，然后起床没加衣服导致的。 晚上的时候，妻病情</description>
+    </item>
+    
+    <item>
+      <title>十里长街送长者！</title>
+      <link>http://wuqiangroy.github.io/post/2022/mourn_for_chairman_jiang/</link>
+      <pubDate>Thu, 01 Dec 2022 14:22:36 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/post/2022/mourn_for_chairman_jiang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>长者永垂不朽！</title>
+      <link>http://wuqiangroy.github.io/post/2022/remember_chairman_jiang_forever/</link>
+      <pubDate>Wed, 30 Nov 2022 16:59:56 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/post/2022/remember_chairman_jiang_forever/</guid>
+      <description>他改变了中国！ “苟利国家生死以，岂因祸福避趋之。” “军队一律不得经商。” “我们党要始终代表中国先进生产力的发展方向，我们党要始终代表中国先进</description>
+    </item>
+    
+    <item>
+      <title>从中缀表达式到逆波兰表达式</title>
+      <link>http://wuqiangroy.github.io/post/2022/the_expression/</link>
+      <pubDate>Wed, 30 Nov 2022 14:06:29 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/post/2022/the_expression/</guid>
+      <description>之前在字节面试的时候，面试官给我出了一道算法题：给定一个用字符串表示的算式，算式中只有+， -， *， /，请计算出最终结果。 比如 2+3*4-2/</description>
+    </item>
+    
+    <item>
+      <title>吐槽一下华为的运动健康软件</title>
+      <link>http://wuqiangroy.github.io/post/2022/debunk_the_health_app_of_huawei/</link>
+      <pubDate>Tue, 29 Nov 2022 10:23:50 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/post/2022/debunk_the_health_app_of_huawei/</guid>
+      <description>今年上半年，华为推出了一款智能手表，huawei watch GT3 pro， 我被其精致的外观吸引，于是迫不及待的入手了一款。 虽然我使用的是 iPhone，理应</description>
+    </item>
+    
+    <item>
+      <title>使用 Hugo 搭建自己的博客</title>
+      <link>http://wuqiangroy.github.io/post/2022/build_blog_by_hugo/</link>
+      <pubDate>Mon, 28 Nov 2022 09:25:08 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/post/2022/build_blog_by_hugo/</guid>
+      <description>前些年的时候，我在腾讯云上面购买了一个云服务器，一个域名，然后自己用 python 写了一个博客后端。 使用 Nginx 作为正向代理，就这样搭建了我第一个博客。 这个博</description>
+    </item>
+    
+    <item>
+      <title>我的 RSS 资源</title>
+      <link>http://wuqiangroy.github.io/post/2022/my_rss/</link>
+      <pubDate>Sun, 27 Nov 2022 22:45:45 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/post/2022/my_rss/</guid>
+      <description>受够了各种网络信息流的推荐，为了避免信息茧房的产生，我决定放弃一些社交网站，重拾回 RSS. 软件分享 由于我的工具都是 Apple 家的，所以我的订阅软件都是在 macOS</description>
+    </item>
+    
+    <item>
+      <title>我的减肥之路</title>
+      <link>http://wuqiangroy.github.io/post/2022/my_exp_of_losing_weight/</link>
+      <pubDate>Sun, 27 Nov 2022 17:28:24 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/post/2022/my_exp_of_losing_weight/</guid>
+      <description>今年五月份的时候，许久不见的兄弟在群里发了一张称体重的照片，70kg。 我震惊了，作为体重长期在 80kg 徘徊的哥们，瘦了！！！ 我难以置信。 我从大学一</description>
+    </item>
+    
+  </channel>
+</rss>

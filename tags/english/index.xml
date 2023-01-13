@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>English on wuqiangroy&#39;s records</title>
+    <link>http://wuqiangroy.github.io/tags/english/</link>
+    <description>Recent content in English on wuqiangroy&#39;s records</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 13 Jan 2023 11:21:09 +0800</lastBuildDate><atom:link href="http://wuqiangroy.github.io/tags/english/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to enable remote access for Docker</title>
+      <link>http://wuqiangroy.github.io/post/2023/how_to_enable_remote_access_for_docker/</link>
+      <pubDate>Fri, 13 Jan 2023 11:21:09 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/post/2023/how_to_enable_remote_access_for_docker/</guid>
+      <description>When we install docker and run it, the remote access is disable the default configuration. Sometimes we need remote access and actually the docker official provides how to enable it for us but I can not save the file when I follow the tutorial. If you have interests, please see: Configure remote access for Docker daemon
+Here I record a way to enable the remote access, in case I forget it in the future.</description>
+    </item>
+    
+    <item>
+      <title>How to test the APIs of your Go-Gin service?</title>
+      <link>http://wuqiangroy.github.io/post/2023/how_to_test_the_apis_of_your_go_gin_service/</link>
+      <pubDate>Tue, 03 Jan 2023 11:17:20 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/post/2023/how_to_test_the_apis_of_your_go_gin_service/</guid>
+      <description>As the pre-post said, Gin is a famouse web framework writen by Go. I love it and always use it. When I wrote a web server using Go-Gin, how do I test the APIs? This may confused me, only use a command-line tool to verify them? It&amp;rsquo;s seems ridiculous and non-product. We need to have a full-check for the APIs and it&amp;rsquo;s better to make it automatic, then we need</description>
+    </item>
+    
+    <item>
+      <title>How to set a Go project as a Go module?</title>
+      <link>http://wuqiangroy.github.io/post/2023/how_to_set_a_go_project_as_a_module/</link>
+      <pubDate>Sun, 01 Jan 2023 22:30:15 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/post/2023/how_to_set_a_go_project_as_a_module/</guid>
+      <description>When we create an aswsome project written by Go, we always want to provide it for others. Some good projects like gorilla websocket, gorm and gin, we can easily to run go get github.com/xxx to get the Go module and then use it in our projects. So, how can we build our own Go project as a Go module? Github In the platform of Github, you may want to build</description>
+    </item>
+    
+    <item>
+      <title>Integrate websocket to gin</title>
+      <link>http://wuqiangroy.github.io/post/2022/integrate_websocket_to_gin/</link>
+      <pubDate>Fri, 16 Dec 2022 15:08:19 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/post/2022/integrate_websocket_to_gin/</guid>
+      <description>Introduction Gin is a famous web framework written in Go, we can easy to build our web server by following codes: 1 2 3 4 5 6 7 8 9 10 11 12 package main import &amp;#34;github.com/gin-gonic/gin&amp;#34; func main() { r := gin.Default() r.GET(&amp;#34;/hello-world&amp;#34;, func(c *gin.Context) { c.JSON(200, gin.H{ &amp;#34;message&amp;#34;: &amp;#34;hello, world&amp;#34;, }) }) r.Run() // listen and serve on 0.0.0.0:8080 } Saving these 11 lines codes as a hello.go</description>
+    </item>
+    
+  </channel>
+</rss>
