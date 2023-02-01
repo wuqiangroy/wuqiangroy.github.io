@@ -9,6 +9,41 @@
   </url>
   
   <url>
+    <loc>http://wuqiangroy.github.io/post/</loc>
+    <lastmod>2023-02-02T00:01:54+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wuqiangroy.github.io/tags/</loc>
+    <lastmod>2023-02-02T00:01:54+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wuqiangroy.github.io/tags/travel/</loc>
+    <lastmod>2023-02-02T00:01:54+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wuqiangroy.github.io/post/2023/travel_to_shaohai_park_in_cny/</loc>
+    <lastmod>2023-02-02T00:01:54+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wuqiangroy.github.io/</loc>
+    <lastmod>2023-02-02T00:01:54+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://wuqiangroy.github.io/categories/</loc>
     <lastmod>2023-01-13T11:21:09+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -30,42 +65,7 @@
   </url>
   
   <url>
-    <loc>http://wuqiangroy.github.io/tags/english/</loc>
-    <lastmod>2023-01-13T11:21:09+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://wuqiangroy.github.io/categories/english/</loc>
-    <lastmod>2023-01-13T11:21:09+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>http://wuqiangroy.github.io/post/2023/how_to_enable_remote_access_for_docker/</loc>
-    <lastmod>2023-01-13T11:21:09+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://wuqiangroy.github.io/post/</loc>
-    <lastmod>2023-01-13T11:21:09+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://wuqiangroy.github.io/tags/</loc>
-    <lastmod>2023-01-13T11:21:09+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://wuqiangroy.github.io/</loc>
     <lastmod>2023-01-13T11:21:09+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
