@@ -243,11 +243,11 @@ The architechture is:</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">webserver</span>
-</span></span><span class="line"><span class="cl">	<span class="err">--</span> <span class="err">module</span>
-</span></span><span class="line"><span class="cl">		<span class="err">--</span> <span class="err">user.go</span>
-</span></span><span class="line"><span class="cl">	<span class="err">--</span> <span class="err">main.go</span>
-</span></span><span class="line"><span class="cl">	<span class="err">--</span> <span class="err">go.sum</span>
-</span></span><span class="line"><span class="cl">	<span class="err">--</span> <span class="err">go.mod</span>
+</span></span><span class="line"><span class="cl">    <span class="err">--</span> <span class="err">module</span>
+</span></span><span class="line"><span class="cl">        <span class="err">--</span> <span class="err">user.go</span>
+</span></span><span class="line"><span class="cl">    <span class="err">--</span> <span class="err">main.go</span>
+</span></span><span class="line"><span class="cl">    <span class="err">--</span> <span class="err">go.sum</span>
+</span></span><span class="line"><span class="cl">    <span class="err">--</span> <span class="err">go.mod</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>The logic codes are under a <code>module</code> file:</br>
@@ -290,33 +290,33 @@ The architechture is:</p>
 <pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">module</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">	<span class="s">&#34;net/http&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;net/http&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="s">&#34;github.com/gin-gonic/gin&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;github.com/gin-gonic/gin&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">UserInfo</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">Nickname</span> <span class="kt">string</span> <span class="s">`json: &#34;nickname&#34;`</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">UserID</span>   <span class="kt">string</span> <span class="s">`json:&#34;userID&#34;`</span> <span class="c1">// unique for all users
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">Gender</span>   <span class="kt">int</span>    <span class="s">`json:&#34;gender&#34;`</span> <span class="c1">// 0 - male 1 - female
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">BirthDay</span> <span class="kt">string</span> <span class="s">`json:&#34;birthday&#34;`</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Nickname</span> <span class="kt">string</span> <span class="s">`json: &#34;nickname&#34;`</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">UserID</span>   <span class="kt">string</span> <span class="s">`json:&#34;userID&#34;`</span> <span class="c1">// unique for all users
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">Gender</span>   <span class="kt">int</span>    <span class="s">`json:&#34;gender&#34;`</span> <span class="c1">// 0 - male 1 - female
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">BirthDay</span> <span class="kt">string</span> <span class="s">`json:&#34;birthday&#34;`</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">GetUser</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">name</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Request</span><span class="p">.</span><span class="nf">FormValue</span><span class="p">(</span><span class="s">&#34;name&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">name</span> <span class="o">==</span> <span class="s">&#34;Joe&#34;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="kd">var</span> <span class="nx">user</span> <span class="p">=</span> <span class="nx">UserInfo</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="nx">Nickname</span><span class="p">:</span> <span class="s">&#34;Joe&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">			<span class="nx">UserID</span><span class="p">:</span>   <span class="s">&#34;113113&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">			<span class="nx">Gender</span><span class="p">:</span>   <span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">			<span class="nx">BirthDay</span><span class="p">:</span> <span class="s">&#34;1990-01-01&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">c</span><span class="p">.</span><span class="nf">IndentedJSON</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusOK</span><span class="p">,</span> <span class="nx">user</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">name</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Request</span><span class="p">.</span><span class="nf">FormValue</span><span class="p">(</span><span class="s">&#34;name&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">name</span> <span class="o">==</span> <span class="s">&#34;Joe&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">user</span> <span class="p">=</span> <span class="nx">UserInfo</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">Nickname</span><span class="p">:</span> <span class="s">&#34;Joe&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">UserID</span><span class="p">:</span>   <span class="s">&#34;113113&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">Gender</span><span class="p">:</span>   <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">BirthDay</span><span class="p">:</span> <span class="s">&#34;1990-01-01&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">c</span><span class="p">.</span><span class="nf">IndentedJSON</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusOK</span><span class="p">,</span> <span class="nx">user</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="nx">c</span><span class="p">.</span><span class="nf">IndentedJSON</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusBadRequest</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">c</span><span class="p">.</span><span class="nf">IndentedJSON</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusBadRequest</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -342,15 +342,15 @@ The architechture is:</p>
 <pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">	<span class="s">&#34;webserver/module&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;webserver/module&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="s">&#34;github.com/gin-gonic/gin&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;github.com/gin-gonic/gin&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">r</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">Default</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">r</span><span class="p">.</span><span class="nf">GET</span><span class="p">(</span><span class="s">&#34;/user&#34;</span><span class="p">,</span> <span class="nx">module</span><span class="p">.</span><span class="nx">GetUser</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">r</span><span class="p">.</span><span class="nf">Run</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">r</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">Default</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">r</span><span class="p">.</span><span class="nf">GET</span><span class="p">(</span><span class="s">&#34;/user&#34;</span><span class="p">,</span> <span class="nx">module</span><span class="p">.</span><span class="nx">GetUser</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">r</span><span class="p">.</span><span class="nf">Run</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -386,13 +386,13 @@ Now, your architechture may like this:</br></p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">webserver</span>
-</span></span><span class="line"><span class="cl">	<span class="err">--</span> <span class="err">module</span>
-</span></span><span class="line"><span class="cl">		<span class="err">--</span> <span class="err">user.go</span>
-</span></span><span class="line"><span class="cl">	<span class="err">--</span> <span class="err">test</span>
-</span></span><span class="line"><span class="cl">		<span class="err">--</span> <span class="err">api_test.go</span>
-</span></span><span class="line"><span class="cl">	<span class="err">main.go</span>
-</span></span><span class="line"><span class="cl">	<span class="err">go.sum</span>
-</span></span><span class="line"><span class="cl">	<span class="err">go.mod</span>
+</span></span><span class="line"><span class="cl">    <span class="err">--</span> <span class="err">module</span>
+</span></span><span class="line"><span class="cl">        <span class="err">--</span> <span class="err">user.go</span>
+</span></span><span class="line"><span class="cl">    <span class="err">--</span> <span class="err">test</span>
+</span></span><span class="line"><span class="cl">        <span class="err">--</span> <span class="err">api_test.go</span>
+</span></span><span class="line"><span class="cl">    <span class="err">main.go</span>
+</span></span><span class="line"><span class="cl">    <span class="err">go.sum</span>
+</span></span><span class="line"><span class="cl">    <span class="err">go.mod</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>module/user.go</code></br></p>
@@ -438,37 +438,37 @@ Now, your architechture may like this:</br></p>
 <pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">	<span class="s">&#34;encoding/json&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="s">&#34;fmt&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="s">&#34;net/http&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="s">&#34;net/http/httptest&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="s">&#34;testing&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="s">&#34;webserver/module&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;encoding/json&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;net/http&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;net/http/httptest&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;testing&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;webserver/module&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="s">&#34;github.com/gin-gonic/gin&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="s">&#34;github.com/stretchr/testify/assert&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;github.com/gin-gonic/gin&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;github.com/stretchr/testify/assert&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">TestGetUser</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">url</span> <span class="p">=</span> <span class="s">&#34;/user&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">r</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">Default</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">r</span><span class="p">.</span><span class="nf">GET</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">module</span><span class="p">.</span><span class="nx">GetUser</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">url</span> <span class="p">=</span> <span class="s">&#34;/user&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">r</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">Default</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">r</span><span class="p">.</span><span class="nf">GET</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">module</span><span class="p">.</span><span class="nx">GetUser</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="nx">w</span> <span class="o">:=</span> <span class="nx">httptest</span><span class="p">.</span><span class="nf">NewRecorder</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">req</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">NewRequest</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">MethodGet</span><span class="p">,</span> <span class="s">&#34;/user&#34;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">r</span><span class="p">.</span><span class="nf">ServeHTTP</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">req</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">assert</span><span class="p">.</span><span class="nf">Equal</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nx">StatusBadRequest</span><span class="p">,</span> <span class="nx">w</span><span class="p">.</span><span class="nx">Code</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">w</span> <span class="o">:=</span> <span class="nx">httptest</span><span class="p">.</span><span class="nf">NewRecorder</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">req</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">NewRequest</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">MethodGet</span><span class="p">,</span> <span class="s">&#34;/user&#34;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">r</span><span class="p">.</span><span class="nf">ServeHTTP</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">req</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">assert</span><span class="p">.</span><span class="nf">Equal</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nx">StatusBadRequest</span><span class="p">,</span> <span class="nx">w</span><span class="p">.</span><span class="nx">Code</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">name</span> <span class="p">=</span> <span class="s">&#34;Joe&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">req2</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">NewRequest</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">MethodGet</span><span class="p">,</span> <span class="s">&#34;/user?name=&#34;</span><span class="o">+</span><span class="nx">name</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">w</span> <span class="p">=</span> <span class="nx">httptest</span><span class="p">.</span><span class="nf">NewRecorder</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">r</span><span class="p">.</span><span class="nf">ServeHTTP</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">req2</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">data</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">w</span><span class="p">.</span><span class="nx">Code</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">json</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">(</span><span class="nx">w</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nf">Bytes</span><span class="p">(),</span> <span class="o">&amp;</span><span class="nx">data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">assert</span><span class="p">.</span><span class="nf">Equal</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nx">StatusOK</span><span class="p">,</span> <span class="nx">w</span><span class="p">.</span><span class="nx">Code</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">assert</span><span class="p">.</span><span class="nf">Equal</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">data</span><span class="p">[</span><span class="s">&#34;Nickname&#34;</span><span class="p">],</span> <span class="nx">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">name</span> <span class="p">=</span> <span class="s">&#34;Joe&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">req2</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">NewRequest</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">MethodGet</span><span class="p">,</span> <span class="s">&#34;/user?name=&#34;</span><span class="o">+</span><span class="nx">name</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">w</span> <span class="p">=</span> <span class="nx">httptest</span><span class="p">.</span><span class="nf">NewRecorder</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">r</span><span class="p">.</span><span class="nf">ServeHTTP</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">req2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">data</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">w</span><span class="p">.</span><span class="nx">Code</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">json</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">(</span><span class="nx">w</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nf">Bytes</span><span class="p">(),</span> <span class="o">&amp;</span><span class="nx">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">assert</span><span class="p">.</span><span class="nf">Equal</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nx">StatusOK</span><span class="p">,</span> <span class="nx">w</span><span class="p">.</span><span class="nx">Code</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">assert</span><span class="p">.</span><span class="nf">Equal</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">data</span><span class="p">[</span><span class="s">&#34;Nickname&#34;</span><span class="p">],</span> <span class="nx">name</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
