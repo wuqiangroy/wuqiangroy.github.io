@@ -1,12 +1,44 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Tags on wuqiangroy&#39;s records</title>
+    <title>Tags on Roy&#39;s Records</title>
     <link>http://wuqiangroy.github.io/tags/</link>
-    <description>Recent content in Tags on wuqiangroy&#39;s records</description>
+    <description>Recent content in Tags on Roy&#39;s Records</description>
+    <image>
+      <title>Roy&#39;s Records</title>
+      <url>http://wuqiangroy.github.io/papermod-cover.png</url>
+      <link>http://wuqiangroy.github.io/papermod-cover.png</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 02 Feb 2023 00:01:54 +0800</lastBuildDate><atom:link href="http://wuqiangroy.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 24 Aug 2023 23:09:30 +0800</lastBuildDate><atom:link href="http://wuqiangroy.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>gin</title>
+      <link>http://wuqiangroy.github.io/tags/gin/</link>
+      <pubDate>Thu, 24 Aug 2023 23:09:30 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/tags/gin/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>golang</title>
+      <link>http://wuqiangroy.github.io/tags/golang/</link>
+      <pubDate>Thu, 24 Aug 2023 23:09:30 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>test</title>
+      <link>http://wuqiangroy.github.io/tags/test/</link>
+      <pubDate>Thu, 24 Aug 2023 23:09:30 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/tags/test/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>travel</title>
       <link>http://wuqiangroy.github.io/tags/travel/</link>
@@ -22,33 +54,6 @@
       <pubDate>Fri, 13 Jan 2023 11:21:09 +0800</pubDate>
       
       <guid>http://wuqiangroy.github.io/tags/docker/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>gin</title>
-      <link>http://wuqiangroy.github.io/tags/gin/</link>
-      <pubDate>Tue, 03 Jan 2023 11:17:20 +0800</pubDate>
-      
-      <guid>http://wuqiangroy.github.io/tags/gin/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>golang</title>
-      <link>http://wuqiangroy.github.io/tags/golang/</link>
-      <pubDate>Tue, 03 Jan 2023 11:17:20 +0800</pubDate>
-      
-      <guid>http://wuqiangroy.github.io/tags/golang/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>test</title>
-      <link>http://wuqiangroy.github.io/tags/test/</link>
-      <pubDate>Tue, 03 Jan 2023 11:17:20 +0800</pubDate>
-      
-      <guid>http://wuqiangroy.github.io/tags/test/</guid>
       <description></description>
     </item>
     

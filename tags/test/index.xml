@@ -1,19 +1,36 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>test on wuqiangroy&#39;s records</title>
+    <title>test on Roy&#39;s Records</title>
     <link>http://wuqiangroy.github.io/tags/test/</link>
-    <description>Recent content in test on wuqiangroy&#39;s records</description>
+    <description>Recent content in test on Roy&#39;s Records</description>
+    <image>
+      <title>Roy&#39;s Records</title>
+      <url>http://wuqiangroy.github.io/papermod-cover.png</url>
+      <link>http://wuqiangroy.github.io/papermod-cover.png</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 03 Jan 2023 11:17:20 +0800</lastBuildDate><atom:link href="http://wuqiangroy.github.io/tags/test/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 24 Aug 2023 23:09:30 +0800</lastBuildDate><atom:link href="http://wuqiangroy.github.io/tags/test/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Unit Test Case Guideline Of Golang Gin</title>
+      <link>http://wuqiangroy.github.io/post/2023/the_unit_test_case_guideline_of_golang_gin/</link>
+      <pubDate>Thu, 24 Aug 2023 23:09:30 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/post/2023/the_unit_test_case_guideline_of_golang_gin/</guid>
+      <description>At this post, I have brief introduced how to test our gin APIs.
+And one test case tests one API, maybe this API including thousands functions, this kind of test we allways call Integration Test.
+The Integration Test always care whether the API works well or not, it does&amp;rsquo;t care the codes coverage and whether a certain function works as expect or not.
+So, we need to write Unit Test to ensure our program robust and keeps the issues number at a very low level.</description>
+    </item>
+    
     <item>
       <title>How to test the APIs of your Go-Gin service?</title>
       <link>http://wuqiangroy.github.io/post/2023/how_to_test_the_apis_of_your_go_gin_service/</link>
       <pubDate>Tue, 03 Jan 2023 11:17:20 +0800</pubDate>
       
       <guid>http://wuqiangroy.github.io/post/2023/how_to_test_the_apis_of_your_go_gin_service/</guid>
-      <description>As the pre-post said, Gin is a famouse web framework writen by Go. I love it and always use it. When I wrote a web server using Go-Gin, how do I test the APIs? This may confused me, only use a command-line tool to verify them? It&amp;rsquo;s seems ridiculous and non-product. We need to have a full-check for the APIs and it&amp;rsquo;s better to make it automatic, then we need</description>
+      <description>As the pre-post said, Gin is a famouse web framework writen by Go. I love it and always use it. When I wrote a web server using Go-Gin, how do I test the APIs? This may confused me, only use a command-line tool to verify them? It&amp;rsquo;s seems ridiculous and non-product. We need to have a full-check for the APIs and it&amp;rsquo;s better to make it automatic, then we need to integrate it in the CI-CD pipline, make sure that it will run automaticly after we commit codes.</description>
     </item>
     
   </channel>

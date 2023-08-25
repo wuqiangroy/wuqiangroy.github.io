@@ -1,19 +1,36 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Posts on wuqiangroy&#39;s records</title>
+    <title>Posts on Roy&#39;s Records</title>
     <link>http://wuqiangroy.github.io/post/</link>
-    <description>Recent content in Posts on wuqiangroy&#39;s records</description>
+    <description>Recent content in Posts on Roy&#39;s Records</description>
+    <image>
+      <title>Roy&#39;s Records</title>
+      <url>http://wuqiangroy.github.io/papermod-cover.png</url>
+      <link>http://wuqiangroy.github.io/papermod-cover.png</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 02 Feb 2023 00:01:54 +0800</lastBuildDate><atom:link href="http://wuqiangroy.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 24 Aug 2023 23:09:30 +0800</lastBuildDate><atom:link href="http://wuqiangroy.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Unit Test Case Guideline Of Golang Gin</title>
+      <link>http://wuqiangroy.github.io/post/2023/the_unit_test_case_guideline_of_golang_gin/</link>
+      <pubDate>Thu, 24 Aug 2023 23:09:30 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/post/2023/the_unit_test_case_guideline_of_golang_gin/</guid>
+      <description>At this post, I have brief introduced how to test our gin APIs.
+And one test case tests one API, maybe this API including thousands functions, this kind of test we allways call Integration Test.
+The Integration Test always care whether the API works well or not, it does&amp;rsquo;t care the codes coverage and whether a certain function works as expect or not.
+So, we need to write Unit Test to ensure our program robust and keeps the issues number at a very low level.</description>
+    </item>
+    
     <item>
       <title>Travel to ShaoHai Park in CNY</title>
       <link>http://wuqiangroy.github.io/post/2023/travel_to_shaohai_park_in_cny/</link>
       <pubDate>Thu, 02 Feb 2023 00:01:54 +0800</pubDate>
       
       <guid>http://wuqiangroy.github.io/post/2023/travel_to_shaohai_park_in_cny/</guid>
-      <description>This new year was the coldest in Qingdao since I first went here in 2016. The coldest day is -16 degrees celsius, and I can only spend all the time inside the room. To my disappointment, I thought it would be snow stack and no. Before I left, the cold air left then sunlight made the ground warm, the highest weather was 8 degrees celsius, so I decided to leave</description>
+      <description>This new year was the coldest in Qingdao since I first went here in 2016. The coldest day is -16 degrees celsius, and I can only spend all the time inside the room. To my disappointment, I thought it would be snow stack and no. Before I left, the cold air left then sunlight made the ground warm, the highest weather was 8 degrees celsius, so I decided to leave the cozy room and travel to the well-known park in JiaoZhou: ShaoHai Park.</description>
     </item>
     
     <item>
@@ -32,7 +49,7 @@ So this is why I write this short post to record a solution to enable the remote
       <pubDate>Tue, 03 Jan 2023 11:17:20 +0800</pubDate>
       
       <guid>http://wuqiangroy.github.io/post/2023/how_to_test_the_apis_of_your_go_gin_service/</guid>
-      <description>As the pre-post said, Gin is a famouse web framework writen by Go. I love it and always use it. When I wrote a web server using Go-Gin, how do I test the APIs? This may confused me, only use a command-line tool to verify them? It&amp;rsquo;s seems ridiculous and non-product. We need to have a full-check for the APIs and it&amp;rsquo;s better to make it automatic, then we need</description>
+      <description>As the pre-post said, Gin is a famouse web framework writen by Go. I love it and always use it. When I wrote a web server using Go-Gin, how do I test the APIs? This may confused me, only use a command-line tool to verify them? It&amp;rsquo;s seems ridiculous and non-product. We need to have a full-check for the APIs and it&amp;rsquo;s better to make it automatic, then we need to integrate it in the CI-CD pipline, make sure that it will run automaticly after we commit codes.</description>
     </item>
     
     <item>
@@ -41,7 +58,8 @@ So this is why I write this short post to record a solution to enable the remote
       <pubDate>Sun, 01 Jan 2023 22:30:15 +0800</pubDate>
       
       <guid>http://wuqiangroy.github.io/post/2023/how_to_set_a_go_project_as_a_module/</guid>
-      <description>When we create an aswsome project written by Go, we always want to provide it for others. Some good projects like gorilla websocket, gorm and gin, we can easily to run go get github.com/xxx to get the Go module and then use it in our projects. So, how can we build our own Go project as a Go module? Github In the platform of Github, you may want to build</description>
+      <description>When we create an aswsome project written by Go, we always want to provide it for others. Some good projects like gorilla websocket, gorm and gin, we can easily to run go get github.com/xxx to get the Go module and then use it in our projects. So, how can we build our own Go project as a Go module?
+Github In the platform of Github, you may want to build your projects for all the users so they can use your project directly.</description>
     </item>
     
     <item>
@@ -50,7 +68,8 @@ So this is why I write this short post to record a solution to enable the remote
       <pubDate>Fri, 16 Dec 2022 15:08:19 +0800</pubDate>
       
       <guid>http://wuqiangroy.github.io/post/2022/integrate_websocket_to_gin/</guid>
-      <description>Introduction Gin is a famous web framework written in Go, we can easy to build our web server by following codes: 1 2 3 4 5 6 7 8 9 10 11 12 package main import &amp;#34;github.com/gin-gonic/gin&amp;#34; func main() { r := gin.Default() r.GET(&amp;#34;/hello-world&amp;#34;, func(c *gin.Context) { c.JSON(200, gin.H{ &amp;#34;message&amp;#34;: &amp;#34;hello, world&amp;#34;, }) }) r.Run() // listen and serve on 0.0.0.0:8080 } Saving these 11 lines codes as a hello.go</description>
+      <description>Introduction Gin is a famous web framework written in Go, we can easy to build our web server by following codes:
+1 2 3 4 5 6 7 8 9 10 11 12 package main import &amp;#34;github.com/gin-gonic/gin&amp;#34; func main() { r := gin.Default() r.GET(&amp;#34;/hello-world&amp;#34;, func(c *gin.Context) { c.JSON(200, gin.H{ &amp;#34;message&amp;#34;: &amp;#34;hello, world&amp;#34;, }) }) r.Run() // listen and serve on 0.0.0.0:8080 } Saving these 11 lines codes as a hello.go file, then run go run hello.</description>
     </item>
     
     <item>
@@ -59,7 +78,13 @@ So this is why I write this short post to record a solution to enable the remote
       <pubDate>Wed, 14 Dec 2022 10:48:17 +0800</pubDate>
       
       <guid>http://wuqiangroy.github.io/post/2022/i_may_positive_for_covid-19/</guid>
-      <description>上周六（12-10）一早起床，我发现我的嗓子有点干痒，妻直接是感冒症状了，据她说是前一天穿衣午睡，然后起床没加衣服导致的。 晚上的时候，妻病情</description>
+      <description>上周六（12-10）一早起床，我发现我的嗓子有点干痒，妻直接是感冒症状了，据她说是前一天穿衣午睡，然后起床没加衣服导致的。 晚上的时候，妻病情加重，开始发烧，我这边还好，怕波及小孩子，我妈赶紧过来将小孩接走。 当晚，妻多次发烧，难以入睡，喝了布洛芬悬浊液之后勉强入睡。 我这边一切正常。
+12-11 周日 周日一起床，我发现我这边比较严重了，开始头晕，但是这时候晕的不是特别厉害，只是很轻微。 下午完了一会原神，但是玩不进去，于是我选择上床躺着休息。 躺着的时候还是很舒服的，但是一起床，头晕目眩的感觉很难受，特别是眼睛胀痛，在往上看的时候尤其严重。 四肢酸软。 其实这个时候我都还在纠结我是不是得了新冠，也不愿去做检测（检测排队太久了）。我感觉我可能是感冒。 于是我决定做点家务，再把地拖了之后，又烧了点艾草水泡澡。 泡完澡半小时之后，我出现了发热，最高到了 39.1 度。 这时候我精神还很好，但是已经开始出现了不想动的情况，妻赶紧给我喝布洛芬悬浊液，效果很好，几分钟就感觉体温降了下去，然后一切均恢复正常。 也许是发烧的时候人体感知时间不久，我当时感觉发烧持续了半小时左右。
+12-12 周一 今日起床，无任何发烧情况了，但是头晕目涨的情况依旧。 四肢酸软的情况消失。 晚上躺在沙发上看县委大院和三体，这时候感觉和正常人无异，但是一起身，头晕的感觉就会袭来，这种头晕的感觉和人下蹲久了突然起身导致的头晕感觉一致。 今天开始出现鼻塞的现象，但是擤不出鼻涕。 晚上入睡轻松，侧躺鼻塞现象消失，夜里浑身出汗多次。
+12-13 周二 今日起床，头晕目涨感觉轻微。嗓子出现干痒，白天少咳。 晚上咳嗽多次，多是干咳，咳嗽引起嗓子疼痛。 鼻塞较前一天加重，能擤出少量鼻涕，但是对鼻塞没有缓解作用，侧躺鼻塞不能完全消失，能减轻症状。 入睡轻松。
+12-14 周三 今天头晕目涨的感觉全部消失，咳嗽减轻，每咳必出脓痰。嗓子疼痛感较前一天减弱很多。 味觉出现减弱现象，不知道是不是因为鼻塞的原因。 鼻塞减弱，有鼻涕流出，和平时感冒症状一致。
+根据网上流传的奥密克戎症状图来看，我应该就是阳性了。 而且我感觉，新冠比感冒来的更猛更迅速。 我也不禁感叹，国家保护了我三年，我屁事没有，现在自己保护自己，才几天，就阳了。
+我爸、我妈同时感觉嗓子痒，大抵也阳了。 我们趁着病情好转，将小孩接了回来。</description>
     </item>
     
     <item>
@@ -68,7 +93,7 @@ So this is why I write this short post to record a solution to enable the remote
       <pubDate>Thu, 01 Dec 2022 14:22:36 +0800</pubDate>
       
       <guid>http://wuqiangroy.github.io/post/2022/mourn_for_chairman_jiang/</guid>
-      <description></description>
+      <description> </description>
     </item>
     
     <item>
@@ -77,7 +102,14 @@ So this is why I write this short post to record a solution to enable the remote
       <pubDate>Wed, 30 Nov 2022 16:59:56 +0800</pubDate>
       
       <guid>http://wuqiangroy.github.io/post/2022/remember_chairman_jiang_forever/</guid>
-      <description>他改变了中国！ “苟利国家生死以，岂因祸福避趋之。” “军队一律不得经商。” “我们党要始终代表中国先进生产力的发展方向，我们党要始终代表中国先进</description>
+      <description>他改变了中国！ “苟利国家生死以，岂因祸福避趋之。”
+“军队一律不得经商。”
+“我们党要始终代表中国先进生产力的发展方向，我们党要始终代表中国先进文化的前进方向，我们党要始终代表中国最广大人民的根本利益。”
+“不要听风就是雨。”
+“要始终提高知识水平。”
+“Too young too simple, sometimes naive”
+长者永垂不朽。
+告全党全军全国各族人民书</description>
     </item>
     
     <item>
@@ -86,7 +118,10 @@ So this is why I write this short post to record a solution to enable the remote
       <pubDate>Wed, 30 Nov 2022 14:06:29 +0800</pubDate>
       
       <guid>http://wuqiangroy.github.io/post/2022/the_expression/</guid>
-      <description>之前在字节面试的时候，面试官给我出了一道算法题：给定一个用字符串表示的算式，算式中只有+， -， *， /，请计算出最终结果。 比如 2+3*4-2/</description>
+      <description>之前在字节面试的时候，面试官给我出了一道算法题：给定一个用字符串表示的算式，算式中只有+， -， *， /，请计算出最终结果。 比如 2+3*4-2/2。 很明显，如果没有 * 和 / ，那我们直接一个循环处理即可，但是有了 * 和 /，算式就有了优先级，我们需要先计算优先级高的，在计算优先级低的。 面试官提醒我可以使用栈来处理，我才恍然大悟，然后迅速用代码实现。 面试结束后，我就去细了解了一下这类问题的做法，这种字符串公式的表达叫做：中缀表达式，与之类似的还有前缀表达式和后缀表达式，前缀表达式和后缀表达式又被叫做波兰表达式和逆波兰表达式。
+中缀表达式 其实很多读者在数据结构这一门课上，就已经学过中缀表达式了，但是对于我这个非科班的来说，第一次接触还是非常新鲜的，对于学过的朋友权当复习了。 使用栈这种数据结构，可以很好的处理仅有加减乘除四种运算符（不含括号）的公式。 栈是一种先入后出（FILO）的数据结构，可以将数据入栈和出栈，入栈数据会在栈顶，出栈是将栈顶的数据取出。 对 2+3*4-2/2 表达式来说，我们将数字压入栈，如果遇到 * 和 / 这两个优先级高的操作，我们将栈中的数据出栈，和操作符后面的数据进行 * 和 / 操作之后，将结果入栈，遇到 + 则不做操作，遇到 - 则对后一个数据进行取负，将数据压入栈即可。
+就对 2+3*4-2/2 举例子：
+1 2 3 4 5 6 7 8 9 10 轮询到第一个数字 2 压入栈中，当前栈 [2] 操作符 +， 抛弃 数字 3 压入栈，当前栈：[2, 3] 操作符 *,将栈顶取出一个值 3，当前栈 [2] 将下一个数字 4 和刚刚取出的值 3 做 * 操作得到 12，压入栈，目前栈：[2, 12] 操作符 -, 对下一个数取负 数字 2，取负后压入栈，目前栈 [2, 12, -2] 操作符 /, 取出栈顶值 -2,目前栈 [2, 12] 将下一个数字 2 和刚刚取出的值 -2 做 / 操作得到 1,压入栈，目前栈 [2, 12, -1] 最后对栈里的数据进行相加，得到 2+12-1 = 13 13 即是最终值。 因为 golang 中没有现成的栈 api，我们需要用队列来手动实现一个。 实现代码如下：</description>
     </item>
     
     <item>
@@ -95,7 +130,12 @@ So this is why I write this short post to record a solution to enable the remote
       <pubDate>Tue, 29 Nov 2022 10:23:50 +0800</pubDate>
       
       <guid>http://wuqiangroy.github.io/post/2022/debunk_the_health_app_of_huawei/</guid>
-      <description>今年上半年，华为推出了一款智能手表，huawei watch GT3 pro， 我被其精致的外观吸引，于是迫不及待的入手了一款。 虽然我使用的是 iPhone，理应</description>
+      <description>今年上半年，华为推出了一款智能手表，huawei watch GT3 pro， 我被其精致的外观吸引，于是迫不及待的入手了一款。 虽然我使用的是 iPhone，理应选择同一家的 Apple watch，但是由于 s7 在我老婆那边糟糕的表现（睡眠监控一塌糊涂，每天都需要充电，麦克风时好时坏-已经去 genus bar 更换了一块），我没有选择它。
+首先看看这块表的外观，到现在我都非常喜欢它： 使用起来我也非常的满意，无论是一次充电的使用时长-可以坚持 1-2 周，还是消息的通知延迟上面，亦或者通话接听等，我都觉得其满足我的需求，硬要说不满意，那就是 iPhone 上不能直接回复微信？或者说软件商店里面手表可用软件实在太少，近乎于没有。
+但是对于我来说，一块表的功能就是及时通知和外观，所以上面的缺点我一点都不在乎。 真正让我难以接受的，其实是它的软件：华为运动健康。 如果你直接以华为运动健康作为关键词 google 的话，会出现相当多的软文，都是在吹嘘其好用、运动检测多准之类的，但是却忽略了体验。
+软件莫名其妙的大
+虽然现在手机的容量都是 128G 起，甚至 256G 起，但是这不是软件就能无限制做大的理由，一个运动软件，无论是 OPPO 的运动软件还是 vivo 的运动软件，充其量 100M 出头（OPPO 139M， vivo 104M），但是华为的健康应用，居然有 500M！！！我都不知道它到底在里面塞了些什么！ UI 不精致不简约 现代软件，无论是追求拟物还是扁平化设计，开发者（产品经理？）都对界面的要求相当高的，这点我在各家的健康 app 上面都能看到，但是到了华为这里，很糟糕，你可以说我欣赏能力低下，但是对于我来说，UI 设计糟糕很劝退。 广告极其之多 不知道是不是 huawei 被制裁了还是怎么样，其运动健康软件广告非常多，这也是我最难以忍受的一点。 开屏广告 会员续费通知 主页中间有一个去不掉的饮食日记和健身课程的一个 bar 运动页各种课程推荐 设备页最离谱，这里面塞了一个商城进去！ 反正这个软件让我极其恶心，等哪天受不了了，我应该就会放弃这个表，放弃 huawei 的设备。 最近 Apple 出了个 Apple watch ultra，拥有两天的待机时间，看上去还不错，我再多关注关注。
+题外话：我在诸多论坛、微博看到网友对现在软件公告的吐槽，现在的开屏摇一摇跳转广告、倾斜跳转广告、视频软件的 VIP 专属广告、banner 广告、音乐软件中间夹杂的音频广告……数不胜数。</description>
     </item>
     
     <item>
@@ -104,7 +144,15 @@ So this is why I write this short post to record a solution to enable the remote
       <pubDate>Mon, 28 Nov 2022 09:25:08 +0800</pubDate>
       
       <guid>http://wuqiangroy.github.io/post/2022/build_blog_by_hugo/</guid>
-      <description>前些年的时候，我在腾讯云上面购买了一个云服务器，一个域名，然后自己用 python 写了一个博客后端。 使用 Nginx 作为正向代理，就这样搭建了我第一个博客。 这个博</description>
+      <description>前些年的时候，我在腾讯云上面购买了一个云服务器，一个域名，然后自己用 python 写了一个博客后端。 使用 Nginx 作为正向代理，就这样搭建了我第一个博客。 这个博客内容还挺多，评论、文章、用户系统、富文本编辑框等等，一一俱全。 后来自己对博客的维护比较少，出现了一些 bug 我也难得修复了，等到服务器到期，我就难得续费了。
+后来在网上看到很多博客都非常精美，有的用 wordpress 搭建的，有的用 hugo 搭建的，结合我自己的场景，我决定使用 hugo + github 来创建自己的博客。
+安装 golang hugo 使用 golang 写的，要使用 hugo，需要先安装 golang。安装教程
+安装 hugo macOS 下 hugo 的安装方法：
+brew instal hugo 其他平台参考官方文档：hugo installation
+创建一个博客 使用 hugo 命令：hugo new site blog 在当前地址创建一个 blog 文件。
+里面的布局如下：
+- archetypes - content - data - layout - public - resource - static - themes config.toml 其中，config.toml 是我们的配置文件，我们主要的修改都在这个配置文件里面。
+使用主题 原生的 hugo 博客并不好看，好在官方及各路大神提供了不少主题，我们直接可以使用，我很喜欢 even 主题，所以我使用 even 来说明。</description>
     </item>
     
     <item>
@@ -113,7 +161,20 @@ So this is why I write this short post to record a solution to enable the remote
       <pubDate>Sun, 27 Nov 2022 22:45:45 +0800</pubDate>
       
       <guid>http://wuqiangroy.github.io/post/2022/my_rss/</guid>
-      <description>受够了各种网络信息流的推荐，为了避免信息茧房的产生，我决定放弃一些社交网站，重拾回 RSS. 软件分享 由于我的工具都是 Apple 家的，所以我的订阅软件都是在 macOS</description>
+      <description>受够了各种网络信息流的推荐，为了避免信息茧房的产生，我决定放弃一些社交网站，重拾回 RSS.
+软件分享 由于我的工具都是 Apple 家的，所以我的订阅软件都是在 macOS 和 iOS 下的。
+这两个平台的阅读软件，没有其他，最好的只有 reeder。
+reeder 在 macOS 上好解决一些，无论是安装盗版还是直接在 App Store 购买，都非常方便。
+在 iOS 上面比较复杂，由于该软件在国区下架了，所以需要去外区下载，建议先 google 如何创建外区账号，创建外区账号之后，再到淘宝购买兑换码。
+其他的软件比如 unread 和 inoreader，我都是不太推荐的，无论是软件体积、软件流畅度还是交互逻辑，reeder 都秒杀他们。
+更重要的，只要你的订阅数据同步到 iCloud，那么你在 macOS 和 iOS 上的阅读进度和订阅数据都将同步，方便你在两个平台无感切换。
+订阅源 其实 RSS 也是一种信息茧房，因为各种订阅源都是你自己选择了的嘛，所以你也是活在自己想看到的世界里。
+为了避免这种情况的产生，我也硬着头皮订阅了一些观点我不太认可的信息源，但是不可否认的是，兼听则明。大家的思维已经在十来岁时固定，现在的一些信息要是能改变一个人的思维，只能证明这个人要么思维过于简单，要么太过幼稚。
+下面是一些我推荐的订阅源，我会附以简单的说明，但是不会输出我个人的观点。
+我知道有个项目叫做 rsshub，这里面的订阅源很全，读者朋友也可以直接到这里面进行查找自己喜欢的数据订阅。
+但是对于我来说，由于这个地址被墙了，我又不愿意在手机上常开 VPN，所以我就拒绝这里面的订阅，寻找了其他的订阅源。
+我订阅数据的原则有：
+官方网站能提供的订阅，优先官方 不能订阅原文或通过 reeder 无法查看全文的数据不订阅。 不订阅反党反共的私人博客。 序号 名称 订阅地址 订阅说明 1 9to5Mac https://plink.anyfeeder.com/9to5mac Apple 相关的一些新闻 2 BBC 英语教学 https://plink.anyfeeder.com/bbc/learningenglish BBC 学习英语相关的订阅 3 FindBlog https://rss.huhexian.cn/i/?a=rss&amp;amp;rid=63837d83e772a&amp;amp;hours=168 一个 blog 的聚合网站，订阅了该数据源，可以少订阅很多个人博客 4 IT 之家 https://www.</description>
     </item>
     
     <item>
@@ -122,7 +183,28 @@ So this is why I write this short post to record a solution to enable the remote
       <pubDate>Sun, 27 Nov 2022 17:28:24 +0800</pubDate>
       
       <guid>http://wuqiangroy.github.io/post/2022/my_exp_of_losing_weight/</guid>
-      <description>今年五月份的时候，许久不见的兄弟在群里发了一张称体重的照片，70kg。 我震惊了，作为体重长期在 80kg 徘徊的哥们，瘦了！！！ 我难以置信。 我从大学一</description>
+      <description>今年五月份的时候，许久不见的兄弟在群里发了一张称体重的照片，70kg。
+我震惊了，作为体重长期在 80kg 徘徊的哥们，瘦了！！！
+我难以置信。
+我从大学一毕业，体重就从 130 哐哐哐的往上涨，一直到巅峰时期 160 斤。去年体检的时候，重度脂肪肝、肥胖、甘油酸酯偏高、尿酸偏高各种症状一一俱全，那时候调侃自己：几百块钱，别人几项，我十几项，划算啊！
+兄弟这个 70kg，彻底刺激了我，也激发了我减肥的欲望。
+从大学毕业到现在，也有了 6 年时光。
+本来就只有 170cm 的我，挺个大肚子，脸上肥肥的，照镜子里面我都难以接受我自己。
+6 年来，期间也进行了无数次的减肥，但都没有坚持下去，没次减个几斤，就因为各种原因放弃，然后体重不仅涨回去，还超过之前的巅峰，160 斤也就这么慢慢吃出来了。
+这次下定恒心要减下去，一来是有了个目标在前面，二来我觉得我也应该做出改变，免得之后参加家长会，被笑话，我可不愿意成为我女儿的爸爸是同学之间的笑柄。
+我知道减肥最简单的方式就是：摄入 &amp;lt; 摄出。
+由于当前我的体重过大，不能参加跑步等有氧运动（大体重跑步对膝盖伤害实在太大了），所以跑步是不行了。幸亏我自己游泳还不错，游泳纳入了我的运动计划。 同时我还购入了 switch（我真不是为了玩游戏）和健身环，备受好评的健身环，希望能为我减肥助力。
+同时我还制定了严格的饮食方案。
+饮食方案 看了多个抖音减肥博主的理论，大多都是减肥 3 分靠动，7 分靠吃。 所以我严格控制了我的饮食，我和兄弟勾兑了一下他的减肥方案，很简单：
+早上、中午随意吃，晚上两根玉米，一个鸡蛋，或者晚上两个鸡蛋，一根玉米 于是我参考了他的方案，不过我加以了修改，做出了一下决定：
+早餐：鸡蛋、牛奶、半个馒头（约 50g） 午餐：公司食堂，米饭是之前的一半 晚餐：一根玉米和一个鸡蛋、两个黄瓜、一个红薯 严格遵守以上饮食计划的同时，戒掉饮料、戒掉零食、戒掉糕点。 然后每周一次游泳池游泳，每次约 2km，消耗卡路里约：700 大卡。 这样我坚持了两个月，成功将体重降到了 72.5kg 两个月，瘦了 15 斤，平均每个月瘦 7 斤，我相当满意。 这时候，我发现我只靠饮食已经瘦不下去，我需要一定量的运动进行辅助，现在体重降下来了，我觉得我可以进行跑步了。
+有氧运动 我将跑步纳入我的减肥计划的时候，晚餐也逐渐恢复了。 由于两个多月以来的少量饮食，我的胃已经成功缩小了，这时候我觉得晚餐我不能一直黄瓜玉米，于是我渐渐的恢复了正常饮食，米饭一般 150-200g，菜的话正常家常菜，没有特意的多吃蔬菜或少吃肉类。
+不得不说，跑步真的是一件非常痛快的事，前 3km，不停的思考为啥我要选择如此自虐的运动，后面的路程就是一路的畅快，跑完步了，简直比高潮还要爽。
+跑步期间，我思考了很多事情，包括我未来的职业规划，以及我的工作计划等等。
+除了刚开始跑需要更多耐心来提升耐心和跑步伤膝盖之外，跑步真的是一件完美的运动。
+9 月成都因为疫情，封城了几天，这几天，我基本上个一天跑一个 10km。
+于是，到 11 月份，我这几个月的跑步情况如下：
+7 月：41.33km 8 月：77.</description>
     </item>
     
   </channel>

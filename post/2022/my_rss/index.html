@@ -1,175 +1,274 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>我的 RSS 资源 - wuqiangroy&#39;s records</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<html lang="en" dir="auto">
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>我的 RSS 资源 | Roy&#39;s Records</title>
+<meta name="keywords" content="RSS, 资源, 分享">
+<meta name="description" content="受够了各种网络信息流的推荐，为了避免信息茧房的产生，我决定放弃一些社交网站，重拾回 RSS.
+软件分享 由于我的工具都是 Apple 家的，所以我的订阅软件都是在 macOS 和 iOS 下的。
+这两个平台的阅读软件，没有其他，最好的只有 reeder。
+reeder 在 macOS 上好解决一些，无论是安装盗版还是直接在 App Store 购买，都非常方便。
+在 iOS 上面比较复杂，由于该软件在国区下架了，所以需要去外区下载，建议先 google 如何创建外区账号，创建外区账号之后，再到淘宝购买兑换码。
+其他的软件比如 unread 和 inoreader，我都是不太推荐的，无论是软件体积、软件流畅度还是交互逻辑，reeder 都秒杀他们。
+更重要的，只要你的订阅数据同步到 iCloud，那么你在 macOS 和 iOS 上的阅读进度和订阅数据都将同步，方便你在两个平台无感切换。
+订阅源 其实 RSS 也是一种信息茧房，因为各种订阅源都是你自己选择了的嘛，所以你也是活在自己想看到的世界里。
+为了避免这种情况的产生，我也硬着头皮订阅了一些观点我不太认可的信息源，但是不可否认的是，兼听则明。大家的思维已经在十来岁时固定，现在的一些信息要是能改变一个人的思维，只能证明这个人要么思维过于简单，要么太过幼稚。
+下面是一些我推荐的订阅源，我会附以简单的说明，但是不会输出我个人的观点。
+我知道有个项目叫做 rsshub，这里面的订阅源很全，读者朋友也可以直接到这里面进行查找自己喜欢的数据订阅。
+但是对于我来说，由于这个地址被墙了，我又不愿意在手机上常开 VPN，所以我就拒绝这里面的订阅，寻找了其他的订阅源。
+我订阅数据的原则有：
+官方网站能提供的订阅，优先官方 不能订阅原文或通过 reeder 无法查看全文的数据不订阅。 不订阅反党反共的私人博客。 序号 名称 订阅地址 订阅说明 1 9to5Mac https://plink.anyfeeder.com/9to5mac Apple 相关的一些新闻 2 BBC 英语教学 https://plink.anyfeeder.com/bbc/learningenglish BBC 学习英语相关的订阅 3 FindBlog https://rss.huhexian.cn/i/?a=rss&amp;rid=63837d83e772a&amp;hours=168 一个 blog 的聚合网站，订阅了该数据源，可以少订阅很多个人博客 4 IT 之家 https://www.">
+<meta name="author" content="wuqiangroy">
+<link rel="canonical" href="http://wuqiangroy.github.io/post/2022/my_rss/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.5cfc680b1eeaeef9efbced92d46c2a9e876b72ee14fba85846afc4cff9e6e6f8.css" integrity="sha256-XPxoCx7q7vnvvO2S1Gwqnodrcu4U&#43;6hYRq/Ez/nm5vg=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://wuqiangroy.github.io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://wuqiangroy.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://wuqiangroy.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://wuqiangroy.github.io/apple_touch_icon.png">
+<link rel="mask-icon" href="https://wuqiangroy.github.io/safari_pinned_tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
 
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
 
+            .list {
+                background: var(--theme);
+            }
 
-<meta name="author" content="wuqiangroy" /><meta name="description" content="受够了各种网络信息流的推荐，为了避免信息茧房的产生，我决定放弃一些社交网站，重拾回 RSS. 软件分享 由于我的工具都是 Apple 家的，所以我的订阅软件都是在 macOS" />
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
 
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
 
-
-
-
-
-<meta name="generator" content="Hugo 0.99.1 with theme even" />
-
-
-<link rel="canonical" href="http://wuqiangroy.github.io/post/2022/my_rss/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-
-
-<meta property="og:title" content="我的 RSS 资源" />
-<meta property="og:description" content="受够了各种网络信息流的推荐，为了避免信息茧房的产生，我决定放弃一些社交网站，重拾回 RSS. 软件分享 由于我的工具都是 Apple 家的，所以我的订阅软件都是在 macOS" />
+    </style>
+</noscript><meta property="og:title" content="我的 RSS 资源" />
+<meta property="og:description" content="受够了各种网络信息流的推荐，为了避免信息茧房的产生，我决定放弃一些社交网站，重拾回 RSS.
+软件分享 由于我的工具都是 Apple 家的，所以我的订阅软件都是在 macOS 和 iOS 下的。
+这两个平台的阅读软件，没有其他，最好的只有 reeder。
+reeder 在 macOS 上好解决一些，无论是安装盗版还是直接在 App Store 购买，都非常方便。
+在 iOS 上面比较复杂，由于该软件在国区下架了，所以需要去外区下载，建议先 google 如何创建外区账号，创建外区账号之后，再到淘宝购买兑换码。
+其他的软件比如 unread 和 inoreader，我都是不太推荐的，无论是软件体积、软件流畅度还是交互逻辑，reeder 都秒杀他们。
+更重要的，只要你的订阅数据同步到 iCloud，那么你在 macOS 和 iOS 上的阅读进度和订阅数据都将同步，方便你在两个平台无感切换。
+订阅源 其实 RSS 也是一种信息茧房，因为各种订阅源都是你自己选择了的嘛，所以你也是活在自己想看到的世界里。
+为了避免这种情况的产生，我也硬着头皮订阅了一些观点我不太认可的信息源，但是不可否认的是，兼听则明。大家的思维已经在十来岁时固定，现在的一些信息要是能改变一个人的思维，只能证明这个人要么思维过于简单，要么太过幼稚。
+下面是一些我推荐的订阅源，我会附以简单的说明，但是不会输出我个人的观点。
+我知道有个项目叫做 rsshub，这里面的订阅源很全，读者朋友也可以直接到这里面进行查找自己喜欢的数据订阅。
+但是对于我来说，由于这个地址被墙了，我又不愿意在手机上常开 VPN，所以我就拒绝这里面的订阅，寻找了其他的订阅源。
+我订阅数据的原则有：
+官方网站能提供的订阅，优先官方 不能订阅原文或通过 reeder 无法查看全文的数据不订阅。 不订阅反党反共的私人博客。 序号 名称 订阅地址 订阅说明 1 9to5Mac https://plink.anyfeeder.com/9to5mac Apple 相关的一些新闻 2 BBC 英语教学 https://plink.anyfeeder.com/bbc/learningenglish BBC 学习英语相关的订阅 3 FindBlog https://rss.huhexian.cn/i/?a=rss&amp;rid=63837d83e772a&amp;hours=168 一个 blog 的聚合网站，订阅了该数据源，可以少订阅很多个人博客 4 IT 之家 https://www." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://wuqiangroy.github.io/post/2022/my_rss/" /><meta property="article:section" content="post" />
+<meta property="og:url" content="http://wuqiangroy.github.io/post/2022/my_rss/" /><meta property="og:image" content="http://wuqiangroy.github.io/papermod-cover.png"/><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-11-27T22:45:45+08:00" />
 <meta property="article:modified_time" content="2022-11-27T22:45:45+08:00" />
 
-<meta itemprop="name" content="我的 RSS 资源">
-<meta itemprop="description" content="受够了各种网络信息流的推荐，为了避免信息茧房的产生，我决定放弃一些社交网站，重拾回 RSS. 软件分享 由于我的工具都是 Apple 家的，所以我的订阅软件都是在 macOS"><meta itemprop="datePublished" content="2022-11-27T22:45:45+08:00" />
-<meta itemprop="dateModified" content="2022-11-27T22:45:45+08:00" />
-<meta itemprop="wordCount" content="1122">
-<meta itemprop="keywords" content="RSS,资源,分享," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://wuqiangroy.github.io/papermod-cover.png"/>
+
 <meta name="twitter:title" content="我的 RSS 资源"/>
-<meta name="twitter:description" content="受够了各种网络信息流的推荐，为了避免信息茧房的产生，我决定放弃一些社交网站，重拾回 RSS. 软件分享 由于我的工具都是 Apple 家的，所以我的订阅软件都是在 macOS"/>
+<meta name="twitter:description" content="受够了各种网络信息流的推荐，为了避免信息茧房的产生，我决定放弃一些社交网站，重拾回 RSS.
+软件分享 由于我的工具都是 Apple 家的，所以我的订阅软件都是在 macOS 和 iOS 下的。
+这两个平台的阅读软件，没有其他，最好的只有 reeder。
+reeder 在 macOS 上好解决一些，无论是安装盗版还是直接在 App Store 购买，都非常方便。
+在 iOS 上面比较复杂，由于该软件在国区下架了，所以需要去外区下载，建议先 google 如何创建外区账号，创建外区账号之后，再到淘宝购买兑换码。
+其他的软件比如 unread 和 inoreader，我都是不太推荐的，无论是软件体积、软件流畅度还是交互逻辑，reeder 都秒杀他们。
+更重要的，只要你的订阅数据同步到 iCloud，那么你在 macOS 和 iOS 上的阅读进度和订阅数据都将同步，方便你在两个平台无感切换。
+订阅源 其实 RSS 也是一种信息茧房，因为各种订阅源都是你自己选择了的嘛，所以你也是活在自己想看到的世界里。
+为了避免这种情况的产生，我也硬着头皮订阅了一些观点我不太认可的信息源，但是不可否认的是，兼听则明。大家的思维已经在十来岁时固定，现在的一些信息要是能改变一个人的思维，只能证明这个人要么思维过于简单，要么太过幼稚。
+下面是一些我推荐的订阅源，我会附以简单的说明，但是不会输出我个人的观点。
+我知道有个项目叫做 rsshub，这里面的订阅源很全，读者朋友也可以直接到这里面进行查找自己喜欢的数据订阅。
+但是对于我来说，由于这个地址被墙了，我又不愿意在手机上常开 VPN，所以我就拒绝这里面的订阅，寻找了其他的订阅源。
+我订阅数据的原则有：
+官方网站能提供的订阅，优先官方 不能订阅原文或通过 reeder 无法查看全文的数据不订阅。 不订阅反党反共的私人博客。 序号 名称 订阅地址 订阅说明 1 9to5Mac https://plink.anyfeeder.com/9to5mac Apple 相关的一些新闻 2 BBC 英语教学 https://plink.anyfeeder.com/bbc/learningenglish BBC 学习英语相关的订阅 3 FindBlog https://rss.huhexian.cn/i/?a=rss&amp;rid=63837d83e772a&amp;hours=168 一个 blog 的聚合网站，订阅了该数据源，可以少订阅很多个人博客 4 IT 之家 https://www."/>
 
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
 
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://wuqiangroy.github.io/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "我的 RSS 资源",
+      "item": "http://wuqiangroy.github.io/post/2022/my_rss/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "我的 RSS 资源",
+  "name": "我的 RSS 资源",
+  "description": "受够了各种网络信息流的推荐，为了避免信息茧房的产生，我决定放弃一些社交网站，重拾回 RSS.\n软件分享 由于我的工具都是 Apple 家的，所以我的订阅软件都是在 macOS 和 iOS 下的。\n这两个平台的阅读软件，没有其他，最好的只有 reeder。\nreeder 在 macOS 上好解决一些，无论是安装盗版还是直接在 App Store 购买，都非常方便。\n在 iOS 上面比较复杂，由于该软件在国区下架了，所以需要去外区下载，建议先 google 如何创建外区账号，创建外区账号之后，再到淘宝购买兑换码。\n其他的软件比如 unread 和 inoreader，我都是不太推荐的，无论是软件体积、软件流畅度还是交互逻辑，reeder 都秒杀他们。\n更重要的，只要你的订阅数据同步到 iCloud，那么你在 macOS 和 iOS 上的阅读进度和订阅数据都将同步，方便你在两个平台无感切换。\n订阅源 其实 RSS 也是一种信息茧房，因为各种订阅源都是你自己选择了的嘛，所以你也是活在自己想看到的世界里。\n为了避免这种情况的产生，我也硬着头皮订阅了一些观点我不太认可的信息源，但是不可否认的是，兼听则明。大家的思维已经在十来岁时固定，现在的一些信息要是能改变一个人的思维，只能证明这个人要么思维过于简单，要么太过幼稚。\n下面是一些我推荐的订阅源，我会附以简单的说明，但是不会输出我个人的观点。\n我知道有个项目叫做 rsshub，这里面的订阅源很全，读者朋友也可以直接到这里面进行查找自己喜欢的数据订阅。\n但是对于我来说，由于这个地址被墙了，我又不愿意在手机上常开 VPN，所以我就拒绝这里面的订阅，寻找了其他的订阅源。\n我订阅数据的原则有：\n官方网站能提供的订阅，优先官方 不能订阅原文或通过 reeder 无法查看全文的数据不订阅。 不订阅反党反共的私人博客。 序号 名称 订阅地址 订阅说明 1 9to5Mac https://plink.anyfeeder.com/9to5mac Apple 相关的一些新闻 2 BBC 英语教学 https://plink.anyfeeder.com/bbc/learningenglish BBC 学习英语相关的订阅 3 FindBlog https://rss.huhexian.cn/i/?a=rss\u0026amp;rid=63837d83e772a\u0026amp;hours=168 一个 blog 的聚合网站，订阅了该数据源，可以少订阅很多个人博客 4 IT 之家 https://www.",
+  "keywords": [
+    "RSS", "资源", "分享"
+  ],
+  "articleBody": "受够了各种网络信息流的推荐，为了避免信息茧房的产生，我决定放弃一些社交网站，重拾回 RSS.\n软件分享 由于我的工具都是 Apple 家的，所以我的订阅软件都是在 macOS 和 iOS 下的。\n这两个平台的阅读软件，没有其他，最好的只有 reeder。\nreeder 在 macOS 上好解决一些，无论是安装盗版还是直接在 App Store 购买，都非常方便。\n在 iOS 上面比较复杂，由于该软件在国区下架了，所以需要去外区下载，建议先 google 如何创建外区账号，创建外区账号之后，再到淘宝购买兑换码。\n其他的软件比如 unread 和 inoreader，我都是不太推荐的，无论是软件体积、软件流畅度还是交互逻辑，reeder 都秒杀他们。\n更重要的，只要你的订阅数据同步到 iCloud，那么你在 macOS 和 iOS 上的阅读进度和订阅数据都将同步，方便你在两个平台无感切换。\n订阅源 其实 RSS 也是一种信息茧房，因为各种订阅源都是你自己选择了的嘛，所以你也是活在自己想看到的世界里。\n为了避免这种情况的产生，我也硬着头皮订阅了一些观点我不太认可的信息源，但是不可否认的是，兼听则明。大家的思维已经在十来岁时固定，现在的一些信息要是能改变一个人的思维，只能证明这个人要么思维过于简单，要么太过幼稚。\n下面是一些我推荐的订阅源，我会附以简单的说明，但是不会输出我个人的观点。\n我知道有个项目叫做 rsshub，这里面的订阅源很全，读者朋友也可以直接到这里面进行查找自己喜欢的数据订阅。\n但是对于我来说，由于这个地址被墙了，我又不愿意在手机上常开 VPN，所以我就拒绝这里面的订阅，寻找了其他的订阅源。\n我订阅数据的原则有：\n官方网站能提供的订阅，优先官方 不能订阅原文或通过 reeder 无法查看全文的数据不订阅。 不订阅反党反共的私人博客。 序号 名称 订阅地址 订阅说明 1 9to5Mac https://plink.anyfeeder.com/9to5mac Apple 相关的一些新闻 2 BBC 英语教学 https://plink.anyfeeder.com/bbc/learningenglish BBC 学习英语相关的订阅 3 FindBlog https://rss.huhexian.cn/i/?a=rss\u0026rid=63837d83e772a\u0026hours=168 一个 blog 的聚合网站，订阅了该数据源，可以少订阅很多个人博客 4 IT 之家 https://www.ithome.com/rss it 之家，看 it 信息的首选网站 5 Linux 中国 https://www.linux.cn/rss.xml 分享 linux 相关信息和一些使用技巧，软件 6 The Verge https://www.theverge.com/rss/index.xml 国外知名 it 信息网站 7 南华早报 https://www.feedx.fun/rss/scmp.xml 香港最知名英文报纸，国内被墙，可以翻墙的朋友可以直接订阅源站：https://www.scmp.com/rss/91/feed 8 好工具周刊 https://discuss-cn.bestxtools.com/atom/t/weekly/discussions v2ex 网友自荐的订阅 9 少数派 https://www.sspai.com/feed 知名数码网站少数派，不过不推送全文，需开启 reeder 的阅读全文 10 搜狐新闻 http://rss.news.sohu.com/rss/focus.xml 几大互联网新闻平台依旧还提供 RSS 订阅的新闻网站 11 极客公园 https://www.geekpark.net/rss 知名互联网新闻网站 12 爱范儿 https://www.ifanr.com/feed 聚焦新创和消费主题的科技媒体 13 知乎每日精选 https://www.zhihu.com/rss 知乎难得的一个 RSS 订阅 14 知乎热榜 https://plink.anyfeeder.com/zhihu/hotlist 第三方提供的知乎热榜订阅 15 纽约时报 https://plink.anyfeeder.com/nytimes/dual 纽约时报-双语版 16 虎嗅 https://rss.huxiu.com 推送的大都是各类公众号文章 17 观察者网 https://api.feeddd.org/feeds/613381f81269c358aa0eaae1 观察者网的公众号 18 钛媒体 https://www.tmtpost.com/rss 优秀的财经科技信息服务平台 推荐一个可以订阅微信公众号的网站：https://feeddd.org/feeds\n",
+  "wordCount" : "150",
+  "inLanguage": "en",
+  "datePublished": "2022-11-27T22:45:45+08:00",
+  "dateModified": "2022-11-27T22:45:45+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "wuqiangroy"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://wuqiangroy.github.io/post/2022/my_rss/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Roy's Records",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://wuqiangroy.github.io/favicon-32x32.png"
+    }
+  }
+}
+</script>
 </head>
-<body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">wuqiangroy</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">Home</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
-      </a><a href="/about/">
-        <li class="mobile-menu-item">About</li>
-      </a>
-  </ul>
 
-  
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
 
+</script>
 
-</nav>
-
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">wuqiangroy</a>
-</div>
-
-
-
-
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">About</a>
-      </li>
-  </ul>
-</nav>
-
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">我的 RSS 资源</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2022-11-27 </span>
-        <div class="post-category">
-            <a href="/categories/%E8%B5%84%E6%BA%90/"> 资源 </a>
-            <a href="/categories/%E6%95%88%E7%8E%87/"> 效率 </a>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://wuqiangroy.github.io/" accesskey="h" title="Roy&#39;s Records (Alt + H)">Roy&#39;s Records</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
             </div>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
-      </div>
-    </header>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://wuqiangroy.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://wuqiangroy.github.io/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://wuqiangroy.github.io/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://wuqiangroy.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://wuqiangroy.github.io/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
 
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">Contents</h2>
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li>
-          <ul>
-            <li><a href="#软件分享">软件分享</a></li>
-            <li><a href="#订阅源">订阅源</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-  </div>
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://wuqiangroy.github.io/">Home</a>&nbsp;»&nbsp;<a href="http://wuqiangroy.github.io/post/">Posts</a></div>
+    <h1 class="post-title">
+      我的 RSS 资源
+    </h1>
+    <div class="post-meta"><span title='2022-11-27 22:45:45 +0800 CST'>November 27, 2022</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;wuqiangroy
+
 </div>
-    <div class="post-content">
-      <p>受够了各种网络信息流的推荐，为了避免<a href="https://baike.baidu.com/item/%E4%BF%A1%E6%81%AF%E8%8C%A7%E6%88%BF/12661227">信息茧房</a>的产生，我决定放弃一些社交网站，重拾回 <code>RSS</code>.</p>
-<h3 id="软件分享">软件分享</h3>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e8%bd%af%e4%bb%b6%e5%88%86%e4%ba%ab" aria-label="软件分享">软件分享</a></li>
+                <li>
+                    <a href="#%e8%ae%a2%e9%98%85%e6%ba%90" aria-label="订阅源">订阅源</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>受够了各种网络信息流的推荐，为了避免<a href="https://baike.baidu.com/item/%E4%BF%A1%E6%81%AF%E8%8C%A7%E6%88%BF/12661227">信息茧房</a>的产生，我决定放弃一些社交网站，重拾回 <code>RSS</code>.</p>
+<h3 id="软件分享">软件分享<a hidden class="anchor" aria-hidden="true" href="#软件分享">#</a></h3>
 <p>由于我的工具都是 <code>Apple</code> 家的，所以我的订阅软件都是在 <code>macOS</code> 和 <code>iOS</code> 下的。<br>
 这两个平台的阅读软件，没有其他，最好的只有 <code>reeder</code>。<br>
 <code>reeder</code> 在 <code>macOS</code> 上好解决一些，无论是安装盗版还是直接在 <code>App Store</code> 购买，都非常方便。<br>
 在 <code>iOS</code> 上面比较复杂，由于该软件在国区下架了，所以需要去外区下载，建议先 <code>google</code> 如何创建外区账号，创建外区账号之后，再到淘宝购买兑换码。<br>
 其他的软件比如 <code>unread</code> 和 <code>inoreader</code>，我都是不太推荐的，无论是软件体积、软件流畅度还是交互逻辑，<code>reeder</code> 都秒杀他们。<br>
 更重要的，只要你的订阅数据同步到 <code>iCloud</code>，那么你在 <code>macOS</code> 和 <code>iOS</code> 上的阅读进度和订阅数据都将同步，方便你在两个平台无感切换。</p>
-<h3 id="订阅源">订阅源</h3>
+<h3 id="订阅源">订阅源<a hidden class="anchor" aria-hidden="true" href="#订阅源">#</a></h3>
 <p>其实 <code>RSS</code> 也是一种信息茧房，因为各种订阅源都是你自己选择了的嘛，所以你也是活在自己想看到的世界里。<br>
 为了避免这种情况的产生，我也硬着头皮订阅了一些观点我不太认可的信息源，但是不可否认的是，兼听则明。大家的思维已经在十来岁时固定，现在的一些信息要是能改变一个人的思维，只能证明这个人要么思维过于简单，要么太过幼稚。<br>
 下面是一些我推荐的订阅源，我会附以简单的说明，但是不会输出我个人的观点。<br>
@@ -303,104 +402,147 @@
 </table>
 <p>推荐一个可以订阅微信公众号的网站：https://feeddd.org/feeds</p>
 
-    </div>
 
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">Author</span>
-    <span class="item-content">wuqiangroy</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">LastMod</span>
-    <span class="item-content">
-        2022-11-27
-        
-    </span>
-  </p>
-  
-  
-</div>
-<footer class="post-footer">
-      <div class="post-tags">
-          <a href="/tags/rss/">RSS</a>
-          <a href="/tags/%E8%B5%84%E6%BA%90/">资源</a>
-          <a href="/tags/%E5%88%86%E4%BA%AB/">分享</a>
-          </div>
-      <nav class="post-nav">
-        <a class="prev" href="/post/2022/build_blog_by_hugo/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">使用 Hugo 搭建自己的博客</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/2022/my_exp_of_losing_weight/">
-            <span class="next-text nav-default">我的减肥之路</span>
-            <span class="next-text nav-mobile">Next</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
+  </div>
 
-  
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://wuqiangroy.github.io/tags/rss/">RSS</a></li>
+      <li><a href="http://wuqiangroy.github.io/tags/%E8%B5%84%E6%BA%90/">资源</a></li>
+      <li><a href="http://wuqiangroy.github.io/tags/%E5%88%86%E4%BA%AB/">分享</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="http://wuqiangroy.github.io/post/2022/build_blog_by_hugo/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>使用 Hugo 搭建自己的博客</span>
+  </a>
+  <a class="next" href="http://wuqiangroy.github.io/post/2022/my_exp_of_losing_weight/">
+    <span class="title">Next »</span>
+    <br>
+    <span>我的减肥之路</span>
+  </a>
+</nav>
 
-  
-
-      </div>
+  </footer>
+</article>
     </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="http://wuqiangroy.github.io/">Roy&#39;s Records</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
 
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:wuqiangroy@live.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://github.com/wuqiangroy" class="iconfont icon-github" title="github"></a>
-  <a href="http://wuqiangroy.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
 
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
 
-  <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
-      <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
-  </div>
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
 
-  <span class="copyright-year">
-    &copy; 
-    2022 - 
-    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>wuqiangroy</span>
-  </span>
-</div>
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
 
-    </footer>
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
 
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
 
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
 
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
 
-<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
 
-
-
-
-
-
-
-
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
 </body>
+
 </html>

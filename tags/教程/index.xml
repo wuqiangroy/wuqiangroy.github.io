@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>教程 on wuqiangroy&#39;s records</title>
+    <title>教程 on Roy&#39;s Records</title>
     <link>http://wuqiangroy.github.io/tags/%E6%95%99%E7%A8%8B/</link>
-    <description>Recent content in 教程 on wuqiangroy&#39;s records</description>
+    <description>Recent content in 教程 on Roy&#39;s Records</description>
+    <image>
+      <title>Roy&#39;s Records</title>
+      <url>http://wuqiangroy.github.io/papermod-cover.png</url>
+      <link>http://wuqiangroy.github.io/papermod-cover.png</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Mon, 28 Nov 2022 09:25:08 +0800</lastBuildDate><atom:link href="http://wuqiangroy.github.io/tags/%E6%95%99%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +18,15 @@
       <pubDate>Mon, 28 Nov 2022 09:25:08 +0800</pubDate>
       
       <guid>http://wuqiangroy.github.io/post/2022/build_blog_by_hugo/</guid>
-      <description>前些年的时候，我在腾讯云上面购买了一个云服务器，一个域名，然后自己用 python 写了一个博客后端。 使用 Nginx 作为正向代理，就这样搭建了我第一个博客。 这个博</description>
+      <description>前些年的时候，我在腾讯云上面购买了一个云服务器，一个域名，然后自己用 python 写了一个博客后端。 使用 Nginx 作为正向代理，就这样搭建了我第一个博客。 这个博客内容还挺多，评论、文章、用户系统、富文本编辑框等等，一一俱全。 后来自己对博客的维护比较少，出现了一些 bug 我也难得修复了，等到服务器到期，我就难得续费了。
+后来在网上看到很多博客都非常精美，有的用 wordpress 搭建的，有的用 hugo 搭建的，结合我自己的场景，我决定使用 hugo + github 来创建自己的博客。
+安装 golang hugo 使用 golang 写的，要使用 hugo，需要先安装 golang。安装教程
+安装 hugo macOS 下 hugo 的安装方法：
+brew instal hugo 其他平台参考官方文档：hugo installation
+创建一个博客 使用 hugo 命令：hugo new site blog 在当前地址创建一个 blog 文件。
+里面的布局如下：
+- archetypes - content - data - layout - public - resource - static - themes config.toml 其中，config.toml 是我们的配置文件，我们主要的修改都在这个配置文件里面。
+使用主题 原生的 hugo 博客并不好看，好在官方及各路大神提供了不少主题，我们直接可以使用，我很喜欢 even 主题，所以我使用 even 来说明。</description>
     </item>
     
   </channel>

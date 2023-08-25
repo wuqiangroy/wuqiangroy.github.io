@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>吐槽 on wuqiangroy&#39;s records</title>
+    <title>吐槽 on Roy&#39;s Records</title>
     <link>http://wuqiangroy.github.io/categories/%E5%90%90%E6%A7%BD/</link>
-    <description>Recent content in 吐槽 on wuqiangroy&#39;s records</description>
+    <description>Recent content in 吐槽 on Roy&#39;s Records</description>
+    <image>
+      <title>Roy&#39;s Records</title>
+      <url>http://wuqiangroy.github.io/papermod-cover.png</url>
+      <link>http://wuqiangroy.github.io/papermod-cover.png</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Tue, 29 Nov 2022 10:23:50 +0800</lastBuildDate><atom:link href="http://wuqiangroy.github.io/categories/%E5%90%90%E6%A7%BD/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +18,12 @@
       <pubDate>Tue, 29 Nov 2022 10:23:50 +0800</pubDate>
       
       <guid>http://wuqiangroy.github.io/post/2022/debunk_the_health_app_of_huawei/</guid>
-      <description>今年上半年，华为推出了一款智能手表，huawei watch GT3 pro， 我被其精致的外观吸引，于是迫不及待的入手了一款。 虽然我使用的是 iPhone，理应</description>
+      <description>今年上半年，华为推出了一款智能手表，huawei watch GT3 pro， 我被其精致的外观吸引，于是迫不及待的入手了一款。 虽然我使用的是 iPhone，理应选择同一家的 Apple watch，但是由于 s7 在我老婆那边糟糕的表现（睡眠监控一塌糊涂，每天都需要充电，麦克风时好时坏-已经去 genus bar 更换了一块），我没有选择它。
+首先看看这块表的外观，到现在我都非常喜欢它： 使用起来我也非常的满意，无论是一次充电的使用时长-可以坚持 1-2 周，还是消息的通知延迟上面，亦或者通话接听等，我都觉得其满足我的需求，硬要说不满意，那就是 iPhone 上不能直接回复微信？或者说软件商店里面手表可用软件实在太少，近乎于没有。
+但是对于我来说，一块表的功能就是及时通知和外观，所以上面的缺点我一点都不在乎。 真正让我难以接受的，其实是它的软件：华为运动健康。 如果你直接以华为运动健康作为关键词 google 的话，会出现相当多的软文，都是在吹嘘其好用、运动检测多准之类的，但是却忽略了体验。
+软件莫名其妙的大
+虽然现在手机的容量都是 128G 起，甚至 256G 起，但是这不是软件就能无限制做大的理由，一个运动软件，无论是 OPPO 的运动软件还是 vivo 的运动软件，充其量 100M 出头（OPPO 139M， vivo 104M），但是华为的健康应用，居然有 500M！！！我都不知道它到底在里面塞了些什么！ UI 不精致不简约 现代软件，无论是追求拟物还是扁平化设计，开发者（产品经理？）都对界面的要求相当高的，这点我在各家的健康 app 上面都能看到，但是到了华为这里，很糟糕，你可以说我欣赏能力低下，但是对于我来说，UI 设计糟糕很劝退。 广告极其之多 不知道是不是 huawei 被制裁了还是怎么样，其运动健康软件广告非常多，这也是我最难以忍受的一点。 开屏广告 会员续费通知 主页中间有一个去不掉的饮食日记和健身课程的一个 bar 运动页各种课程推荐 设备页最离谱，这里面塞了一个商城进去！ 反正这个软件让我极其恶心，等哪天受不了了，我应该就会放弃这个表，放弃 huawei 的设备。 最近 Apple 出了个 Apple watch ultra，拥有两天的待机时间，看上去还不错，我再多关注关注。
+题外话：我在诸多论坛、微博看到网友对现在软件公告的吐槽，现在的开屏摇一摇跳转广告、倾斜跳转广告、视频软件的 VIP 专属广告、banner 广告、音乐软件中间夹杂的音频广告……数不胜数。</description>
     </item>
     
   </channel>

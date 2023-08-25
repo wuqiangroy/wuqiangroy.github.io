@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>分享 on wuqiangroy&#39;s records</title>
+    <title>分享 on Roy&#39;s Records</title>
     <link>http://wuqiangroy.github.io/categories/%E5%88%86%E4%BA%AB/</link>
-    <description>Recent content in 分享 on wuqiangroy&#39;s records</description>
+    <description>Recent content in 分享 on Roy&#39;s Records</description>
+    <image>
+      <title>Roy&#39;s Records</title>
+      <url>http://wuqiangroy.github.io/papermod-cover.png</url>
+      <link>http://wuqiangroy.github.io/papermod-cover.png</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Wed, 14 Dec 2022 10:48:17 +0800</lastBuildDate><atom:link href="http://wuqiangroy.github.io/categories/%E5%88%86%E4%BA%AB/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +18,13 @@
       <pubDate>Wed, 14 Dec 2022 10:48:17 +0800</pubDate>
       
       <guid>http://wuqiangroy.github.io/post/2022/i_may_positive_for_covid-19/</guid>
-      <description>上周六（12-10）一早起床，我发现我的嗓子有点干痒，妻直接是感冒症状了，据她说是前一天穿衣午睡，然后起床没加衣服导致的。 晚上的时候，妻病情</description>
+      <description>上周六（12-10）一早起床，我发现我的嗓子有点干痒，妻直接是感冒症状了，据她说是前一天穿衣午睡，然后起床没加衣服导致的。 晚上的时候，妻病情加重，开始发烧，我这边还好，怕波及小孩子，我妈赶紧过来将小孩接走。 当晚，妻多次发烧，难以入睡，喝了布洛芬悬浊液之后勉强入睡。 我这边一切正常。
+12-11 周日 周日一起床，我发现我这边比较严重了，开始头晕，但是这时候晕的不是特别厉害，只是很轻微。 下午完了一会原神，但是玩不进去，于是我选择上床躺着休息。 躺着的时候还是很舒服的，但是一起床，头晕目眩的感觉很难受，特别是眼睛胀痛，在往上看的时候尤其严重。 四肢酸软。 其实这个时候我都还在纠结我是不是得了新冠，也不愿去做检测（检测排队太久了）。我感觉我可能是感冒。 于是我决定做点家务，再把地拖了之后，又烧了点艾草水泡澡。 泡完澡半小时之后，我出现了发热，最高到了 39.1 度。 这时候我精神还很好，但是已经开始出现了不想动的情况，妻赶紧给我喝布洛芬悬浊液，效果很好，几分钟就感觉体温降了下去，然后一切均恢复正常。 也许是发烧的时候人体感知时间不久，我当时感觉发烧持续了半小时左右。
+12-12 周一 今日起床，无任何发烧情况了，但是头晕目涨的情况依旧。 四肢酸软的情况消失。 晚上躺在沙发上看县委大院和三体，这时候感觉和正常人无异，但是一起身，头晕的感觉就会袭来，这种头晕的感觉和人下蹲久了突然起身导致的头晕感觉一致。 今天开始出现鼻塞的现象，但是擤不出鼻涕。 晚上入睡轻松，侧躺鼻塞现象消失，夜里浑身出汗多次。
+12-13 周二 今日起床，头晕目涨感觉轻微。嗓子出现干痒，白天少咳。 晚上咳嗽多次，多是干咳，咳嗽引起嗓子疼痛。 鼻塞较前一天加重，能擤出少量鼻涕，但是对鼻塞没有缓解作用，侧躺鼻塞不能完全消失，能减轻症状。 入睡轻松。
+12-14 周三 今天头晕目涨的感觉全部消失，咳嗽减轻，每咳必出脓痰。嗓子疼痛感较前一天减弱很多。 味觉出现减弱现象，不知道是不是因为鼻塞的原因。 鼻塞减弱，有鼻涕流出，和平时感冒症状一致。
+根据网上流传的奥密克戎症状图来看，我应该就是阳性了。 而且我感觉，新冠比感冒来的更猛更迅速。 我也不禁感叹，国家保护了我三年，我屁事没有，现在自己保护自己，才几天，就阳了。
+我爸、我妈同时感觉嗓子痒，大抵也阳了。 我们趁着病情好转，将小孩接了回来。</description>
     </item>
     
     <item>
@@ -22,7 +33,12 @@
       <pubDate>Tue, 29 Nov 2022 10:23:50 +0800</pubDate>
       
       <guid>http://wuqiangroy.github.io/post/2022/debunk_the_health_app_of_huawei/</guid>
-      <description>今年上半年，华为推出了一款智能手表，huawei watch GT3 pro， 我被其精致的外观吸引，于是迫不及待的入手了一款。 虽然我使用的是 iPhone，理应</description>
+      <description>今年上半年，华为推出了一款智能手表，huawei watch GT3 pro， 我被其精致的外观吸引，于是迫不及待的入手了一款。 虽然我使用的是 iPhone，理应选择同一家的 Apple watch，但是由于 s7 在我老婆那边糟糕的表现（睡眠监控一塌糊涂，每天都需要充电，麦克风时好时坏-已经去 genus bar 更换了一块），我没有选择它。
+首先看看这块表的外观，到现在我都非常喜欢它： 使用起来我也非常的满意，无论是一次充电的使用时长-可以坚持 1-2 周，还是消息的通知延迟上面，亦或者通话接听等，我都觉得其满足我的需求，硬要说不满意，那就是 iPhone 上不能直接回复微信？或者说软件商店里面手表可用软件实在太少，近乎于没有。
+但是对于我来说，一块表的功能就是及时通知和外观，所以上面的缺点我一点都不在乎。 真正让我难以接受的，其实是它的软件：华为运动健康。 如果你直接以华为运动健康作为关键词 google 的话，会出现相当多的软文，都是在吹嘘其好用、运动检测多准之类的，但是却忽略了体验。
+软件莫名其妙的大
+虽然现在手机的容量都是 128G 起，甚至 256G 起，但是这不是软件就能无限制做大的理由，一个运动软件，无论是 OPPO 的运动软件还是 vivo 的运动软件，充其量 100M 出头（OPPO 139M， vivo 104M），但是华为的健康应用，居然有 500M！！！我都不知道它到底在里面塞了些什么！ UI 不精致不简约 现代软件，无论是追求拟物还是扁平化设计，开发者（产品经理？）都对界面的要求相当高的，这点我在各家的健康 app 上面都能看到，但是到了华为这里，很糟糕，你可以说我欣赏能力低下，但是对于我来说，UI 设计糟糕很劝退。 广告极其之多 不知道是不是 huawei 被制裁了还是怎么样，其运动健康软件广告非常多，这也是我最难以忍受的一点。 开屏广告 会员续费通知 主页中间有一个去不掉的饮食日记和健身课程的一个 bar 运动页各种课程推荐 设备页最离谱，这里面塞了一个商城进去！ 反正这个软件让我极其恶心，等哪天受不了了，我应该就会放弃这个表，放弃 huawei 的设备。 最近 Apple 出了个 Apple watch ultra，拥有两天的待机时间，看上去还不错，我再多关注关注。
+题外话：我在诸多论坛、微博看到网友对现在软件公告的吐槽，现在的开屏摇一摇跳转广告、倾斜跳转广告、视频软件的 VIP 专属广告、banner 广告、音乐软件中间夹杂的音频广告……数不胜数。</description>
     </item>
     
   </channel>

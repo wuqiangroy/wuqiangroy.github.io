@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>教程 on wuqiangroy&#39;s records</title>
+    <title>教程 on Roy&#39;s Records</title>
     <link>http://wuqiangroy.github.io/categories/%E6%95%99%E7%A8%8B/</link>
-    <description>Recent content in 教程 on wuqiangroy&#39;s records</description>
+    <description>Recent content in 教程 on Roy&#39;s Records</description>
+    <image>
+      <title>Roy&#39;s Records</title>
+      <url>http://wuqiangroy.github.io/papermod-cover.png</url>
+      <link>http://wuqiangroy.github.io/papermod-cover.png</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Tue, 03 Jan 2023 11:17:20 +0800</lastBuildDate><atom:link href="http://wuqiangroy.github.io/categories/%E6%95%99%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +18,7 @@
       <pubDate>Tue, 03 Jan 2023 11:17:20 +0800</pubDate>
       
       <guid>http://wuqiangroy.github.io/post/2023/how_to_test_the_apis_of_your_go_gin_service/</guid>
-      <description>As the pre-post said, Gin is a famouse web framework writen by Go. I love it and always use it. When I wrote a web server using Go-Gin, how do I test the APIs? This may confused me, only use a command-line tool to verify them? It&amp;rsquo;s seems ridiculous and non-product. We need to have a full-check for the APIs and it&amp;rsquo;s better to make it automatic, then we need</description>
+      <description>As the pre-post said, Gin is a famouse web framework writen by Go. I love it and always use it. When I wrote a web server using Go-Gin, how do I test the APIs? This may confused me, only use a command-line tool to verify them? It&amp;rsquo;s seems ridiculous and non-product. We need to have a full-check for the APIs and it&amp;rsquo;s better to make it automatic, then we need to integrate it in the CI-CD pipline, make sure that it will run automaticly after we commit codes.</description>
     </item>
     
     <item>
@@ -22,7 +27,8 @@
       <pubDate>Sun, 01 Jan 2023 22:30:15 +0800</pubDate>
       
       <guid>http://wuqiangroy.github.io/post/2023/how_to_set_a_go_project_as_a_module/</guid>
-      <description>When we create an aswsome project written by Go, we always want to provide it for others. Some good projects like gorilla websocket, gorm and gin, we can easily to run go get github.com/xxx to get the Go module and then use it in our projects. So, how can we build our own Go project as a Go module? Github In the platform of Github, you may want to build</description>
+      <description>When we create an aswsome project written by Go, we always want to provide it for others. Some good projects like gorilla websocket, gorm and gin, we can easily to run go get github.com/xxx to get the Go module and then use it in our projects. So, how can we build our own Go project as a Go module?
+Github In the platform of Github, you may want to build your projects for all the users so they can use your project directly.</description>
     </item>
     
     <item>
@@ -31,7 +37,8 @@
       <pubDate>Fri, 16 Dec 2022 15:08:19 +0800</pubDate>
       
       <guid>http://wuqiangroy.github.io/post/2022/integrate_websocket_to_gin/</guid>
-      <description>Introduction Gin is a famous web framework written in Go, we can easy to build our web server by following codes: 1 2 3 4 5 6 7 8 9 10 11 12 package main import &amp;#34;github.com/gin-gonic/gin&amp;#34; func main() { r := gin.Default() r.GET(&amp;#34;/hello-world&amp;#34;, func(c *gin.Context) { c.JSON(200, gin.H{ &amp;#34;message&amp;#34;: &amp;#34;hello, world&amp;#34;, }) }) r.Run() // listen and serve on 0.0.0.0:8080 } Saving these 11 lines codes as a hello.go</description>
+      <description>Introduction Gin is a famous web framework written in Go, we can easy to build our web server by following codes:
+1 2 3 4 5 6 7 8 9 10 11 12 package main import &amp;#34;github.com/gin-gonic/gin&amp;#34; func main() { r := gin.Default() r.GET(&amp;#34;/hello-world&amp;#34;, func(c *gin.Context) { c.JSON(200, gin.H{ &amp;#34;message&amp;#34;: &amp;#34;hello, world&amp;#34;, }) }) r.Run() // listen and serve on 0.0.0.0:8080 } Saving these 11 lines codes as a hello.go file, then run go run hello.</description>
     </item>
     
     <item>
@@ -40,7 +47,15 @@
       <pubDate>Mon, 28 Nov 2022 09:25:08 +0800</pubDate>
       
       <guid>http://wuqiangroy.github.io/post/2022/build_blog_by_hugo/</guid>
-      <description>前些年的时候，我在腾讯云上面购买了一个云服务器，一个域名，然后自己用 python 写了一个博客后端。 使用 Nginx 作为正向代理，就这样搭建了我第一个博客。 这个博</description>
+      <description>前些年的时候，我在腾讯云上面购买了一个云服务器，一个域名，然后自己用 python 写了一个博客后端。 使用 Nginx 作为正向代理，就这样搭建了我第一个博客。 这个博客内容还挺多，评论、文章、用户系统、富文本编辑框等等，一一俱全。 后来自己对博客的维护比较少，出现了一些 bug 我也难得修复了，等到服务器到期，我就难得续费了。
+后来在网上看到很多博客都非常精美，有的用 wordpress 搭建的，有的用 hugo 搭建的，结合我自己的场景，我决定使用 hugo + github 来创建自己的博客。
+安装 golang hugo 使用 golang 写的，要使用 hugo，需要先安装 golang。安装教程
+安装 hugo macOS 下 hugo 的安装方法：
+brew instal hugo 其他平台参考官方文档：hugo installation
+创建一个博客 使用 hugo 命令：hugo new site blog 在当前地址创建一个 blog 文件。
+里面的布局如下：
+- archetypes - content - data - layout - public - resource - static - themes config.toml 其中，config.toml 是我们的配置文件，我们主要的修改都在这个配置文件里面。
+使用主题 原生的 hugo 博客并不好看，好在官方及各路大神提供了不少主题，我们直接可以使用，我很喜欢 even 主题，所以我使用 even 来说明。</description>
     </item>
     
   </channel>
