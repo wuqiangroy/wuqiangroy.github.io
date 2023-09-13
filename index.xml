@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 24 Aug 2023 23:09:30 +0800</lastBuildDate><atom:link href="http://wuqiangroy.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 13 Sep 2023 09:27:27 +0800</lastBuildDate><atom:link href="http://wuqiangroy.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>http://wuqiangroy.github.io/about/</link>
@@ -23,6 +23,19 @@ Hello, I wuqiangroy, a programmer write Golang and Python.
 Thanks for you viewing my Blog, wish you everything&amp;rsquo;s fine.
 If you have intresting of my content or some issues need to be discussed.
 Please Contact Me</description>
+    </item>
+    
+    <item>
+      <title>Fix the installation block on Ubuntu</title>
+      <link>http://wuqiangroy.github.io/post/2023/fix_installation_block_on_ubuntu/</link>
+      <pubDate>Wed, 13 Sep 2023 09:27:27 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/post/2023/fix_installation_block_on_ubuntu/</guid>
+      <description>This is a very short post to record me how to fix the installation block on Ubuntu.
+Accurately say, it&amp;rsquo;s not Ubunut, it&amp;rsquo;s lintmint but based on Ubuntu, so the commands are also suit for Ubuntu.
+When I installed a .deb package and failed (The command: sudo dpkg -i ./&amp;lt;package_name&amp;gt;.deb).
+Followed the warning message, I use apt install --fix-broken but fixed failed.
+So I know I needed to delete this software.</description>
     </item>
     
     <item>

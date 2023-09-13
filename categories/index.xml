@@ -11,7 +11,16 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 24 Aug 2023 23:09:30 +0800</lastBuildDate><atom:link href="http://wuqiangroy.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 13 Sep 2023 09:27:27 +0800</lastBuildDate><atom:link href="http://wuqiangroy.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux</title>
+      <link>http://wuqiangroy.github.io/categories/linux/</link>
+      <pubDate>Wed, 13 Sep 2023 09:27:27 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/categories/linux/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>program</title>
       <link>http://wuqiangroy.github.io/categories/program/</link>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Linux on Roy&#39;s Records</title>
+    <link>http://wuqiangroy.github.io/categories/linux/</link>
+    <description>Recent content in Linux on Roy&#39;s Records</description>
+    <image>
+      <title>Roy&#39;s Records</title>
+      <url>http://wuqiangroy.github.io/papermod-cover.png</url>
+      <link>http://wuqiangroy.github.io/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 13 Sep 2023 09:27:27 +0800</lastBuildDate><atom:link href="http://wuqiangroy.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Fix the installation block on Ubuntu</title>
+      <link>http://wuqiangroy.github.io/post/2023/fix_installation_block_on_ubuntu/</link>
+      <pubDate>Wed, 13 Sep 2023 09:27:27 +0800</pubDate>
+      
+      <guid>http://wuqiangroy.github.io/post/2023/fix_installation_block_on_ubuntu/</guid>
+      <description>This is a very short post to record me how to fix the installation block on Ubuntu.
+Accurately say, it&amp;rsquo;s not Ubunut, it&amp;rsquo;s lintmint but based on Ubuntu, so the commands are also suit for Ubuntu.
+When I installed a .deb package and failed (The command: sudo dpkg -i ./&amp;lt;package_name&amp;gt;.deb).
+Followed the warning message, I use apt install --fix-broken but fixed failed.
+So I know I needed to delete this software.</description>
+    </item>
+    
+  </channel>
+</rss>
