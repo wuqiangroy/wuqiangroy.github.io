@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Ubuntu on Roy&#39;s Records</title>
-    <link>http://wuqiangroy.github.io/tags/ubuntu/</link>
-    <description>Recent content in Ubuntu on Roy&#39;s Records</description>
+    <title>lintmint on Roy&#39;s Records</title>
+    <link>http://wuqiangroy.github.io/tags/lintmint/</link>
+    <description>Recent content in lintmint on Roy&#39;s Records</description>
     <image>
       <title>Roy&#39;s Records</title>
       <url>http://wuqiangroy.github.io/papermod-cover.png</url>
@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 05 Dec 2023 19:38:59 +0800</lastBuildDate><atom:link href="http://wuqiangroy.github.io/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 05 Dec 2023 19:38:59 +0800</lastBuildDate><atom:link href="http://wuqiangroy.github.io/tags/lintmint/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How to fix no network issue in lintmint</title>
       <link>http://wuqiangroy.github.io/post/2023/how_to_fix_no_network_issue_in_lintmint/</link>
@@ -26,19 +26,6 @@ OS: LinMint 21.1 Cinnamon VM: virtual machine V17 Network mode: NAT First of all
 sudo cat /var/lib/NetworkManager/NetworkManager.state
 And the result is:
 [main] NetworkingEnabled=false WirelessEnabled=true WWANEnabled=true The NetworkingEnabled is false, this is why my lintmint has no network.</description>
-    </item>
-    
-    <item>
-      <title>Fix the installation block on Ubuntu</title>
-      <link>http://wuqiangroy.github.io/post/2023/fix_installation_block_on_ubuntu/</link>
-      <pubDate>Wed, 13 Sep 2023 09:27:27 +0800</pubDate>
-      
-      <guid>http://wuqiangroy.github.io/post/2023/fix_installation_block_on_ubuntu/</guid>
-      <description>This is a very short post to record me how to fix the installation block on Ubuntu.
-Accurately say, it&amp;rsquo;s not Ubunut, it&amp;rsquo;s lintmint but based on Ubuntu, so the commands are also suit for Ubuntu.
-When I installed a .deb package and failed (The command: sudo dpkg -i ./&amp;lt;package_name&amp;gt;.deb).
-Followed the warning message, I use apt install --fix-broken but fixed failed.
-So I know I needed to delete this software.</description>
     </item>
     
   </channel>
